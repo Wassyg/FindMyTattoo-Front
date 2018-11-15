@@ -1,0 +1,35 @@
+.userPageContainer{
+ height: 100vh;
+ width: 100vw;
+  }
+  .mainContainer{
+  height: 600px !important;
+  border: 1px solid #ced6e0;
+  display :flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.topContainer{
+  width: 100vw;
+  height: 600px;
+  margin-left: 0px;
+  margin-top: 0px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.row-topFormTattoos{
+  position: relative;
+}
+
+.row-topImgTattoos{
+  position: relative;
+}
+
+.lowContainer{
+  width: 100vw;
+  height: 100px;
+  position: static;
+}
