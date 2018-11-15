@@ -79,6 +79,7 @@ for (var i = 0; i < ArtistDBAddress.length; i++) {
   });
 }
 
+///test
 
 //// Composant qui affiche tous ////
 
