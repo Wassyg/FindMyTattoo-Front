@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import logo from '../Assets/logos/logoBlanc.png';
 import NavBar from '../Components/NavBar.js';
+import LoginForm from '../Components/LoginForm.js';
 import {Popover, OverlayTrigger} from 'react-bootstrap' //régler le problème du OverlayTrigger !!
 import '../Stylesheets/HomePage.css';
 
@@ -11,6 +12,7 @@ class HomePage extends Component {
 
     <div className="container-homePageContainer">
       <NavBar/>
+    <LoginForm />
 
       <div className="homePageContent">
         <div className="homePageContentBackgroundColor">
