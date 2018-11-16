@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Button, FormGroup, Label, Input, FormText, Form, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText, Row } from 'reactstrap';
+import { FormGroup, Label, Input } from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../Stylesheets/ProjectForm.css';
@@ -9,16 +9,24 @@ import '../Stylesheets/ProjectForm.css';
 export default class ProjectForm extends React.Component {
   constructor(props) {
    super(props);
-
    this.state = {
-     text: "Décrivez votre tatouage idéal et ce qu'il représente pour vous"
+     descriptionText:"",
+     longueurText:"",
+     largeurText:"",
+     stylesTatouagesList2:"",
+     stylesTatouagesList:"",
+     userPhone:"",
+     dateList2:"",
+     dateList1:"",
+     timeList1:"",
+     timeList2:"",
+
    }
-   console.log("text init",this.state.text);
   }
 
 
   render() {
-    console.log("once value",this.state.text);
+
     return (
 
 
@@ -28,7 +36,7 @@ export default class ProjectForm extends React.Component {
 
       <FormGroup className="FormGroup description">
           <Label className="text" for="description" type="textarea">Votre projet </Label>
-        <Input className="descriptionText" type="textarea"  id="descriptionText" placeholder="Décrivez votre tatouage idéal et ce qu'il représente pour vous"/>
+        <Input name="descriptionText" className="descriptionText" type="textarea"  id="descriptionText" placeholder="Décrivez votre tatouage idéal et ce qu'il représente pour vous"/>
       {/* value={this.state.text} onChange={(value)=>this.setState({text: value})} */}
         </FormGroup>
 
@@ -36,11 +44,11 @@ export default class ProjectForm extends React.Component {
       <div className="FormGroup sizeTattoos">
         <FormGroup className="FormGroup col-12 col-sm-6">
           <Label className="text" for="projectSize">Longueur</Label>
-          <Input className="rollingList" name="long" placeholder="(environ) en cm" />
+          <Input name="longueurText" className="rollingList" name="long" placeholder="(environ) en cm" />
         </FormGroup>
         <FormGroup className="FormGroup col-12 col-sm-6">
           <Label className="text" for="projectSize">Largeur</Label>
-          <Input className="rollingList"  name="larg" placeholder="(environ) en cm"  />
+          <Input name="largeurText" className="rollingList"  name="larg" placeholder="(environ) en cm"  />
         </FormGroup>
       </div>
 
@@ -48,7 +56,7 @@ export default class ProjectForm extends React.Component {
       <div className="FormGroup stylesTatouages">
         <FormGroup>
           <Label className="text" for="styleSelection">Style principal</Label>
-          <Input className="rollingList" type="select" name="select" >
+          <Input name="stylesTatouagesList" className="rollingList" type="select" name="select" >
             <option>-- choisissez un style --</option>
             <option>Japonais</option>
             <option>Blackwork, Dotwork, B&G, Fineline</option>
@@ -60,7 +68,7 @@ export default class ProjectForm extends React.Component {
         </FormGroup>
         <FormGroup>
           <Label className="text" for="styleSelection">Style secondaire</Label>
-        <Input className="rollingList" type="select" name="select" >
+          <Input name="stylesTatouagesList2" className="rollingList" type="select" name="select" >
             <option>-- choisissez un style --</option>
             <option>Japonais</option>
             <option>Blackwork, Dotwork, B&G, Fineline</option>
@@ -78,29 +86,28 @@ export default class ProjectForm extends React.Component {
              Pour que le tatoueur puisse vous contacter</span>
            </Label>
          <Label className="text" for="userPhone"></Label>
-       <Input className="numberArea" type="textarea" name="number"  placeholder="(+33)6 61 23 45 67" />
+          <Input name="userPhone" className="numberArea" type="textarea" name="number"  placeholder="(+33)6 61 23 45 67" />
          </FormGroup>
 
 
       <div className="availabilities">
         <FormGroup className="FormGroup availabilityForm">
           <Label className="text" for="availabilityDate">Proposez un créneau</Label>
-          <Input className="dateList" type="date" name="date" id="exampleDate" placeholder="date placeholder" />
-
-          <Input className="dateList" type="time" name="time" id="exampleTime" placeholder="time placeholder" />
+          <Input name="dateList1" className="dateList" type="date" name="date" id="exampleDate" placeholder="date placeholder" />
+          <Input name="timeList1" className="dateList" type="time" name="time" id="exampleTime" placeholder="time placeholder" />
         </FormGroup>
 
         <FormGroup className="FormGroup availabilityForm">
           <Label className="text" for="availabilityDate">Un autre créneau</Label>
-          <Input className="dateList" type="date" name="date" id="exampleDate" placeholder="date placeholder" />
-          <Input className="dateList" type="time" name="time" id="exampleTime" placeholder="time placeholder" />
+          <Input name="dateList2" className="dateList" type="date" name="date" id="exampleDate" placeholder="date placeholder" />
+          <Input name="timeList2" className="dateList" type="time" name="time" id="exampleTime" placeholder="time placeholder" />
         </FormGroup>
       </div>
 
 
         <FormGroup className="FormGroup load">
           <Label className="textLoad" for="File">Ajoutez un fichier depuis votre ordinateur</Label>
-          <Input type="file" name="file" id="exampleFile" />
+        <Input type="file" name="uploadFile" id="exampleFile" />
         </FormGroup>
 
 

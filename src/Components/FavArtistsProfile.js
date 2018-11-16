@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, FormGroup, Label, Input, FormText, Form, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText, Row, CardImg, Container, CardBody, CardSubtitle, Button } from 'reactstrap';
+import { Card, CardTitle, CardImg, CardSubtitle, Button } from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../Stylesheets/FavArtistsProfile.css';
