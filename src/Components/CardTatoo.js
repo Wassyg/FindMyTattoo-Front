@@ -14,9 +14,28 @@ class CardTatoo extends Component {
     this.state = {
       isMouseOver: false,
       classLike: "dislike",
-      like: false
+      like: false,
+      artistNickname: null
     }
   }
+
+  componentDidMount(){
+    var ctx = this;
+    console.log('id',this.props.artistId);
+   fetch('http://localhost:3000/artist?artist_id='+this.props.artistId)
+   .then(function(response) {
+     return response.json();
+   })
+   .then(function(data) {
+
+   ctx.setState({artistNickname: data.result.artistNickname});
+
+
+   })
+   .catch(function(error) {
+     console.log('Request failed', error)
+   });
+ }
 
 
   handleMouseOver = () => {
@@ -39,8 +58,7 @@ class CardTatoo extends Component {
   }
 
   render(){
-    console.log(this.props.url)
-
+    console.log('alllleeeer',this.state.artistNickname);
 
     return(
       <div
@@ -51,9 +69,9 @@ class CardTatoo extends Component {
       >
         <div className="img-container">
             <FontAwesomeIcon className={this.state.classLike} icon={faHeart} />
-            <img className="img-tatoo" src={this.props.url}/>
+            <img className="img-tatoo" src={this.props.tattooPhotoLink}/>
             {this.state.isMouseOver
-              ?<div className="card-tatoueur">{this.props.idA}</div>
+              ?<div className="card-tatoueur">{this.state.artistNickname}</div>
               :<div></div>
             }
         </div>
