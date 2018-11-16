@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import '../Stylesheets/NavBar.css'
 
+import '../Stylesheets/NavBar.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -34,8 +34,7 @@ class NavBar extends Component{
 
     return(
       <nav className="navbarContainer">
-          <div className="logo-container">
-            <img src={logo} />
+          <div className="SigninLoginButtons-container">
           </div>
 
           <div className="btn-container">

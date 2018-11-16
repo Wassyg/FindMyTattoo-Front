@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import logo from '../Assets/logos/logoBlanc.png';
 import NavBar from '../Components/NavBar.js';
-import {Popover, OverlayTrigger} from 'react-bootstrap' //régler le problème du OverlayTrigger !!
+import SignUpForm from '../Components/SignUpForm.js';
 import '../Stylesheets/HomePage.css';
+
 
 class HomePage extends Component {
   render(){
@@ -23,16 +24,19 @@ class HomePage extends Component {
             <div className="findmytattooLogoPack">
               <img src={logo}/>
               <h1>Find My Tattoo</h1>
+
             </div>
             <h2>Rassemble
-              <strong>VOS TATOUEURS PREFERES</strong>
-              et leurs travaux de
-              <strong>TATOUAGES</strong>
+              <strong> VOS TATOUEURS PREFERES </strong>
+               et leurs travaux de
+              <strong> TATOUAGES </strong>
               pour que soyez certains de
-              <strong>TOUJOURS FAIRE LE BON CHOIX
+              <strong> TOUJOURS FAIRE LE BON CHOIX
               </strong>
             </h2>
           </div>
+
+          <SignUpForm />
 
           <div className="homePageFunctionalities">
             <div className="homePageSingleFunctionality col-xs-12">
@@ -49,8 +53,8 @@ class HomePage extends Component {
 
       </div>
 
-    </div>)
-  }
+    </div>
+  )}
 }
 
 export default HomePage;

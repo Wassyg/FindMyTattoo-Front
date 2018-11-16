@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Button, FormGroup, Label, Input, FormText, Form, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardTitle, CardText, Row, CardImg, Container, CardBody, Tooltip } from 'reactstrap';
+import { CardImg } from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../Stylesheets/FavTattoosProfile.css';
@@ -7,12 +7,38 @@ import '../Stylesheets/FavTattoosProfile.css';
 
 
 export default class FavTattoosProfile extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={
+      tattoosList: []
+    }
+  }
+
+  // ComponentDidMount() {
+  //   var ctx= this;
+  //   fetch("http://localhost:3000/user")
+  //         .then(function(response) {
+  //             return response.json();
+  //           })
+  //         .then(function(data) {
+  //           tatoosListCopy =[...tattoosList];
+  //           tatoosListCopy.push(data.userFavoriteTattoo);
+  //           ctx.setState({
+  //             tattoosList : tatoosListCopy
+  //           })
+  //             })
+  //         .catch(function(error) {
+  //             console.log('Request failed', error)
+  //           });
+  // }
+
   render() {
-    var tattoosList = [];
+  console.log("tattoosList", this.state.tattoosList);
+  var tattoosList= [];
     for(var i =1; i< 8; i ++){
       tattoosList.push({src:'../tatouagesBichon/photoBichon'+ i +'.jpg', artistName:"Bichon"})
     };
-    for(var i =1; i< 8; i ++){
+    for(var j =1; j< 8; j ++){
       tattoosList.push({src:'../tatouagesPrincess/photoMadness'+ i +'.jpg', artistName:"Princess Madness"})
     };
 
