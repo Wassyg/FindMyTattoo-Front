@@ -9,7 +9,7 @@ class CardFiltre extends Component{
     return(
       <div className="row">
         <div className="col-12 card-filtre">
-          <img className="filtre-logo" src={logo}/>
+          <img className="filtre-logo" src={this.props.url}/>
           <p className="filtreStyleTexte">{this.props.text}</p>
         </div>
         <div className="col-12">
