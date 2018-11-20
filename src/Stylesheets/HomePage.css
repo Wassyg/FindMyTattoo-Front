@@ -1,6 +1,6 @@
 /* ensemble des containers */
 .container-homePageContainer{
-  height: 100vh;
+  height: 300vh;
   width: 100vw;
 }
 
@@ -97,4 +97,12 @@ font-size: 30px;
 .formRowForSignin{
   display: flex;
   flex-direction: column;
+}
+.buttonsSignInUp{
+display: flex;
+flex-direction: column;
+position: absolute;
+top : 0px;
+left: 0px;
+margin-bottom: 5px;
 }

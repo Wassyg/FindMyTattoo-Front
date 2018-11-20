@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import NavBar from '../Components/NavBar.js'
-
 import ProjectForm from '../Components/ProjectForm.js'
 import FavTattoosProfile from '../Components/FavTattoosProfile.js'
 import FavArtistsProfile from '../Components/FavArtistsProfile.js'
@@ -17,12 +16,13 @@ class UserPage extends Component{
 
             <div className="mainContainer col-12">
                       <div className="topContainer col-12">
-                              <div className="row-topFormTattoos col-12 col-sm-8">
+                              <div className="row-topFormTattoos col-12 col-sm-4">
                                 Votre projet de tatouage
+                              <br/>
                                   <ProjectForm />
                               </div>
 
-                              <div className="row-topImgTattoos col-12 col-sm-4">
+                              <div className="row-topImgTattoos col-12 col-sm-8">
                                 Vos tatouages favoris
                                   <FavTattoosProfile />
                               </div>
