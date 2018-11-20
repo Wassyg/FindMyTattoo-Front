@@ -12,34 +12,36 @@ export default class FavTattoosProfile extends React.Component {
     }
   }
 
-  componentDidMount() {
-    var ctx = this;
-    fetch("http://localhost:3000/user?user_id="+"5beee9149dbdeb5bac33360e")
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(data) {
-      var tattoosListCopy = [...ctx.state.tattoosList];
-      data.result.userFavoriteTattoo.map(function(map){
-        return tattoosListCopy.push(map)
-      })
-      ctx.setState({ tattoosList: tattoosListCopy});
-    })
-    .catch(function(error) {
-      console.log('Request failed', error);
-    });
+  ComponentDidMount() {
+    var ctx= this;
+    fetch("http://localhost:3000/user")
+          .then((response)=> response.json())
+          .then((user)=> {
+            console.log("user du fetch favorite tattoos", user);
+            var tattoosListCopy =[...ctx.state.tattoosList];
+            tattoosListCopy.push(user.userFavoriteTattoo);
+            ctx.setState({
+              tattoosList : tattoosListCopy
+            })
+              })
+          .catch((error)=> console.log('Request failed', error));
   }
 
   render() {
-    var tattoosDisplayedCards = this.state.tattoosList.map(function(tattoo, i) {
-      return <TattooCard key={i} artistName="Bichon" tattooImage={tattoo.tattooPhotoLink}/>
-    });
+  console.log("tattoosList", this.state.tattoosList);
+        var tattoosList = this.state.tattoosList;
+        var tattoosDisplayedCards = tattoosList.map(function(tattoo, i){
+          return <TattooCard
+           key={i}
+           artistName={tattoo.artistName}
+           tattooImage={tattoo.src}/>
+       })
 
     return (
-      <div className="containerTattoos col-12">
-        <div className="row">
-          {tattoosDisplayedCards}
-        </div>
+      <div className="containerTattoos">
+          <div className="row rowTattoos">
+            {tattoosDisplayedCards}
+          </div>
       </div>
     );
   }
@@ -64,16 +66,17 @@ class TattooCard extends React.Component {
   render() {
     console.log("this.state.isMouseOver", this.state.isMouseOver);
 
-    return (
-      <div className="containerCard col-6" onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
-        <div id="imgContainer">
-          <CardImg id="TattooImg" src={this.props.tattooImage} alt="Card image cap"/>
-          {
-            this.state.isMouseOver
-              ? <div className="infoArtistUnderImg">{this.props.artistName}</div>
-              : <div></div>
-          }
-        </div>
+    return(
+      <div className="containerCard" onMouseOver ={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
+
+           <div id="imgContainer">
+             <CardImg id ="TattooImg" src={this.props.tattooImage} alt="Card image cap"/>
+               {this.state.isMouseOver
+               ? <div className="infoArtistUnderImg">{this.props.artistName}</div>
+               :<div></div>
+             }
+           </div>
+
       </div>
     );
   }

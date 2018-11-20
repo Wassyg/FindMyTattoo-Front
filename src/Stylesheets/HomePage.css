@@ -1,8 +1,16 @@
 /* ensemble des containers */
 .container-homePageContainer{
-  height: 100vh;
+  height: 300vh;
   width: 100vw;
   background-image: url("../Assets/backgrounds/backgroundhome.jpg");
   background-size: cover;
   position: center;
+}
+.buttonsSignInUp{
+display: flex;
+flex-direction: column;
+position: absolute;
+top : 0px;
+left: 0px;
+margin-bottom: 5px;
 }

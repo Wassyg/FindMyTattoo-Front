@@ -1,35 +1,33 @@
-.userPageContainer{
- height: 100vh;
+.userPage-container{
+ height: 120vh !important;
  width: 100vw;
   }
   .mainContainer{
-  height: 600px !important;
-  border: 1px solid #ced6e0;
-  display :flex;
-  flex-direction: column;
-  align-items: center;
+  height: 120vh;
+  width: 100vw;
+  background-image: url(../Assets/backgrounds/tattoowheats.jpg);
+  background-size: cover;
+  background-position: center;
   position: relative;
+  display: flex;
+  justify-content:center;
+
 }
 
 .topContainer{
   width: 100vw;
-  height: 600px;
-  margin-left: 0px;
-  margin-top: 0px;
+  height: 80vh;
   display: flex;
-  justify-content: center;
+  justify-content:center;
+  align-items: center;
   position: relative;
 }
 .row-topFormTattoos{
   position: relative;
 }
 
-.row-topImgTattoos{
-  position: relative;
-}
-
-.lowContainer{
+/* .lowContainer{
   width: 100vw;
   height: 100px;
   position: static;
-}
+} */
