@@ -85,6 +85,8 @@ class TattooModal extends React.Component {
         tattooStyleList={map.tattooStyleList} />
     })
 
+    console.log('props pic', this.props);
+
     return (
       <Modal
         title= "INFO TATOUAGE"

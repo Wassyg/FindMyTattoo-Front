@@ -27,7 +27,7 @@ class CardTatoo extends Component {
 
     return(
       <div className=" col-12 col-md-3 card-container" onClick={() => this.handleClick(this.props)}>
-        <TattooModal clickOnTattoo={this.state.clickOnTattoo}/>
+        <TattooModal clickOnTattoo={this.state.clickOnTattoo} props={this.props}/>
         <div className="img-container">
           <TattooModal/>
           <img className="img-tatoo" src={this.props.tattooPhotoLink}/>
