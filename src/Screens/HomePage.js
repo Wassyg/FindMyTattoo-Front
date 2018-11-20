@@ -13,8 +13,10 @@ class HomePage extends Component {
     return (
 
     <div className="container-homePageContainer">
-      <NavBar/>
+      
 
+<<<<<<< HEAD
+=======
       <div className="homePageContent">
         <div className="homePageContentBackgroundColor">
           <div className="findMyTattooIntro">BIENVENUE À CELLES ET CEUX QUI PENSENT QU'ON PEUT TOUT REGRETTER
@@ -60,6 +62,7 @@ class HomePage extends Component {
         <GalleryPage />
 
       </div>
+>>>>>>> 8af4b8694e8de96d55ee047c1246a1e532aceec0
 
     </div>
   )}

@@ -1,105 +1,49 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-
-import '../Stylesheets/NavBar.css'
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-import logo from '../Assets/logos/logoBlanc.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { Navbar, NavbarBrand, NavbarNav, NavItem, NavLink, NavbarToggler, Collapse, FormInline, Dropdown, DropdownToggle, DropdownMenu,  DropdownItem } from "mdbreact";
+import '../Stylesheets/NavBar.css';
 
 
 
-import HomePage from '../Screens/HomePage.js'
-import GalleryPage from '../Screens/GalleryPage.js'
-import ArtistPage from '../Screens/ArtistPage.js'
-import UserPage from '../Screens/UserPage.js'
 
 
+class NavbarPage extends React.Component {
+  state = {
+    isOpen: false
+  };
 
-class NavBar extends Component{
+  toggleCollapse = () =>{
+    this.setState({ isOpen: !this.state.isOpen });
+  }
 
-  render(){
-    const route = [{route: "/GalleryPage", icon: faHeart, key: 'gallery'},
-                   {route: "/ArtistPage", icon: faStar, key: 'artist'},
-                   {route: "/UserPage", icon: faUser, key: 'user'},
-                   ]
+  render() {
+    return (
+      <Navbar color="default-color" dark expand="md">
+          <NavbarBrand>
+            <strong className="white-text">Find my Tattoo</strong>
+          </NavbarBrand>
+          <NavbarToggler
+            onClick={() => this.toggleCollapse()}
+          />
+          <Collapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+            <NavbarNav left>
 
-    let btnList = route.map(function(route){
-      return<Navbtn route={route.route} icon={route.icon} position={route.key}  />
-    })
-
-    return(
-      <nav className="navbarContainer">
-          <div className="SigninLoginButtons-container">
-          </div>
-
-          <div className="btn-container">
-            {btnList}
-          </div>
-
-          <div className="basket-container">
-            <div className="basket-like">
-              <p>0</p>
-              <FontAwesomeIcon className="basket-like-icon" icon={faHeart} />
-            </div>
-            <div className="basket-artist">
-              <p>0</p>
-              <FontAwesomeIcon className="basket-artist-icon" icon={faStar} />
-            </div>
-          </div>
-      </nav>
-    )
+            </NavbarNav>
+            <NavbarNav right>
+              <NavItem>
+                <Link className="nav-btn" to={'/'}>Galerie</Link>
+              </NavItem>
+              <NavItem>
+                <Link className="nav-btn" to={'/UserPage'}>MoodBoard</Link>
+              </NavItem>
+              <NavItem>
+              <p className="nav-sign">Log in</p>
+              </NavItem>
+            </NavbarNav>
+          </Collapse>
+      </Navbar>
+    );
   }
 }
 
-class Navbtn extends Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      isMouseOver: false,
-    }
-  }
-
-
-  handleMouseOver = () => {
-    this.setState({isMouseOver: true});
-  }
-
-  handleMouseOut = () => {
-    this.setState({isMouseOver: false});
-  }
-
-
-  render(){
-
-    let btnClasse = 'nav-btn'
-
-    if(this.state.isMouseOver){
-      btnClasse = 'nav-btn-hover'
-    }else if(!this.state.isMouseOver){
-      btnClasse = 'nav-btn'
-    }
-
-
-
-    return(
-
-      <Link className="navUl" to={this.props.route}>
-          <div
-             className="circle-container"
-             onMouseOver={() => this.handleMouseOver()}
-             onMouseOut={() => this.handleMouseOut()}
-           >
-            <FontAwesomeIcon className={btnClasse} icon={this.props.icon} />
-          </div>
-      </Link>
-    )
-  }
-
-}
-
-export default NavBar;
+export default NavbarPage;

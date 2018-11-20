@@ -9,7 +9,11 @@
     "antd": "^3.10.7",
     "bootstrap": "^4.1.3",
     "leaflet": "^1.3.4",
+<<<<<<< HEAD
+    "mdbreact": "^4.8.3",
+=======
     "material-ui": "^0.20.2",
+>>>>>>> 8af4b8694e8de96d55ee047c1246a1e532aceec0
     "react": "^16.6.3",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.6.3",

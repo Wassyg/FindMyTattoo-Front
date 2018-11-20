@@ -9,14 +9,13 @@ import UserPage from './Screens/UserPage.js'
 import './App.css';
 
 class App extends Component {
-  
+
   render() {
     return (
       <div className="App">
         <Router>
         <div>
-          <Route exact path="/" component={HomePage}></Route>
-          <Route exact path="/GalleryPage" component={GalleryPage}></Route>
+          <Route exact path="/" component={GalleryPage}></Route>
           <Route exact path="/ArtistPage" component={ArtistPage}></Route>
           <Route exact path="/UserPage" component={UserPage}></Route>
         </div>
