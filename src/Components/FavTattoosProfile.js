@@ -14,35 +14,24 @@ export default class FavTattoosProfile extends React.Component {
     }
   }
 
-  // ComponentDidMount() {
-  //   var ctx= this;
-  //   fetch("http://localhost:3000/user")
-  //         .then(function(response) {
-  //             return response.json();
-  //           })
-  //         .then(function(data) {
-  //           tatoosListCopy =[...tattoosList];
-  //           tatoosListCopy.push(data.userFavoriteTattoo);
-  //           ctx.setState({
-  //             tattoosList : tatoosListCopy
-  //           })
-  //             })
-  //         .catch(function(error) {
-  //             console.log('Request failed', error)
-  //           });
-  // }
+  ComponentDidMount() {
+    var ctx= this;
+    fetch("http://localhost:3000/user")
+          .then((response)=> response.json())
+          .then((user)=> {
+            console.log("user du fetch favorite tattoos", user);
+            var tattoosListCopy =[...ctx.state.tattoosList];
+            tattoosListCopy.push(user.userFavoriteTattoo);
+            ctx.setState({
+              tattoosList : tattoosListCopy
+            })
+              })
+          .catch((error)=> console.log('Request failed', error));
+  }
 
   render() {
   console.log("tattoosList", this.state.tattoosList);
-  var tattoosList= [];
-    for(var i =1; i< 8; i ++){
-      tattoosList.push({src:'../tatouagesBichon/photoBichon'+ i +'.jpg', artistName:"Bichon"})
-    };
-    for(var j =1; j< 8; j ++){
-      tattoosList.push({src:'../tatouagesPrincess/photoMadness'+ i +'.jpg', artistName:"Princess Madness"})
-    };
-
-
+        var tattoosList = this.state.tattoosList;
         var tattoosDisplayedCards = tattoosList.map(function(tattoo, i){
           return <TattooCard
            key={i}
@@ -51,8 +40,8 @@ export default class FavTattoosProfile extends React.Component {
        })
 
     return (
-      <div className="containerTattoos col-12">
-          <div className="row">
+      <div className="containerTattoos">
+          <div className="row rowTattoos">
             {tattoosDisplayedCards}
           </div>
       </div>
@@ -83,7 +72,7 @@ class TattooCard extends React.Component {
     console.log("this.state.isMouseOver", this.state.isMouseOver);
 
     return(
-      <div className="containerCard col-6" onMouseOver ={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
+      <div className="containerCard" onMouseOver ={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
 
            <div id="imgContainer">
              <CardImg id ="TattooImg" src={this.props.tattooImage} alt="Card image cap"/>
