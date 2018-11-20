@@ -14,7 +14,7 @@ export default class FavTattoosProfile extends React.Component {
 
   ComponentDidMount() {
     var ctx= this;
-    fetch("http://localhost:3000/user")
+    fetch("http://localhost:3000/user?user_id=")
           .then((response)=> response.json())
           .then((user)=> {
             console.log("user du fetch favorite tattoos", user);
