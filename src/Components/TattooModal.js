@@ -67,8 +67,15 @@ class TattooModal extends React.Component {
     });
   }
 
-  render() {
+  componentDidUpdate(prevProps){
+    if (this.props.clickOnTattoo!==prevProps.clickOnTattoo && this.props.clickOnTattoo === true) {
+      this.setState({
+        visible : true,
+      })
+    }
+  }
 
+  render() {
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo
         key={i}
@@ -77,39 +84,35 @@ class TattooModal extends React.Component {
         artistId={map.artistID}
         tattooStyleList={map.tattooStyleList} />
     })
+
     return (
-      <div>
-        <Button type="primary" onClick={this.showModal}>
-          Open Modal
-        </Button>
-        <Modal
-          title= "INFO TATOUAGE"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          width = "90%"
-          footer = {null}
-          centered = "true"
-          bodyStyle = {{backgroundColor : "#F7F7F7", fontFamily: 'Roboto Condensed'}}
-        >
-          <Container>
-            <Row id="tattooImageAndArtistInfoBoxModal">
-              <Col xs="12" md="7" id="tattooImageBoxModal">
-                <img src="https://res.cloudinary.com/crazycloud/image/upload/v1542368587/ks5rrvax3eily43o35cx.jpg" id="tattooImageModal"/>
-                <FontAwesomeIcon icon={faHeart} className="tattooLikeModal"/>
-              </Col>
-              <Col xs="12" md={{size: "5"}} >
-                <TattooArtistCardModal/>
-              </Col>
-            </Row>
-            <hr id="separationModal"/>
-            <h1>AUTRES TATOUAGES DU MEME ARTISTE</h1>
-            <Row id="otherArtistImagesBoxModal">
-              {pictureList}
-            </Row>
-          </Container>
-        </Modal>
-      </div>
+      <Modal
+        title= "INFO TATOUAGE"
+        visible={this.state.visible}
+        onOk={this.handleOk}
+        onCancel={this.handleCancel}
+        width = "90%"
+        footer = {null}
+        centered = "true"
+        bodyStyle = {{backgroundColor : "#F7F7F7", fontFamily: 'Roboto Condensed'}}
+      >
+        <Container>
+          <Row id="tattooImageAndArtistInfoBoxModal">
+            <Col xs="12" md="7" id="tattooImageBoxModal">
+              <img src="https://res.cloudinary.com/crazycloud/image/upload/v1542368587/ks5rrvax3eily43o35cx.jpg" id="tattooImageModal"/>
+              <FontAwesomeIcon icon={faHeart} className="tattooLikeModal"/>
+            </Col>
+            <Col xs="12" md={{size: "5"}} >
+              <TattooArtistCardModal/>
+            </Col>
+          </Row>
+          <hr id="separationModal"/>
+          <h1>AUTRES TATOUAGES DU MEME ARTISTE</h1>
+          <Row id="otherArtistImagesBoxModal">
+            {pictureList}
+          </Row>
+        </Container>
+      </Modal>
     );
   }
 }
