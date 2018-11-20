@@ -20,6 +20,7 @@ class CardTatoo extends Component {
     return(
       <div className=" col-12 col-md-3 card-container" onClick={() => this.handleClick(this.props)}>
         <div className="img-container">
+          <TattooModal/>
           <img className="img-tatoo" src={this.props.tattooPhotoLink}/>
           <div className="card-hover">
             <FontAwesomeIcon className="hover-search" icon={faSearchPlus} />
