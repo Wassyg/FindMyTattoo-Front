@@ -1,3 +1,5 @@
+//Alimente UserPage
+
 import React from 'react';
 import {CardImg} from 'reactstrap';
 
@@ -14,7 +16,7 @@ export default class FavTattoosProfile extends React.Component {
 
   ComponentDidMount() {
     var ctx= this;
-    fetch("http://localhost:3000/user?user_id=")
+    fetch("http://localhost:3000/user?user_id=" + "5beee9149dbdeb5bac33360e")
           .then((response)=> response.json())
           .then((user)=> {
             console.log("user du fetch favorite tattoos", user);

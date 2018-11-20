@@ -1,4 +1,8 @@
+//Alimente le modal envoyé au tatoueur depuis le UserPage/FavTattoosProfile et depuis TattooModal/TattooArtistCardModal
+
 import React from 'react';
+
+//material UI
 import {
   Step,
   Stepper,
@@ -9,6 +13,10 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
+//reactstrap
+import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.css';
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -23,25 +31,60 @@ import MenuItem from 'material-ui/MenuItem';
  *
  * <small>(The vertical stepper can also be used without `<StepContent>` to display a basic stepper.)</small>
  */
+
+ // class ModalProjectForm extends Component{
+ //   render(){
+ //     return(
+ //
+ //   )}
+ // };
+
+
+
 class ProjectForm extends React.Component {
+ constructor(){
+   super();
+   this.handleNext = this.handleNext.bind(this);
+   this.handlePrev = this.handlePrev.bind(this);
+   this.handleChange = this.handleChange.bind(this);
+   this.renderStepActions = this.renderStepActions.bind(this);
+   this.toggle = this.toggle.bind(this);
+   this.state ={
+     modal: false,
+     finished: false,
+     stepIndex: 0,
+     description: "",
+     phone:"",
+     availability:"",
+     value: 1
+   }
+ }
 
-  state = {
-    finished: false,
-    stepIndex: 0,
-  };
+ toggle() {
+   this.setState({
+     modal: !this.state.modal
+   });
+ }
 
-  handleNext = () => {
-    const {stepIndex} = this.state;
+ handleChange(event,index, value) {
+     this.setState({
+       [event.target.name]: event.target.value,
+       value: value
+     });
+   }
+
+  handleNext(){
     this.setState({
-      stepIndex: stepIndex + 1,
-      finished: stepIndex >= 2,
+      stepIndex: this.state.stepIndex + 1,
+      finished: this.state.stepIndex >= 2,
     });
   };
 
-  handlePrev = () => {
-    const {stepIndex} = this.state;
-    if (stepIndex > 0) {
-      this.setState({stepIndex: stepIndex - 1});
+  handlePrev(){
+    if (this.state.stepIndex > 0){
+      this.setState({
+        stepIndex: this.state.stepIndex - 1
+      });
     }
   };
 
@@ -72,21 +115,29 @@ class ProjectForm extends React.Component {
   }
 
   render() {
-    const {finished, stepIndex} = this.state;
+    const {finished, stepIndex, description, phone, availability} = this.state;
 
     return (
   <MuiThemeProvider>
-      <div style={{maxHeight: 400, margin: 'auto'}}>
+    <div style={{maxHeight: 400, margin: 'auto'}}>
+    <Modal isOpen={this.state.modal} toggle={this.toggle}>
+      <ModalHeader toggle={this.toggle}></ModalHeader>
+      <ModalBody>
+
         <Stepper activeStep={stepIndex} orientation="vertical">
           <Step>
             <StepLabel className="stepLabelForm">Décrivez votre projet</StepLabel>
             <StepContent>
               <TextField
+                name="description"
                 hintText="ex : une fleur en dot sur l'omoplate"
                 multiLine={true}
+                floatingLabelText="Parlez nous de votre projet"
                 rows={2}
                 rowsMax={3}
                 fullWidth={true}
+                onChange={this.handleChange}
+                value={this.state.description}
               />
               {this.renderStepActions(0)}
             </StepContent>
@@ -95,25 +146,32 @@ class ProjectForm extends React.Component {
             <StepLabel className="stepLabelForm">Pour être contacté</StepLabel>
             <StepContent>
               <TextField
+                name="phone"
                 floatingLabelFixed="Votre numéro de téléphone"
+                floatingLabelText="Laissez votre numéro au tatoueur"
                 hintText="(+33)6 61 23 45 67"
                 fullWidth={true}
+                onChange={this.handleChange}
+                value={this.state.phone}
               />
-              {this.renderStepActions(2)}
+            {this.renderStepActions(1)}
             </StepContent>
           </Step>
           <Step>
             <StepLabel className="stepLabelForm">Vous préférez être contacté</StepLabel>
             <StepContent>
               <SelectField
-                  floatingLabelText="Vous préférez être contacté"
+                  name="availability"
                   fullWidth={true}
+                  onChange={this.handleChange}
+                  value={this.state.value}
                 >
-                  <MenuItem value={1} primaryText="midi (entre 12h et 14h)" />
-                  <MenuItem value={2} primaryText="après-midi (entre 14h et 17h)" />
-                  <MenuItem value={3} primaryText="soir (entre 17h et 19h)" />
-                </SelectField>
-              {this.renderStepActions(1)}
+                  <MenuItem value={1} primaryText="Définissez un créneau" />
+                  <MenuItem value={2} primaryText="midi (entre 12h et 14h)" />
+                  <MenuItem value={3} primaryText="après-midi (entre 14h et 17h)" />
+                  <MenuItem value={4} primaryText="soir (entre 17h et 19h)" />
+              </SelectField>
+              {this.renderStepActions(2)}
             </StepContent>
           </Step>
 
@@ -132,8 +190,11 @@ class ProjectForm extends React.Component {
             Cliquez ici
             </a> pour envoyer une nouvelle demande */}
           </p>
-        )}
-      </div>
+            )}
+
+      </ModalBody>
+    </Modal>
+    </div>
   </MuiThemeProvider>
     );
   }
