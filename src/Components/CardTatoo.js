@@ -10,15 +10,24 @@ import TattooModal from '../Components/TattooModal.js';
 
 
 class CardTatoo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      clickOnTattoo: false,
+    };
+  }
 
   handleClick = (props) => {
-    console.log(props);
+    this.setState({
+      clickOnTattoo: !this.state.clickOnTattoo
+    })
   }
 
   render(){
 
     return(
       <div className=" col-12 col-md-3 card-container" onClick={() => this.handleClick(this.props)}>
+        <TattooModal clickOnTattoo={this.state.clickOnTattoo}/>
         <div className="img-container">
           <img className="img-tatoo" src={this.props.tattooPhotoLink}/>
           <div className="card-hover">
