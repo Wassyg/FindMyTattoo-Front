@@ -15,7 +15,8 @@ export default class FavArtistsProfile extends React.Component {
   componentDidMount() {
     console.log("check");
     var ctx = this;
-    fetch("http://localhost:3000/user?user_id=" + "5beee9149dbdeb5bac33360e").then(function(response) {
+    fetch("http://localhost:3000/user?user_id=" + "5beee9149dbdeb5bac33360e")
+    .then(function(response) {
       return response.json();
     }).then(function(data) {
       var artistsListCopy = [...ctx.state.artistsList];

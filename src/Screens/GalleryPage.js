@@ -4,10 +4,10 @@ import { Collapse, Button, CardBody, Card } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Stylesheets/GalleryPage.css'
 
-
+import HomePage from './HomePage.js'
 import NavBar from '../Components/NavBar.js';
 import CardTatoo from '../Components/CardTatoo.js';
-import FiltreBar from '../Components/FiltreBar.js';
+
 
 
 
@@ -45,8 +45,6 @@ class GalleryPage extends Component{
     this.setState({ collapse: !this.state.collapse });
   }
   render(){
-    
-
 
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo key={i} idPicture={map._id} tattooPhotoLink={map.tattooPhotoLink} artistId={map.artistID} tattooStyleList={map.tattooStyleList}  />
@@ -54,23 +52,13 @@ class GalleryPage extends Component{
     return(
       <div>
         <NavBar />
-          <div>
-          <Button className="row-button col-12" color="link" onClick={this.toggle}>Pour filtrer par styles de tatouages ></Button>
-          <Collapse isOpen={this.state.collapse}>
-            <Card>
-              <CardBody className="btn-filtre">
-                <p className= 'filtreStyleTexte'>Un style en particulier ?</p>
-                <FiltreBar />
-              </CardBody>
-            </Card>
-          </Collapse>
-        </div>
-        <div className="container">
-          <div className="row">
-            {pictureList}
-          </div>
+        <HomePage />
+      <div className="container">
+        <div className="row gallery-container">
+          {pictureList}
         </div>
       </div>
+    </div>
     )
   }
 }
