@@ -1,15 +1,13 @@
 import React from 'react';
-import { CardImg } from 'reactstrap';
+import {CardImg} from 'reactstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../Stylesheets/FavTattoosProfile.css';
 
-
-
 export default class FavTattoosProfile extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       tattoosList: []
     }
   }
@@ -51,22 +49,19 @@ export default class FavTattoosProfile extends React.Component {
 
 class TattooCard extends React.Component {
   constructor(props) {
-   super(props);
-   this.state = {
-     isMouseOver: false
-   }
- }
+    super(props);
+    this.state = {
+      isMouseOver: false
+    }
+  }
 
+  handleMouseOver = () => {
+    this.setState({isMouseOver: true});
+  }
 
- handleMouseOver = () => {
-   this.setState({isMouseOver: true});
- }
-
- handleMouseOut = () => {
-   this.setState({isMouseOver: false});
- }
-
-
+  handleMouseOut = () => {
+    this.setState({isMouseOver: false});
+  }
 
   render() {
     console.log("this.state.isMouseOver", this.state.isMouseOver);
@@ -83,7 +78,6 @@ class TattooCard extends React.Component {
            </div>
 
       </div>
-
     );
   }
 }
