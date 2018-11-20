@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
+import TattooModal from '../Components/TattooModal.js';
+
 
 
 class CardTatoo extends Component {
@@ -68,6 +70,7 @@ class CardTatoo extends Component {
       onClick={() => this.handleClick()}
       >
         <div className="img-container">
+            <TattooModal/>
             <FontAwesomeIcon className={this.state.classLike} icon={faHeart} />
             <img className="img-tatoo" src={this.props.tattooPhotoLink}/>
             {this.state.isMouseOver
