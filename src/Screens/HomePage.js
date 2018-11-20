@@ -15,7 +15,6 @@ class HomePage extends Component {
     <div className="container-homePageContainer">
 
 
-
     </div>
   )}
 }
