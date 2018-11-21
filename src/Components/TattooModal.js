@@ -111,7 +111,7 @@ class TattooModal extends React.Component {
         onCancel={this.handleCancel}
         width = "90%"
         footer = {null}
-        centered = "true"
+        centered = {true}
         bodyStyle = {{backgroundColor : "#F7F7F7", fontFamily: 'Roboto Condensed'}}
       >
         <Container>

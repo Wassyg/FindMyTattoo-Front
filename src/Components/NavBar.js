@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import { Navbar, NavbarBrand, NavbarNav, NavItem, NavLink, NavbarToggler, Collapse, FormInline, Dropdown, DropdownToggle, DropdownMenu,  DropdownItem } from "mdbreact";
+import { BrowserRouter as Router, Link } from 'react-router-dom'
+
+//Import des composants externes
+import AuthForm from '../Components/AuthForm.js';
+
+//Import des librairies ou composants de style
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Navbar, NavbarBrand, NavbarNav, NavItem, NavbarToggler, Collapse} from "mdbreact";
 import '../Stylesheets/NavBar.css';
 
+import {connect} from 'react-redux';
 
-
-
-
-class NavbarPage extends React.Component {
+class NavbarPage extends Component {
   state = {
     isOpen: false
   };
@@ -19,31 +23,41 @@ class NavbarPage extends React.Component {
   render() {
     return (
       <Navbar color="default-color" dark expand="md">
-          <NavbarBrand>
-            <strong className="white-text">Find my Tattoo</strong>
-          </NavbarBrand>
-          <NavbarToggler
-            onClick={() => this.toggleCollapse()}
-          />
-          <Collapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
-            <NavbarNav left>
+        <NavbarBrand>
+          <strong className="white-text">Find my Tattoo</strong>
+        </NavbarBrand>
+        <AuthForm/>
+        <p>Welcome {this.props.user.userFirstName}</p>
+        <NavbarToggler
+          onClick={() => this.toggleCollapse()}
+        />
+        <Collapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+          <NavbarNav left>
 
-            </NavbarNav>
-            <NavbarNav right>
-              <NavItem>
-                <Link className="nav-btn" to={'/'}>Galerie</Link>
-              </NavItem>
-              <NavItem>
-                <Link className="nav-btn" to={'/UserPage'}>MoodBoard</Link>
-              </NavItem>
-              <NavItem>
-              <p className="nav-sign">Log in</p>
-              </NavItem>
-            </NavbarNav>
-          </Collapse>
+          </NavbarNav>
+
+          <NavbarNav right>
+            <NavItem>
+              <Link className="nav-btn" to={'/'}>Galerie</Link>
+            </NavItem>
+            <NavItem>
+              <Link className="nav-btn" to={'/UserPage'}>MoodBoard</Link>
+            </NavItem>
+            <NavItem>
+
+            </NavItem>
+          </NavbarNav>
+        </Collapse>
       </Navbar>
     );
   }
 }
 
-export default NavbarPage;
+function mapStateToProps(state) {
+  return { user: state.user }
+}
+
+export default connect(
+    mapStateToProps,
+    null
+)(NavbarPage);
