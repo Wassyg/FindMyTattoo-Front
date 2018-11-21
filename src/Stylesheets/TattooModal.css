@@ -23,8 +23,19 @@
   height: 30px !important;
 }
 
+.tatoo-liked{
+  color: red;
+}
+
 
 #separationModal{
   margin-top: 30px;
   margin-bottom: 20px;
+}
+
+#otherArtistImagesBoxModal{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

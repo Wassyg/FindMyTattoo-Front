@@ -8,19 +8,26 @@ import UserPage from './Screens/UserPage.js'
 
 import './App.css';
 
+import user from './Components/user.reducer';
+import {Provider} from 'react-redux';
+import {createStore, combineReducers}  from 'redux';
+const store = createStore(combineReducers({user}));
+
+
 class App extends Component {
 
   render() {
     return (
       <div className="App">
-        <Router>
-        <div>
-          <Route exact path="/" component={GalleryPage}></Route>
-          <Route exact path="/ArtistPage" component={ArtistPage}></Route>
-          <Route exact path="/UserPage" component={UserPage}></Route>
-        </div>
-      </Router>
-
+        <Provider store={store}>
+          <Router>
+            <div>
+              <Route exact path="/" component={GalleryPage}></Route>
+              <Route exact path="/ArtistPage" component={ArtistPage}></Route>
+              <Route exact path="/UserPage" component={UserPage}></Route>
+            </div>
+          </Router>
+        </Provider>
       </div>
     );
   }
