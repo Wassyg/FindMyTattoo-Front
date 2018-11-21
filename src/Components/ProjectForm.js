@@ -42,29 +42,54 @@ import MenuItem from 'material-ui/MenuItem';
 
 
 class ProjectForm extends React.Component {
- constructor(){
-   super();
+ constructor(props){
+   super(props);
    this.handleNext = this.handleNext.bind(this);
    this.handlePrev = this.handlePrev.bind(this);
    this.handleChange = this.handleChange.bind(this);
    this.renderStepActions = this.renderStepActions.bind(this);
    this.toggle = this.toggle.bind(this);
    this.state ={
-     modal: false,
      finished: false,
      stepIndex: 0,
      description: "",
      phone:"",
      availability:"",
-     value: 1
+     value: 1,
+     visible: false
    }
  }
 
  toggle() {
    this.setState({
-     modal: !this.state.modal
-   });
+       visible:!this.state.visible
+     });
  }
+ // componentWillMount(){
+ //   this.setState({
+ //     modal: false,
+ //   });
+ // }
+
+ // componentDidMount(){
+ //   this.setState({
+ //     modal: false,
+ //     stepIndex: 0,
+ //     description: "",
+ //     phone:"",
+ //     availability:"",
+ //     value: 1,
+ //     visible: false
+ //   });
+ // }
+
+componentDidUpdate(prevProps){
+  if(this.props.clickToSend !==prevProps.clickToSend){
+    this.setState({
+      visible: !this.state.visible
+    })
+  }
+}
 
  handleChange(event,index, value) {
      this.setState({
@@ -117,10 +142,13 @@ class ProjectForm extends React.Component {
   render() {
     const {finished, stepIndex, description, phone, availability} = this.state;
 
+    console.log("this.state.visible", this.state.visible);
+
     return (
   <MuiThemeProvider>
+    {/* <Button color="danger" onClick={this.toggle}>Formulaire</Button> */}
     <div style={{maxHeight: 400, margin: 'auto'}}>
-    <Modal isOpen={this.state.modal} toggle={this.toggle}>
+    <Modal isOpen={this.state.visible} toggle={this.toggle}>
       <ModalHeader toggle={this.toggle}></ModalHeader>
       <ModalBody>
 
