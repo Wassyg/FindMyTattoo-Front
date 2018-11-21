@@ -6,6 +6,10 @@ import { ScrollTo } from "react-scroll-to";
 import NavBar from '../Components/NavBar.js';
 import GalleryPage from './GalleryPage.js';
 
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronCircleDown } from '@fortawesome/free-solid-svg-icons'
+
 import '../Stylesheets/HomePage.css';
 
 
