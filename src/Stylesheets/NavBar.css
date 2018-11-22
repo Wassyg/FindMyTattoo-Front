@@ -1,24 +1,39 @@
-/* couleur de la navbar */
-.default-color{
-  background-color:#596275;
+/* paramètre de la navbar */
+.Navbar{
+  position: fixed;
+  width: 100vw;
+  height: 10vh;
+  background-color:#596275 0;
+  top: 0;
+  -webkit-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+}
+.navbar-scrolled{
+background-color: #596275;
+z-index: 1;
 }
 
-/* taille du dropdown pour les filtres */
-.dropdown-default{
-  width: 158vh;
+/* logo de la navbar */
+.logo-navbar{
+  font-family: "Lobster Two";
+  font-size: 30px;
+  color: #596275;
+}
+.logo-navbar-scrolled{
+  color: #fff;
 }
 
 /* boutons navigation de la navbar */
 .nav-btn{
-  color: #fff;
+  color: #596275;
+  font-size: 20px;
   margin: 15px;
+}
+.nav-btn-scrolled{
+  color: #fff;
 }
 
 /* boutons sign in/up de la navbar */
 .nav-sign{
 color: #fff
-}
-.white-text{
-  font-family: "Lobster Two";
-  font-size: 30px;
 }

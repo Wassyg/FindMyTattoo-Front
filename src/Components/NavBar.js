@@ -13,21 +13,45 @@ import {connect} from 'react-redux';
 
 class NavbarPage extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
+    scroll: 0,
   };
+
+  componentDidMount() {
+     window.addEventListener('scroll', this.handleScroll);
+   }
+
+   componentWillUnmount() {
+     window.removeEventListener('scroll', this.handleScroll);
+   }
+
+   handleScroll = () => {
+     this.setState({scroll: window.scrollY});
+  }
 
   toggleCollapse = () =>{
     this.setState({ isOpen: !this.state.isOpen });
   }
 
   render() {
+    let classNavbar = ["Navbar"];
+    let classLogoNav = ["logo-navbar"];
+    let classNavBtn = ["nav-btn"];
+
+    if(this.state.scroll > 50){
+        classNavbar.push("navbar-scrolled");
+        classLogoNav.push("logo-navbar-scrolled");
+        classNavBtn.push("nav-btn-scrolled");
+     }
+
+     console.log(classNavbar);
     return (
-      <Navbar color="default-color" dark expand="md">
+      <Navbar className={classNavbar.join(" ")}  dark expand="md">
         <NavbarBrand>
-          <strong className="white-text">Find my Tattoo</strong>
+          <strong className={classLogoNav.join(" ")}>Find my Tattoo</strong>
         </NavbarBrand>
         <AuthForm/>
-        <p>Welcome {this.props.user.userFirstName}</p>
+        <p>{this.props.user.userFirstName}</p>
         <NavbarToggler
           onClick={() => this.toggleCollapse()}
         />
@@ -38,10 +62,10 @@ class NavbarPage extends Component {
 
           <NavbarNav right>
             <NavItem>
-              <Link className="nav-btn" to={'/'}>Galerie</Link>
+              <Link className={classNavBtn.join(" ")} to={'/'}>Galerie</Link>
             </NavItem>
             <NavItem>
-              <Link className="nav-btn" to={'/UserPage'}>MoodBoard</Link>
+              <Link className={classNavBtn.join(" ")} to={'/UserPage'}>MoodBoard</Link>
             </NavItem>
             <NavItem>
 
