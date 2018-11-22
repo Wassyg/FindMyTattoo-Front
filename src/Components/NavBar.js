@@ -43,8 +43,6 @@ class NavbarPage extends Component {
         classLogoNav.push("logo-navbar-scrolled");
         classNavBtn.push("nav-btn-scrolled");
      }
-
-     console.log(classNavbar);
     return (
       <Navbar className={classNavbar.join(" ")}  dark expand="md">
         <NavbarBrand>
