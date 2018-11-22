@@ -18,6 +18,7 @@ class TattooArtistCardModal extends React.Component {
     this.handleClickSend = this.handleClickSend.bind(this);
     this.state = {
       clickToSend: false,
+      data: ""
       // artistsList: []
     }
   }
@@ -26,14 +27,25 @@ class TattooArtistCardModal extends React.Component {
       clickToSend: !this.state.clickToSend
     })
   }
- // componentDidMount(){
- //   this.setState({
- //     clickToSend: false
- //   })
- // }
+
+  componentDidMount(){
+    var ctx = this;
+    fetch('http://localhost:3000/artist?artist_id='+ this.props.artistId)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+       ctx.setState({
+         clickToSend: false,
+         data: data
+         });
+       })
+     .catch(function(error) {
+      console.log('Request failed', error);
+    });
+  }
 
   render () {
-console.log("this.state.clickToSend", this.state.clickToSend)
     return (
 
       <Card id="artistInfoBoxModal">
@@ -49,7 +61,8 @@ console.log("this.state.clickToSend", this.state.clickToSend)
                 <FontAwesomeIcon icon={faStar} className="artistStarIconModal fa-xs"/>
               </div>
               <Button outline color="success" size="sm" className="artistButtonModal" ><FontAwesomeIcon icon={faHeart} className="fa-xs"/> Garder</Button>
-            <Button outline color="success" size="sm" className="artistButtonModal" onClick={this.handleClickSend}> <ProjectForm clickToSend={this.state.clickToSend}/> <FontAwesomeIcon icon={faEnvelope} className="fa-xs"/> Contacter</Button>
+            {/* Ajouter en props du button artistID= */}
+            <Button outline color="success" size="sm" className="artistButtonModal" onClick={this.handleClickSend}> <ProjectForm  clickToSend={this.state.clickToSend} artistId={this.props.artistId}/> <FontAwesomeIcon icon={faEnvelope} className="fa-xs"/> Contacter</Button>
             </Col>
             <Col xs="8">
               <CardTitle id="artistNameModal">BICHON</CardTitle>

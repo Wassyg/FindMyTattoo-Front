@@ -68,7 +68,7 @@ class TattooModal extends React.Component {
       })
       var ctx = this;
       // Récupération de la liste des tatouages du tatoueur en question
-      fetch('http://localhost:3000/tattoosfromartist?artistID='+ctx.props.favArtistID)
+      fetch('http://localhost:3000/tattoosfromartist?artistID='+ctx.props.artistId)
       .then(function(response) {
        return response.json();
       })
@@ -121,7 +121,7 @@ class TattooModal extends React.Component {
               <FontAwesomeIcon onClick={() => this.handleLike(this.props)} icon={faHeart} className={classLike.join(" ")}/>
             </Col>
             <Col xs="12" md={{size: "5"}} >
-              <TattooArtistCardModal  />
+              <TattooArtistCardModal artistId={this.props.artistId} />
             </Col>
           </Row>
           <hr id="separationModal"/>

@@ -21,6 +21,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
+import {connect} from 'react-redux';
+
 
 
 /**
@@ -56,7 +58,9 @@ class ProjectForm extends React.Component {
      phone:"",
      availability:"",
      value: 1,
-     visible: false
+     visible: false,
+     artistName:'',
+     artistEmail:''
    }
  }
 
@@ -65,23 +69,22 @@ class ProjectForm extends React.Component {
        visible:!this.state.visible
      });
  }
- // componentWillMount(){
- //   this.setState({
- //     modal: false,
- //   });
- // }
-
- // componentDidMount(){
- //   this.setState({
- //     modal: false,
- //     stepIndex: 0,
- //     description: "",
- //     phone:"",
- //     availability:"",
- //     value: 1,
- //     visible: false
- //   });
- // }
+componentDidMount(){
+  var ctx = this;
+  fetch('http://localhost:3000/artist?artist_id='+this.props.artistId)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(data) {
+     ctx.setState({
+       artistName: data.result.artistNickname,
+       artistEmail: data.result.artistEmail
+     })
+     })
+   .catch(function(error) {
+    console.log('Request failed', error);
+  });
+}
 
 componentDidUpdate(prevProps){
   if(this.props.clickToSend !==prevProps.clickToSend){
@@ -97,7 +100,7 @@ componentDidUpdate(prevProps){
        value: value
      });
    }
-
+//fetch update à mettre en place pour BDD User
   handleNext(){
     this.setState({
       stepIndex: this.state.stepIndex + 1,
@@ -141,9 +144,6 @@ componentDidUpdate(prevProps){
 
   render() {
     const {finished, stepIndex, description, phone, availability} = this.state;
-
-    console.log("this.state.visible", this.state.visible);
-
     return (
   <MuiThemeProvider>
     {/* <Button color="danger" onClick={this.toggle}>Formulaire</Button> */}
@@ -228,4 +228,18 @@ componentDidUpdate(prevProps){
   }
 }
 
-export default ProjectForm;
+function mapStateToProps(store) {
+  return {
+    userFirstName: store.user.userFirstName,
+    userEmail: store.user.userEmail,
+    userTelephone: store.user.userTelephone,
+    userFavoriteTattoo: store.user.userFavoriteTattoo,
+    userTattooDescription: store.user.userTattooDescription,
+    userAvailability: store.user.userAvailability
+  }
+}
+
+export default connect(
+    mapStateToProps,
+    null
+)(ProjectForm);

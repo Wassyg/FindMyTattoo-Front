@@ -11,35 +11,35 @@ import '../Stylesheets/FavArtistsProfile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
+import {connect} from 'react-redux';
 
-export default class FavArtistsProfile extends React.Component {
+
+class FavArtistsProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // artistsList: []
+      artistsList: []
     }
   }
 
-  // componentDidMount() {
-  //   console.log("check");
-  //   var ctx = this;
-  //   fetch("http://localhost:3000/user?user_id=" + "5beee9149dbdeb5bac33360e")
-  //   .then(function(response) {
-  //     return response.json();
-  //   }).then(function(data) {
-  //     var artistsListCopy = [...ctx.state.artistsList];
-  //     console.log(data);
-  //     data.result.userFavoriteArtist.map(function(map) {
-  //       return artistsListCopy.push(map)
-  //     })
-  //     ctx.setState({artistsList: artistsListCopy});
-  //     console.log(ctx.state.artistsList);
-  //   }).catch(function(error) {
-  //     console.log('Request failed', error);
-  //   });
-  // }
+  componentDidMount() {
+    var ctx = this;
+    fetch("http://localhost:3000/user?user_id=" + this.props.userId)
+    .then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      var artistsListCopy = [...ctx.state.artistsList];
+      var userFavoriteArtist = data.result.userFavoriteArtist
 
+        userFavoriteArtist.map(function(favArtists) {
+          return artistsListCopy.push(favArtists)
+        })
+      ctx.setState({artistsList: artistsListCopy});
 
+    }).catch(function(error) {
+      console.log('Request failed', error);
+    });
+  }
 
   render() {
     // var artistsList = [];
@@ -63,10 +63,20 @@ class ArtistCard extends React.Component {
       <Container style={{padding:10}}>
         <Row id="tattooImageAndArtistInfoBoxModal">
           <Col xs="12" md={{size: "5"}} >
-            <TattooArtistCardModal/>
+            <TattooArtistCardModal />
           </Col>
         </Row>
       </Container>
     );
   }
 }
+
+function mapStateToProps(store) {
+  return { userId: store.user._id,
+  }
+}
+
+export default connect(
+    mapStateToProps,
+    null
+)(FavArtistsProfile);

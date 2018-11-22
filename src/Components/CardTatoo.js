@@ -28,9 +28,13 @@ class CardTatoo extends Component {
 
     return(
       <div className=" col-12 col-md-3 card-container" onClick={() => this.handleClick(this.props)}>
-        <TattooModal clickOnTattoo={this.state.clickOnTattoo} favTattooPhotoLink={this.props.tattooPhotoLink} favArtistID={this.props.artistId} idPhotoSelected={this.props.idPicture} favTattooStyleList={this.props.tattooStyleList}/>
+        <TattooModal
+          clickOnTattoo={this.state.clickOnTattoo}
+          favTattooPhotoLink={this.props.tattooPhotoLink}
+          artistId={this.props.artistId}
+          idPhotoSelected={this.props.idPicture}
+          favTattooStyleList={this.props.tattooStyleList}/>
         <div className="img-container">
-          <TattooModal />
           <img className="img-tatoo" src={this.props.tattooPhotoLink}/>
           <div className="card-hover">
             <FontAwesomeIcon className="hover-search" icon={faSearchPlus} />
