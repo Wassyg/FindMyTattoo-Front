@@ -1,32 +1,30 @@
-/* ensemble des containers */
+/* container de la home*/
 .container-homePageContainer{
   height: 100vh;
   width: 100vw;
   background-image: url("../Assets/backgrounds/backgroundhome.jpg");
   background-size: cover;
   position: center;
-}
-
-.container-homePageContainer{
   font-family: "Roboto Condensed";
   font-size: 30px;
   color: #2c3e50;
 }
 
+/* contenu de la home */
 .text-accueil{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  top: 17vh;
-  width: 80vw;
+  position: absolute;
+  top: 30vh;
+  left: 15vw;
+
 }
-h1{
+.container-homePageContainer h1{
+  position: absolute;
+  top: 20vh;
+  left: 40vw;
   font-family: "Lobster Two";
-  margin-top: 80px;
 }
 
+/* Picto du scrollTo */
 .scrollTo{
   position: absolute;
   top: 90vh;

@@ -20,16 +20,11 @@ class HomePage extends Component {
     return (
 
     <div className="container-homePageContainer">
-
+      <h1>Find My Tattoo</h1>
       <div className="text-accueil">
-        <h2>Bienvenue à ceux et celles qui pensent qu'on peut tout regretter...
-         <strong>SAUF SON TATOUAGE !</strong>
-        </h2>
-        <div>
-          <h1>Find My Tattoo</h1>
-          vous aide à construire votre projet et à trouver le tatoueur ou la tatoueuse idéal(e)
-        </div>
+        vous aide à construire votre projet et à trouver le tatoueur ou la tatoueuse idéal(e)
       </div>
+
 
       <ScrollTo>
        {({ scrollTo }) => (
