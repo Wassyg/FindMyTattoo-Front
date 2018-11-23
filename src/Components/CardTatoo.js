@@ -24,8 +24,7 @@ class CardTatoo extends Component {
   }
 
   render(){
-    console.log('bug modal',this.state.clickOnTattoo);
-
+    
     return(
       <div className=" col-12 col-md-3 card-container">
         <TattooModal
