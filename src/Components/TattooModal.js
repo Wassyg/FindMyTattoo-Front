@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 //Import des composants externes
 import CardTatoo from '../Components/CardTatoo.js';
@@ -16,7 +17,12 @@ import { Modal } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
-
+function checkAndAdd(arr,IdTattooSelected) {
+  var found = arr.some(function (el) {
+    return el.tattoo_id === IdTattooSelected;
+  });
+  return found
+ }
 //// Composant modal qui affiche le tatouage agrandi, les infos tatoueurs et la gallerie des tatouages du tatoueur en question ////
 
 class TattooModal extends React.Component {
@@ -26,8 +32,43 @@ class TattooModal extends React.Component {
       collapse: false ,
       pictureData:[],
       visible: false,
-      classLike: false
+      classLike: false,
+      idPhotoSelected: this.props.idPhotoSelected,
     };
+  }
+
+  componentDidMount(){
+
+    
+    if(this.props.userId != null){
+      var ctx = this;
+      fetch('http://localhost:3000/user?user_id='+ctx.props.userId)
+      .then(function(response) {
+       return response.json();
+      })
+      .then(function(data) {
+        if (checkAndAdd(data.result.userFavoriteTattoo,ctx.state.idPhotoSelected)) {
+          console.log("&&ok");
+          ctx.setState({classLike: true});
+
+        } else{
+          console.log("&&&false");
+        }
+        // data.result.userFavoriteTattoo.map(function(map){
+        //   console.log("like user",map.tattoo_id);
+        //   console.log("state like user",ctx.state.idPhotoSelected);
+        //
+        //   if(ctx.state.idPhotoSelected == map.tattoo_id ){
+        //     ctx.setState({classLike: true});
+        //     console.log("deja liké");
+        //   }
+        // })
+
+      })
+      .catch(function(error) {
+       console.log('Request failed', error)
+      });
+    }
   }
 
 
@@ -52,14 +93,29 @@ class TattooModal extends React.Component {
   }
 
   handleLike = (props) =>{
-    this.setState({classLike: !this.state.classLike});
+    if(this.props.userId == null){
+      alert("connecte toi....")
+    }else{
+      this.setState({classLike: !this.state.classLike});
 
-    if(this.state.classLike == false){
-      console.log("ajout des props en base de donnée pour le like", props);
-    } else if(this.state.classLike == true){
-      console.log("ajout des props en base de donnée pour le dislike", props);
+
+      if(this.state.classLike == false){
+        var ctx = this;
+        fetch('http://localhost:3000/userliketattoo', {
+        method: 'PUT',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        body: 'favTattooPhotoLink='+props.favTattooPhotoLink+'&favTattooStyleList='+props.favTattooStyleList+'&favArtistID='+props.artistId+'&user_id='+ctx.props.userId+'&idPhotoSelected='+props.idPhotoSelected
+        });
+      } else if(this.state.classLike == true){
+        var ctx = this;
+        fetch('http://localhost:3000/userdisliketattoo', {
+        method: 'PUT',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        body: 'idPhotoSelected='+props.idPhotoSelected+'&user_id='+ctx.props.userId
+        });
+      }
     }
-  }
+   }
 
   componentDidUpdate(prevProps){
     if (this.props.clickOnTattoo!==prevProps.clickOnTattoo && this.props.clickOnTattoo === true) {
@@ -87,6 +143,9 @@ class TattooModal extends React.Component {
   }
 
   render() {
+    let classLike = ["tattooLikeModal"]
+
+
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo
         key={i}
@@ -96,10 +155,11 @@ class TattooModal extends React.Component {
         tattooStyleList={map.tattooStyleList} />
     })
 
-    let classLike = ["tattooLikeModal"]
+
 
     if(this.state.classLike){
-      classLike.push("tatoo-liked")
+      classLike.push("tatoo-liked");
+      console.log("change of state");
     }
 
 
@@ -118,7 +178,7 @@ class TattooModal extends React.Component {
           <Row id="tattooImageAndArtistInfoBoxModal">
             <Col xs="12" md="7" id="tattooImageBoxModal">
               <img src={this.props.favTattooPhotoLink} id="tattooImageModal"/>
-              <FontAwesomeIcon onClick={() => this.handleLike(this.props)} icon={faHeart} className={classLike.join(" ")}/>
+              <FontAwesomeIcon onClick={() => this.handleLike(this.props)} icon={faHeart} className={this.state.classLike ? "tattooLikeModal tatoo-liked" : "tattooLikeModal"}/>
             </Col>
             <Col xs="12" md={{size: "5"}} >
               <TattooArtistCardModal artistId={this.props.artistId} />
@@ -135,4 +195,12 @@ class TattooModal extends React.Component {
   }
 }
 
-export default TattooModal;
+function mapStateToProps(store) {
+  return { userId: store.user._id,
+  }
+}
+
+export default connect(
+    mapStateToProps,
+    null
+)(TattooModal);
