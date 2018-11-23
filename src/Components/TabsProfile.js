@@ -13,11 +13,11 @@ class TabsProfile extends Component{
   render(){
     return(
       <MuiThemeProvider>
-        <Tabs className="tabsInsideProfile col-12">
-          <Tab className="singleTabInsideProfile " label="Vos Tatouages" style={{textAlign:"center", backgroundColor:"" }}>
+        <Tabs className="container tabsInsideProfile col-12">
+          <Tab className="row singleTabInsideProfile" label="Vos Tatouages" style={{textAlign:"center", backgroundColor:"" }}>
             <FavTattoosProfile />
           </Tab>
-          <Tab className="singleTabInsideProfile" label="Vos Tatoueurs" >
+          <Tab className="row singleTabInsideProfile" label="Vos Tatoueurs" >
             <FavArtistsProfile />
           </Tab>
         </Tabs>

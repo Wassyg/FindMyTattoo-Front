@@ -60,7 +60,7 @@ componentDidMount(){
   .then(function(data) {
      ctx.setState({
        artistName: data.result.artistNickname,
-       artistEmail: 'wguerrouani@gmail.com'
+       artistEmail: 'noel@lacapsule.academy'
      })
      })
    .catch(function(error) {
