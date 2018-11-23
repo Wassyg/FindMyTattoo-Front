@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 //Import des composants externes
 import CardTatoo from '../Components/CardTatoo.js';
 import TattooArtistCardModal from '../Components/TattooArtistCardModal.js';
+import AuthForm from '../Components/AuthForm.js';
 
 //Import des librairies ou composants de style
 import '../Stylesheets/TattooModal.css';
@@ -27,7 +28,8 @@ class TattooModal extends React.Component {
       collapse: false ,
       pictureData:[],
       visible: false,
-      classLike: false
+      classLike: false,
+      clickOnForm : false,
     };
   }
 
@@ -53,7 +55,9 @@ class TattooModal extends React.Component {
 
   handleLike = (props) =>{
     if(this.props.userId == null){
-      alert("connecte toi....")
+      this.setState({
+        clickOnForm: !this.state.clickOnForm
+      })
     }else{
       this.setState({classLike: !this.state.classLike});
 
@@ -123,6 +127,7 @@ class TattooModal extends React.Component {
         bodyStyle = {{backgroundColor : "#F7F7F7", fontFamily: 'Roboto Condensed'}}
       >
         <Container>
+          <AuthForm clickOnForm={this.state.clickOnForm}/>
           <Row id="tattooImageAndArtistInfoBoxModal">
             <Col xs="12" md="7" id="tattooImageBoxModal">
               <img src={this.props.favTattooPhotoLink} id="tattooImageModal"/>

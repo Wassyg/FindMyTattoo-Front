@@ -34,6 +34,14 @@ class AuthForm extends React.Component {
     this.handleSignUp = this.handleSignUp.bind(this);
   }
 
+  componentDidUpdate(prevProps){
+    if (this.props.clickOnForm!==prevProps.clickOnForm && this.props.clickOnForm === true) {
+      this.setState({
+        modal : true,
+      });
+    }
+  }
+  
   toggle() {
     this.setState({
       modal: !this.state.modal,
@@ -115,7 +123,6 @@ class AuthForm extends React.Component {
   render() {
     return (
       <div>
-        <Button outline color="warning" onClick={this.toggle}><FontAwesomeIcon icon={faUser} className="fa-lg"/></Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}></ModalHeader>
           <ModalBody>
