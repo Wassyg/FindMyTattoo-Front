@@ -15,7 +15,7 @@ class TabsProfile extends Component{
       <MuiThemeProvider>
         <Tabs className="tabsInsideProfile col-12">
           <Tab className="singleTabInsideProfile " label="Vos Tatouages" style={{textAlign:"center", backgroundColor:"" }}>
-            <FavTattoosProfile  />
+            <FavTattoosProfile />
           </Tab>
           <Tab className="singleTabInsideProfile" label="Vos Tatoueurs" >
             <FavArtistsProfile />

@@ -24,25 +24,6 @@ import MenuItem from 'material-ui/MenuItem';
 import {connect} from 'react-redux';
 
 
-
-/**
- * Vertical steppers are designed for narrow screen sizes. They are ideal for mobile.
- *
- * To use the vertical stepper with the contained content as seen in spec examples,
- * you must use the `<StepContent>` component inside the `<Step>`.
- *
- * <small>(The vertical stepper can also be used without `<StepContent>` to display a basic stepper.)</small>
- */
-
- // class ModalProjectForm extends Component{
- //   render(){
- //     return(
- //
- //   )}
- // };
-
-
-
 class ProjectForm extends React.Component {
  constructor(props){
    super(props);
@@ -57,7 +38,7 @@ class ProjectForm extends React.Component {
      description: "",
      phone:"",
      availability:"",
-     value: 1,
+     value: "Définissez un créneau",
      visible: false,
      artistName:'',
      artistEmail:''
@@ -71,6 +52,7 @@ class ProjectForm extends React.Component {
  }
 componentDidMount(){
   var ctx = this;
+//collecter les informations de l'artiste depuis la DB
   fetch('http://localhost:3000/artist?artist_id='+this.props.artistId)
   .then(function(response) {
     return response.json();
@@ -78,7 +60,7 @@ componentDidMount(){
   .then(function(data) {
      ctx.setState({
        artistName: data.result.artistNickname,
-       artistEmail: data.result.artistEmail
+       artistEmail: 'wguerrouani@gmail.com'
      })
      })
    .catch(function(error) {
@@ -97,15 +79,47 @@ componentDidUpdate(prevProps){
  handleChange(event,index, value) {
      this.setState({
        [event.target.name]: event.target.value,
-       value: value
+       value:value
      });
    }
+
+
 //fetch update à mettre en place pour BDD User
   handleNext(){
-    this.setState({
+    console.log("this.state", this.state);
+  var ctx = this;
+    fetch('http://localhost:3000/newlead', {
+      method: 'POST',
+      headers: {'Content-Type':'application/x-www-form-urlencoded'},
+      body: 'userID='+this.props.userID +'&artistID='+this.props.artistId +'&dateLead='+ Date.now()
+    });
+
+    ctx.setState({
       stepIndex: this.state.stepIndex + 1,
       finished: this.state.stepIndex >= 2,
-    });
+    })
+
+//si on est sur la dernière page du form, envoyer les informations (user depuis le Store et tatoueur depuis la DB) au tatoueur à travers Zapier
+    if(this.state.stepIndex === 2){
+      // console.log("this.props.userEmail ==>" + this.props.userEmail + "this.state.artistName==>" + this.state.artistName + "this.props.userTelephone" + this.state.phone);
+
+      //wguerrouani@gmail.com
+
+      fetch('https://hooks.zapier.com/hooks/catch/4067341/cbsyve/', {
+      method: 'POST',
+      headers: {'Content-Type':'application/x-www-form-urlencoded'},
+      body: 'artistName='+this.state.artistName+'&artistEmail='+this.state.artistEmail+'&userFirstName='+this.props.userFirstName+'&userEmail='+this.props.userEmail+'&userTelephone='+this.state.phone+'&userTattooDescription='+this.state.description+'&userAvailability='+this.state.value+'&userFavoriteTattoo='+this.props.userFavoriteTattoo
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        console.log(data)
+         })
+       .catch(function(error) {
+        console.log('Request failed', error);
+      });
+    }
   };
 
   handlePrev(){
@@ -122,7 +136,7 @@ componentDidUpdate(prevProps){
     return (
       <div style={{margin: '12px 0'}}>
         <RaisedButton
-          label={stepIndex === 2 ? 'Envoyer' : 'Suivant'}
+          label={stepIndex === 2 ? 'Envoyer':'Suivant'}
           disableTouchRipple={true}
           disableFocusRipple={true}
           primary={true}
@@ -143,7 +157,8 @@ componentDidUpdate(prevProps){
   }
 
   render() {
-    const {finished, stepIndex, description, phone, availability} = this.state;
+    console.log("userID donc store OK", this.props.userID);
+    const {finished, stepIndex, description, phone, availability, value} = this.state;
     return (
   <MuiThemeProvider>
     {/* <Button color="danger" onClick={this.toggle}>Formulaire</Button> */}
@@ -182,7 +197,7 @@ componentDidUpdate(prevProps){
                 onChange={this.handleChange}
                 value={this.state.phone}
               />
-            {this.renderStepActions(1)}
+              {this.renderStepActions(1)}
             </StepContent>
           </Step>
           <Step>
@@ -192,34 +207,21 @@ componentDidUpdate(prevProps){
                   name="availability"
                   fullWidth={true}
                   onChange={this.handleChange}
-                  value={this.state.value}
-                >
-                  <MenuItem value={1} primaryText="Définissez un créneau" />
-                  <MenuItem value={2} primaryText="midi (entre 12h et 14h)" />
-                  <MenuItem value={3} primaryText="après-midi (entre 14h et 17h)" />
-                  <MenuItem value={4} primaryText="soir (entre 17h et 19h)" />
+                  value={this.state.value}>
+
+                  <MenuItem value="Définissez un créneau" primaryText="Définissez un créneau" />
+                  <MenuItem value="midi (entre 12h et 14h)"
+                    primaryText="midi (entre 12h et 14h)" />
+                  <MenuItem value="après-midi (entre 14h et 17h)"
+                    primaryText="après-midi (entre 14h et 17h)" />
+                  <MenuItem value="soir (entre 17h et 19h)"
+                    primaryText="soir (entre 17h et 19h)" />
               </SelectField>
               {this.renderStepActions(2)}
             </StepContent>
           </Step>
-
         </Stepper>
-        {finished && (
-          <p style={{margin: '20px 0', textAlign: 'center'}}>
-            Votre demande a bien été envoyée !
-            {/* <a
-              href="#"
-              onClick={(event) => {
-                event.preventDefault();
-                this.setState({stepIndex: 0, finished: false});
-              }}
-            >
-              <br/>
-            Cliquez ici
-            </a> pour envoyer une nouvelle demande */}
-          </p>
-            )}
-
+        {finished && (<p style={{margin: '20px 0', textAlign: 'center'}}>Votre demande a bien été envoyée à {this.state.artistName} !</p>)}
       </ModalBody>
     </Modal>
     </div>
@@ -229,7 +231,9 @@ componentDidUpdate(prevProps){
 }
 
 function mapStateToProps(store) {
+  console.log("user depuis le reducer", store.user);
   return {
+    userID: store.user._id,
     userFirstName: store.user.userFirstName,
     userEmail: store.user.userEmail,
     userTelephone: store.user.userTelephone,
@@ -237,6 +241,7 @@ function mapStateToProps(store) {
     userTattooDescription: store.user.userTattooDescription,
     userAvailability: store.user.userAvailability
   }
+
 }
 
 export default connect(

@@ -48,7 +48,6 @@ class AuthForm extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-    console.log(event.target.name, event.target.value);
   }
 
   //Method to create user in database

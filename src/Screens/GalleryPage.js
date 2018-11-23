@@ -53,7 +53,7 @@ class GalleryPage extends Component{
       <div>
         <NavBar />
         <HomePage />
-      <div className="container">
+      <div className="container galleryPageContainer">
         <div className="row gallery-container">
           {pictureList}
         </div>
