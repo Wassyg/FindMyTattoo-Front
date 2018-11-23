@@ -6,8 +6,11 @@ import AuthForm from '../Components/AuthForm.js';
 
 //Import des librairies ou composants de style
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, NavbarBrand, NavbarNav, NavItem, NavbarToggler, Collapse} from "mdbreact";
+import { Navbar, NavbarBrand, NavbarNav, NavItem, NavbarToggler, Collapse, Button} from "mdbreact";
 import '../Stylesheets/NavBar.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {  } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-regular-svg-icons'
 
 import {connect} from 'react-redux';
 
@@ -15,7 +18,14 @@ class NavbarPage extends Component {
   state = {
     isOpen: false,
     scroll: 0,
+    clickOnForm : false,
   };
+
+  toggleAuth = () => {
+    this.setState({
+      clickOnForm: !this.state.clickOnForm
+    })
+  }
 
   componentDidMount() {
      window.addEventListener('scroll', this.handleScroll);
@@ -48,8 +58,9 @@ class NavbarPage extends Component {
         <NavbarBrand>
           <strong className={classLogoNav.join(" ")}>Find my Tattoo</strong>
         </NavbarBrand>
-        <AuthForm/>
-      <p className="nav-btn">{this.props.user.userFirstName}</p>
+        <Button outline color="warning" onClick={()=>this.toggleAuth()}><FontAwesomeIcon icon={faUser} className="fa-lg"/></Button>
+        <AuthForm clickOnForm={this.state.clickOnForm}/>
+        <p>{this.props.user.userFirstName}</p>
         <NavbarToggler
           onClick={() => this.toggleCollapse()}
         />

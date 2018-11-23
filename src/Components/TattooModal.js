@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 //Import des composants externes
 import CardTatoo from '../Components/CardTatoo.js';
 import TattooArtistCardModal from '../Components/TattooArtistCardModal.js';
+import AuthForm from '../Components/AuthForm.js';
 
 //Import des librairies ou composants de style
 import '../Stylesheets/TattooModal.css';
@@ -17,12 +18,7 @@ import { Modal } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
-function checkAndAdd(arr,IdTattooSelected) {
-  var found = arr.some(function (el) {
-    return el.tattoo_id === IdTattooSelected;
-  });
-  return found
- }
+
 //// Composant modal qui affiche le tatouage agrandi, les infos tatoueurs et la gallerie des tatouages du tatoueur en question ////
 
 class TattooModal extends React.Component {
@@ -33,7 +29,7 @@ class TattooModal extends React.Component {
       pictureData:[],
       visible: false,
       classLike: false,
-      idPhotoSelected: this.props.idPhotoSelected,
+      clickOnForm : false,
     };
   }
 
@@ -91,10 +87,11 @@ class TattooModal extends React.Component {
 
   handleLike = (props) =>{
     if(this.props.userId == null){
-      alert("connecte toi....")
+      this.setState({
+        clickOnForm: !this.state.clickOnForm
+      })
     }else{
       this.setState({classLike: !this.state.classLike});
-
 
       if(this.state.classLike == false){
         var ctx = this;
@@ -140,8 +137,6 @@ class TattooModal extends React.Component {
   }
 
   render() {
-    let classLike = ["tattooLikeModal"]
-
 
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo
@@ -171,6 +166,7 @@ class TattooModal extends React.Component {
         bodyStyle = {{backgroundColor : "#F7F7F7", fontFamily: 'Roboto Condensed'}}
       >
         <Container>
+          <AuthForm clickOnForm={this.state.clickOnForm}/>
           <Row id="tattooImageAndArtistInfoBoxModal">
             <Col xs="12" md="7" id="tattooImageBoxModal">
               <img src={this.props.favTattooPhotoLink} id="tattooImageModal"/>

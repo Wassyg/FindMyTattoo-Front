@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../Stylesheets/CardTatoo.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {connect} from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchPlus } from '@fortawesome/free-solid-svg-icons';
@@ -17,6 +18,7 @@ class CardTatoo extends Component {
     };
   }
 
+
   handleClick = (props) => {
     this.setState({
       clickOnTattoo: !this.state.clickOnTattoo
@@ -24,7 +26,7 @@ class CardTatoo extends Component {
   }
 
   render(){
-    
+
     return(
       <div className=" col-12 col-md-3 card-container">
         <TattooModal
@@ -44,4 +46,13 @@ class CardTatoo extends Component {
   }
 }
 
-export default CardTatoo;
+
+function mapStateToProps(store) {
+  return { userId: store.user._id,
+  }
+}
+
+export default connect(
+    mapStateToProps,
+    null
+)(CardTatoo);
