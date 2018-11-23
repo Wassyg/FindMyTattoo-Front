@@ -5,7 +5,7 @@ import { ScrollTo } from "react-scroll-to";
 
 import NavBar from '../Components/NavBar.js';
 import GalleryPage from './GalleryPage.js';
-
+import Logo from '../Assets/logos/logoBlanc.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronCircleDown } from '@fortawesome/free-solid-svg-icons'
@@ -20,9 +20,9 @@ class HomePage extends Component {
     return (
 
     <div className="container-homePageContainer">
-      <h1>Find My Tattoo</h1>
       <div className="text-accueil">
-        vous aide à construire votre projet et à trouver le tatoueur ou la tatoueuse idéal(e)
+        <h1 className="findMyTattooTitle">Find My Tattoo</h1>
+        <h2>vous aide à construire votre projet et à trouver le tatoueur ou la tatoueuse idéal(e)</h2>
       </div>
 
 

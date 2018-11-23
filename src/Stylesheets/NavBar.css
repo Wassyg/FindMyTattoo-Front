@@ -17,20 +17,14 @@ z-index: 1;
 .logo-navbar{
   font-family: "Lobster Two";
   font-size: 30px;
-  color: #596275;
-}
-.logo-navbar-scrolled{
   color: #fff;
 }
 
 /* boutons navigation de la navbar */
 .nav-btn{
-  color: #596275;
+  color: #fff;
   font-size: 20px;
   margin: 15px;
-}
-.nav-btn-scrolled{
-  color: #fff;
 }
 
 /* boutons sign in/up de la navbar */

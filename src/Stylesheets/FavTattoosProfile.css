@@ -1,12 +1,9 @@
 .containerTattoos{
-  border: 1px solid #ced6e0;
   overflow: scroll;
   height: 100vh;
   background-color: #F7F7F790;
 }
-.rowTattoos{
-  background-color: #F7F7F780;
-}
+
 
 .cardTitle{
 font-size: 15px;

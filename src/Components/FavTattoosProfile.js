@@ -18,42 +18,46 @@ class FavTattoosProfile extends React.Component {
     }
   }
 
-  ComponentDidMount() {
+  componentDidMount() {
     var ctx= this;
-    fetch("http://localhost:3000/user?user_id=" + this.props.userId)
-          .then((response)=> response.json())
-          .then((user)=> {
-            var tattoosListCopy =[...ctx.state.tattoosList];
-            user.map(function(user){
-              tattoosListCopy.push(user.userFavoriteTattoo.tattoo_id);
-            })
-
-            ctx.setState({
-              tattoosList : tattoosListCopy
-            })
-              })
-          .catch((error)=> console.log('Request failed', error));
-  }
+    fetch('http://localhost:3000/user?user_id='+ctx.props.userID)
+    .then(function(response) {
+     return response.json()
+    })
+    .then(function(data) {
+      console.log("data du fetch===>", data);
+               var tattoosListCopy =[...ctx.state.tattoosList];
+               var userFavoriteTattoo = data.result.userFavoriteTattoo;
+               userFavoriteTattoo.map(function(favTattoos){
+                 tattoosListCopy.push(favTattoos);
+               })
+               ctx.setState({
+                 tattoosList : tattoosListCopy
+               })
+             })
+    .catch(function(error) {
+     console.log('Request failed', error);
+   });
+ }
 
   render() {
-  console.log("tattoosList", this.state.tattoosList);
         var tattoosList = this.state.tattoosList;
-        //   var tattoosList = [{
-        //     artistName:"Bichon", src:"",
-        //     artistName:"Bichon", src:"",
-        //     artistName:"Bichon", src:""
-        // }]
+        console.log("tattoosList==>",tattoosList)
+
         var tattoosDisplayedCards = tattoosList.map(function(tattoo, i){
           return <CardTatoo
            key={i}
-           artistName={tattoo.artistName}
-           tattooImage={tattoo.src}/>
+           artistID={tattoo.artistID}
+           tattooPhotoLink={tattoo.tattooPhotoLink}
+           tattooStyleList={tattoo.tattooStyleList}
+           tattooPhotoID={tattoo.tattooPhotoID}
+         />
        })
-
+//c.dajeans@gmail.com
     return (
       <div className="containerTattoos">
-          <div className="row rowTattoos">
-            {tattoosDisplayedCards}
+          <div className="row">
+          {tattoosDisplayedCards}
           </div>
       </div>
     )
@@ -95,7 +99,7 @@ class FavTattoosProfile extends React.Component {
 //   }
 // }
 function mapStateToProps(store) {
-  return { userId: store.user._id,
+  return { userID: store.user._id
   }
 }
 

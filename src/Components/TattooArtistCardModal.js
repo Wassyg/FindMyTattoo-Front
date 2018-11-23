@@ -18,13 +18,13 @@ class TattooArtistCardModal extends React.Component {
     this.handleClickSend = this.handleClickSend.bind(this);
     this.state = {
       clickToSend: false,
-      artistNickname: "",
-      artistCompanyName: "",
+      artistNickname: this.props.artistNickname,
+      artistCompanyName: this.props.artistCompanyName,
       artistAddress: "",
       artistStyleList1: "",
       artistStyleList2: "",
       artistDescription:"",
-      artistPhotoLink:""
+      artistPhotoLink:this.props.artistPhotoLink
       // artistsList: []
     }
   }

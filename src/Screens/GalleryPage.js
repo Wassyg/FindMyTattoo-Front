@@ -45,6 +45,7 @@ class GalleryPage extends Component{
     this.setState({ collapse: !this.state.collapse });
   }
   render(){
+console.log("pour le format ID du tattoo ===>", this.state.pictureData);
 
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo key={i} idPicture={map._id} tattooPhotoLink={map.tattooPhotoLink} artistId={map.artistID} tattooStyleList={map.tattooStyleList}  />

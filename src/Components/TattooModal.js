@@ -39,7 +39,7 @@ class TattooModal extends React.Component {
 
   componentDidMount(){
 
-    
+
     if(this.props.userId != null){
       var ctx = this;
       fetch('http://localhost:3000/user?user_id='+ctx.props.userId)
@@ -48,11 +48,8 @@ class TattooModal extends React.Component {
       })
       .then(function(data) {
         if (checkAndAdd(data.result.userFavoriteTattoo,ctx.state.idPhotoSelected)) {
-          console.log("&&ok");
           ctx.setState({classLike: true});
 
-        } else{
-          console.log("&&&false");
         }
         // data.result.userFavoriteTattoo.map(function(map){
         //   console.log("like user",map.tattoo_id);
@@ -159,7 +156,6 @@ class TattooModal extends React.Component {
 
     if(this.state.classLike){
       classLike.push("tatoo-liked");
-      console.log("change of state");
     }
 
 
