@@ -68,14 +68,14 @@ class TattooModal extends React.Component {
 
       if(this.state.classLike == false){
         var ctx = this;
-        fetch('http://localhost:3000/userliketattoo', {
+        fetch(urlHeroku+'/userliketattoo', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favTattooPhotoLink='+ctx.props.dataModal.favTattooPhotoLink+'&favTattooStyleList1='+ctx.props.dataModal.favTattooStyleList[0]+'&favTattooStyleList2='+ctx.props.dataModal.favTattooStyleList[1]+'&favTattooStyleList3='+ctx.props.dataModal.favTattooStyleList[2]+'&favArtistID='+ctx.props.dataModal.favArtistID+'&user_id='+ctx.props.userId+'&favTattooID='+ctx.props.dataModal.favTattooID
         });
       } else if(this.state.classLike == true){
         var ctx = this;
-        fetch('http://localhost:3000/userdisliketattoo', {
+        fetch(urlHeroku+'/userdisliketattoo', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favTattooID='+ctx.props.dataModal.favTattooID+'&user_id='+ctx.props.userId
@@ -91,7 +91,7 @@ class TattooModal extends React.Component {
       })
       var ctx = this;
       // Récupération de la liste des tatouages du tatoueur en question
-      fetch('http://localhost:3000/tattoosfromartist?artistID='+ctx.props.dataModal.artistId)
+      fetch(urlHeroku+'/tattoosfromartist?artistID='+ctx.props.dataModal.artistId)
       .then(function(response) {
        return response.json();
       })

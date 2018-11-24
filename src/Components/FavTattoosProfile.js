@@ -22,7 +22,7 @@ class FavTattoosProfile extends React.Component {
   componentDidMount() {
     var ctx= this;
 
-    fetch('http://localhost:3000/user?user_id='+ctx.props.userID)
+    fetch(urlHeroku+'/user?user_id='+ctx.props.userID)
     .then(function(response) {
      return response.json()
     })

@@ -53,7 +53,7 @@ class ProjectForm extends React.Component {
 componentDidMount(){
   var ctx = this;
 //collecter les informations de l'artiste depuis la DB
-  fetch('http://localhost:3000/artist?artist_id='+this.props.artistId)
+  fetch(urlHeroku+'/artist?artist_id='+this.props.artistId)
   .then(function(response) {
     return response.json();
   })
@@ -87,7 +87,7 @@ componentDidUpdate(prevProps){
 //fetch pour créer un nouveau lead et updater coté backend la DB User
   handleNext(){
   var ctx = this;
-    fetch('http://localhost:3000/newlead', {
+    fetch('urlHeroku/newlead', {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
       body: 'userID='+this.props.userID +'&artistID='+this.props.artistId +'&dateLead='+ Date.now()

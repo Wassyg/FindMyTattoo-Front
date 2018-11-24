@@ -25,7 +25,7 @@ class FavArtistsProfile extends React.Component {
   componentDidMount() {
 
       var ctx = this;
-      fetch("http://localhost:3000/user?user_id=" + this.props.userId)
+      fetch(urlHeroku+"/user?user_id=" + this.props.userId)
       .then(function(response) {
         return response.json();
       }).then(function(data) {

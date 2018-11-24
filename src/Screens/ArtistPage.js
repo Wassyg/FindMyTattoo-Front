@@ -26,7 +26,7 @@ class ArtistPage extends Component{
   componentDidMount() {
     // find all artist
     var ctx = this;
-    fetch('http://localhost:3000/artists')
+    fetch('urlHeroku/artists')
     .then(function(response) {
       return response.json();
     })
