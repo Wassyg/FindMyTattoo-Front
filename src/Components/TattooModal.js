@@ -80,13 +80,13 @@ class TattooModal extends React.Component {
    }
 
   componentDidUpdate(prevProps){
-    if (this.props.clickOnTattoo!==prevProps.clickOnTattoo && this.props.clickOnTattoo === true) {
+    if (this.props.dataModal.clickOnTattoo!==prevProps.dataModal.clickOnTattoo && this.props.dataModal.clickOnTattoo === true) {
       this.setState({
         visible : true,
       })
       var ctx = this;
       // Récupération de la liste des tatouages du tatoueur en question
-      fetch('http://localhost:3000/tattoosfromartist?artistID='+ctx.props.artistId)
+      fetch('http://localhost:3000/tattoosfromartist?artistID='+ctx.props.dataModal.artistId)
       .then(function(response) {
        return response.json();
       })
@@ -105,6 +105,8 @@ class TattooModal extends React.Component {
   }
 
   render() {
+
+    console.log('result reducer',this.props.dataModal.clickOnTattoo);
 
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo
@@ -130,11 +132,11 @@ class TattooModal extends React.Component {
           <AuthForm clickOnForm={this.state.clickOnForm}/>
           <Row id="tattooImageAndArtistInfoBoxModal">
             <Col xs="12" md="7" id="tattooImageBoxModal">
-              <img src={this.props.favTattooPhotoLink} id="tattooImageModal"/>
+              <img src={this.props.dataModal.favTattooPhotoLink} id="tattooImageModal"/>
               <FontAwesomeIcon onClick={() => this.handleLike(this.props)} icon={faHeart} className={this.state.classLike ? "tattooLikeModal tatoo-liked" : "tattooLikeModal"}/>
             </Col>
             <Col xs="12" md={{size: "5"}} >
-              <TattooArtistCardModal artistId={this.props.artistId} />
+              <TattooArtistCardModal artistId={this.props.dataModal.artistId} />
             </Col>
           </Row>
           <hr id="separationModal"/>
@@ -148,8 +150,11 @@ class TattooModal extends React.Component {
   }
 }
 
+
 function mapStateToProps(store) {
-  return { userId: store.user._id,
+  return {
+     userId: store.user._id,
+     dataModal: store.dataModal
   }
 }
 

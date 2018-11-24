@@ -7,6 +7,7 @@ import '../Stylesheets/GalleryPage.css'
 import HomePage from './HomePage.js'
 import NavBar from '../Components/NavBar.js';
 import CardTatoo from '../Components/CardTatoo.js';
+import TattooModal from '../Components/TattooModal.js';
 
 
 
@@ -54,7 +55,8 @@ console.log("pour le format ID du tattoo ===>", this.state.pictureData);
       <div>
         <NavBar />
         <HomePage />
-      <div className="container galleryPageContainer">
+        <TattooModal />
+      <div className="container">
         <div className="row gallery-container">
           {pictureList}
         </div>
