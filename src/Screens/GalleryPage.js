@@ -49,19 +49,24 @@ class GalleryPage extends Component{
 console.log("pour le format ID du tattoo ===>", this.state.pictureData);
 
     let pictureList = this.state.pictureData.map(function(map, i){
-      return <CardTatoo key={i} idPicture={map._id} tattooPhotoLink={map.tattooPhotoLink} artistId={map.artistID} tattooStyleList={map.tattooStyleList}  />
+      return <CardTatoo
+        key={i}
+        tattooId={map._id}
+        tattooPhotoLink={map.tattooPhotoLink}
+        artistId={map.artistID}
+        tattooStyleList={map.tattooStyleList}  />
     })
     return(
       <div>
         <NavBar />
         <HomePage />
         <TattooModal />
-      <div className="container">
-        <div className="row gallery-container">
+        <div className="container">
+          <div className="row gallery-container">
           {pictureList}
+          </div>
         </div>
       </div>
-    </div>
     )
   }
 }

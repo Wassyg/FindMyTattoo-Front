@@ -1,5 +1,6 @@
 //fiche artiste qui se trouve à l'intérieur du TattooModal lorsqu'on cherche à agrandir une photo
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
 //Import des librairies ou composants de style
 import '../Stylesheets/TattooArtistCardModal.css';
@@ -8,9 +9,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button, Row, Col, Badge} from 'reactstrap';
 
 import ProjectForm from '../Components/ProjectForm.js'
+import AuthForm from '../Components/AuthForm.js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faMapMarkerAlt, faHeart, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faMapMarkerAlt, faHeart, faEnvelope, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 
 class TattooArtistCardModal extends React.Component {
@@ -18,6 +20,7 @@ class TattooArtistCardModal extends React.Component {
     super(props);
     this.handleClickSend = this.handleClickSend.bind(this);
     this.state = {
+      classLike : false,
       clickToSend: false,
       artistNickname: this.props.artistNickname,
       artistCompanyName: this.props.artistCompanyName,
@@ -26,7 +29,8 @@ class TattooArtistCardModal extends React.Component {
       artistStyleList2: this.props.artistStyleList2,
       artistStyleList3: this.props.artistStyleList3,
       artistDescription:this.props.artistDescription,
-      artistPhotoLink:this.props.artistPhotoLink
+      artistPhotoLink:this.props.artistPhotoLink,
+      clickOnForm: false
       // artistsList: []
     }
   }
@@ -38,7 +42,7 @@ class TattooArtistCardModal extends React.Component {
 
   componentDidMount(){
     var ctx = this;
-    fetch('http://localhost:3000/artist?artist_id='+ this.props.artistId)
+    fetch('http://localhost:3000/artist?artist_id='+ this.props.dataModal.favArtistID)
     .then(function(response) {
       return response.json();
     })
@@ -52,13 +56,43 @@ class TattooArtistCardModal extends React.Component {
          artistStyleList2: data.result.artistStyleList[1],
          artistStyleList3: data.result.artistStyleList[2],
          artistDescription: data.result.artistDescription,
-         artistPhotoLink: data.result.artistPhotoLink
+         artistPhotoLink: data.result.artistPhotoLink,
+         artistNote: data.result.artistNote
          })
        })
      .catch(function(error) {
       console.log('Request failed', error);
     });
   }
+
+  handleArtistLike = (props) =>{
+
+    if(this.props.userId == null){
+      this.setState({
+        clickOnForm: !this.state.clickOnForm
+      })
+    }else{
+      console.log("enter in handleartistlikefunction + condition1");
+      if(this.state.classLike === false){
+        console.log("enter in handleartistlikefunction + condition1 + false condition2");
+        var ctx = this;
+        fetch('http://localhost:3000/userlikeartist', {
+        method: 'PUT',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        body: 'favArtistNickname='+ctx.state.artistNickname+'&favArtistCompanyName='+ctx.state.artistCompanyName+'&favArtistAddress='+ctx.state.artistAddress+'&favArtistDescription='+ctx.state.artistDescription+'&favArtistPhotoLink='+ctx.state.artistPhotoLink+'&favArtistStyleList1='+ctx.state.artistStyleList1+'&favArtistStyleList2='+ctx.state.artistStyleList2+'&favArtistStyleList3='+ctx.state.artistStyleList3+'&favArtistNote='+ctx.state.artistNote+'&favArtistID='+ctx.props.dataModal.favArtistID+'&user_id='+ctx.props.userId
+        });
+      } else {
+        console.log("enter in handleartistlikefunction + condition1 + true condition2");
+        var ctx = this;
+        fetch('http://localhost:3000/userdislikeartist', {
+        method: 'PUT',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        body: 'favArtistID='+ctx.props.dataModal.favArtistID+'&user_id='+ctx.props.userId
+        });
+      }
+      this.setState({classLike: !this.state.classLike});
+    }
+   }
 
   render () {
 
@@ -67,6 +101,7 @@ class TattooArtistCardModal extends React.Component {
       <Card id="artistInfoBoxModal">
         <CardBody>
           <Row>
+            <AuthForm clickOnForm={this.state.clickOnForm}/>
             <Col xs="4" id="artistInfoLeftBoxModal">
               <img src={this.state.artistPhotoLink} alt="Card image cap" id="artistImageModal" />
               <div id="artistStarRateModal">
@@ -76,8 +111,14 @@ class TattooArtistCardModal extends React.Component {
                 <FontAwesomeIcon icon={faStar} className="artistStarIconModal fa-xs"/>
                 <FontAwesomeIcon icon={faStar} className="artistStarIconModal fa-xs"/>
               </div>
-              <Button outline color="success" size="sm" className="artistButtonModal" ><FontAwesomeIcon icon={faHeart} className="fa-xs"/> Garder</Button>
-              <Button outline color="success" size="sm" className="artistButtonModal" onClick={this.handleClickSend}> <ProjectForm  clickToSend={this.state.clickToSend} artistId={this.props.artistId}/> <FontAwesomeIcon icon={faEnvelope} className="fa-xs"/> Contacter</Button>
+              {
+                !this.state.classLike ?
+                <Button outline color="success" size="sm" className="artistButtonModal" onClick={()=>this.handleArtistLike()}><FontAwesomeIcon icon={faHeart} className="fa-xs"/> Garder</Button>
+                  :
+                <Button outline color="secondary" size="sm" className="artistButtonModal" onClick={()=>this.handleArtistLike()}><FontAwesomeIcon icon={faTimesCircle} className="fa-xs"/> Retirer</Button>
+              }
+              <Button outline color="success" size="sm" className="artistButtonModal" onClick={this.handleClickSend}>
+              <ProjectForm  clickToSend={this.state.clickToSend} artistId={this.props.artistId}/> <FontAwesomeIcon icon={faEnvelope} className="fa-xs"/> Contacter</Button>
             </Col>
             <Col xs="8">
               <CardTitle id="artistNameModal">{this.state.artistNickname}</CardTitle>
@@ -101,5 +142,14 @@ class TattooArtistCardModal extends React.Component {
   }
 };
 
+function mapStateToProps(store) {
+  return {
+     userId: store.user._id,
+     dataModal: store.dataModal
+  }
+}
 
-export default TattooArtistCardModal;
+export default connect(
+    mapStateToProps,
+    null
+)(TattooArtistCardModal);

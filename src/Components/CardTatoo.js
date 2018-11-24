@@ -52,8 +52,8 @@ function mapDispatchToProps(dispatch) {
           type: 'openModal',
           clickOnTattoo:props.isOpen,
           favTattooPhotoLink:props.tattooPhotoLink,
-          artistId:props.artistId,
-          idPhotoSelected:props.idPicture,
+          favArtistID:props.artistId,
+          favTattooID:props.tattooId,
           favTattooStyleList:props.tattooStyleList,
          })
     },
