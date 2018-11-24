@@ -5,13 +5,14 @@
 }
 
 .rowTattoosProfile{
-  margin : 5px; 
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .cardTitle{
 font-size: 15px;
-}
-
-.containerCard{
-  /* margin-bottom: 5px; */
 }

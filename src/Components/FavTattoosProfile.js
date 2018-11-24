@@ -14,31 +14,33 @@ class FavTattoosProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      clickOnTattoo: false,
       tattoosList: []
     }
   }
 
   componentDidMount() {
     var ctx= this;
+
     fetch('http://localhost:3000/user?user_id='+ctx.props.userID)
     .then(function(response) {
      return response.json()
     })
     .then(function(data) {
-      console.log("data du fetch===>", data);
                var tattoosListCopy =[...ctx.state.tattoosList];
                var userFavoriteTattoo = data.result.userFavoriteTattoo;
                userFavoriteTattoo.map(function(favTattoos){
                  tattoosListCopy.push(favTattoos);
                })
                ctx.setState({
-                 tattoosList : tattoosListCopy
+                 tattoosList : tattoosListCopy,
                })
              })
     .catch(function(error) {
      console.log('Request failed', error);
    });
  }
+
 
   render() {
         var tattoosList = this.state.tattoosList;
@@ -53,10 +55,9 @@ class FavTattoosProfile extends React.Component {
            tattooPhotoID={tattoo.tattooPhotoID}
          />
        })
-//c.dajeans@gmail.com
     return (
       <div className="containerTattoosProfile">
-          <div className="row rowTattoosProfile">
+          <div className="row rowTattoosProfile col-12">
           {tattoosDisplayedCards}
           </div>
       </div>
@@ -64,46 +65,7 @@ class FavTattoosProfile extends React.Component {
   }
 }
 
-// class TattooCard extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       isMouseOver: false
-//     }
-//   }
-//
-//   handleMouseOver = () => {
-//     this.setState({isMouseOver: true});
-//   }
-//
-//   handleMouseOut = () => {
-//     this.setState({isMouseOver: false});
-//   }
-//
-//   render() {
-//     console.log("this.state.isMouseOver", this.state.isMouseOver);
-//
-//     return(
-//       <div className="containerCard" onMouseOver ={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
-//
-//            <div id="imgContainer">
-//              <CardImg id ="TattooImg" src={this.props.tattooImage} alt="Card image cap"/>
-//                {this.state.isMouseOver
-//                ? <div className="infoArtistUnderImg">{this.props.artistName}</div>
-//                :<div></div>
-//              }
-//            </div>
-//
-//       </div>
-//     );
-//   }
-// }
-function mapStateToProps(store) {
-  return { userID: store.user._id
-  }
-}
 
-export default connect(
-    mapStateToProps,
-    null
-)(FavTattoosProfile);
+
+
+export default FavTattoosProfile;

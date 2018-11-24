@@ -54,15 +54,24 @@ class FavArtistsProfile extends React.Component {
     var artistsDisplayedCards = this.state.artistsList.map(function(artist, i) {
       return <ArtistCard
         key={i}
-        artistName={artist.artistNickname} artistImage={artist.artistPhotoLink}
-        tattooShop={artist.artistCompanyName}
+        artistName={artist.artistNickname}
+        artistImage={artist.artistPhotoLink}
+        artistCompanyName={artist.artistCompanyName}
+        artistDescription={artist.artistDescription}
+        artistAddress={artist.artistAddress}
+        artistStyleList1={artist.artistStyleList.join("").split(",")[0]}
+        artistStyleList2={artist.artistStyleList.join("").split(",")[1]}
+        artistStyleList3={artist.artistStyleList.join("").split(",")[2]}
         artistID={artist._id}
       />
     })
 
-    return (<div className="containerArtist col-12">
-      {artistsDisplayedCards}
-    </div>);
+    return (
+      <div className="containerArtistProfile">
+      <div className="row rowArtistProfile col-12">
+        {artistsDisplayedCards}
+      </div>
+      </div>);
   }
 }
 
@@ -72,24 +81,30 @@ class ArtistCard extends React.Component {
     this.state ={
       artistName : this.props.artistName,
       artistImage : this.props.artistImage,
-      tattooShop : this.props.tattooShop,
+      artistCompanyName : this.props.artistCompanyName,
+      artistDescription : this.props.artistDescription,
+      artistAddress : this.props.artistAddress,
+      artistStyleList1 : this.props.artistStyleList1,
+      artistStyleList2 : this.props.artistStyleList2,
+      artistStyleList3 : this.props.artistStyleList3,
       artistID : this.props.artistID
     }
   }
   render() {
     return (
-      <Container style={{padding:10}}>
-        <Row id="tattooImageAndArtistInfoBoxModal">
-          <Col xs="12" md={{size: "5"}} >
+          <div className="col-12 col-sm-6 col-md-4" style={{padding:10, height:380, overflow: "scroll"}} >
             <TattooArtistCardModal
               artistNickname = {this.state.artistName}
               artistPhotoLink = {this.state.artistImage}
-              artistCompanyName = {this.state.tattooShop}
+              artistCompanyName = {this.state.artistCompanyName}
+              artistDescription = {this.state.artistDescription}
+              artistAddress = {this.state.artistAddress}
+              artistStyleList1 = {this.state.artistStyleList1}
+              artistStyleList2 = {this.state.artistStyleList2}
+              artistStyleList3 = {this.state.artistStyleList3}
               artistID = {this.state.artistID}
             />
-          </Col>
-        </Row>
-      </Container>
+          </div>
     );
   }
 }

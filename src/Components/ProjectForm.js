@@ -84,26 +84,21 @@ componentDidUpdate(prevProps){
    }
 
 
-//fetch update à mettre en place pour BDD User
+//fetch pour créer un nouveau lead et updater coté backend la DB User
   handleNext(){
-    console.log("this.state", this.state);
   var ctx = this;
     fetch('http://localhost:3000/newlead', {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
       body: 'userID='+this.props.userID +'&artistID='+this.props.artistId +'&dateLead='+ Date.now()
     });
-
-    ctx.setState({
+    this.setState({
       stepIndex: this.state.stepIndex + 1,
       finished: this.state.stepIndex >= 2,
     })
 
 //si on est sur la dernière page du form, envoyer les informations (user depuis le Store et tatoueur depuis la DB) au tatoueur à travers Zapier
     if(this.state.stepIndex === 2){
-      // console.log("this.props.userEmail ==>" + this.props.userEmail + "this.state.artistName==>" + this.state.artistName + "this.props.userTelephone" + this.state.phone);
-
-      //wguerrouani@gmail.com
 
       fetch('https://hooks.zapier.com/hooks/catch/4067341/cbsyve/', {
       method: 'POST',

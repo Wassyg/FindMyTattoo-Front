@@ -106,8 +106,6 @@ class TattooModal extends React.Component {
 
   render() {
 
-    console.log('result reducer',this.props.dataModal.clickOnTattoo);
-
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo
         key={i}

@@ -1,3 +1,4 @@
+//fiche artiste qui se trouve à l'intérieur du TattooModal lorsqu'on cherche à agrandir une photo
 import React, { Component } from 'react';
 
 //Import des librairies ou composants de style
@@ -20,10 +21,11 @@ class TattooArtistCardModal extends React.Component {
       clickToSend: false,
       artistNickname: this.props.artistNickname,
       artistCompanyName: this.props.artistCompanyName,
-      artistAddress: "",
-      artistStyleList1: "",
-      artistStyleList2: "",
-      artistDescription:"",
+      artistAddress: this.props.artistAddress,
+      artistStyleList1: this.props.artistStyleList1,
+      artistStyleList2: this.props.artistStyleList2,
+      artistStyleList3: this.props.artistStyleList3,
+      artistDescription:this.props.artistDescription,
       artistPhotoLink:this.props.artistPhotoLink
       // artistsList: []
     }

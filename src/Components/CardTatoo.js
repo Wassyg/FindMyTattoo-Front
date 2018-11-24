@@ -20,6 +20,7 @@ class CardTatoo extends Component {
 
 
   handleClick = (props) => {
+    console.log("props quand on clique sur image depuis la card", props);
     this.setState({
       clickOnTattoo: !this.state.clickOnTattoo
     })

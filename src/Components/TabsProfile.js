@@ -10,6 +10,7 @@ import ProjectForm from '../Components/ProjectForm.js'
 import '../Stylesheets/TabsProfile.css';
 
 class TabsProfile extends Component{
+
   render(){
     return(
       <MuiThemeProvider>

@@ -6,8 +6,10 @@ import AuthForm from '../Components/AuthForm.js';
 
 //Import des librairies ou composants de style
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, NavbarBrand, NavbarNav, NavItem, NavbarToggler, Collapse} from "mdbreact";
+import { Navbar, NavbarBrand, NavbarNav, NavItem, NavbarToggler, Collapse, Button} from "mdbreact";
 import '../Stylesheets/NavBar.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-regular-svg-icons'
 
 import {connect} from 'react-redux';
 
@@ -15,7 +17,14 @@ class NavBarEspacePerso extends Component {
   state = {
     isOpen: false,
     scroll: 0,
+    clickOnForm : false
   };
+
+  toggleAuth = () => {
+    this.setState({
+      clickOnForm: !this.state.clickOnForm
+    })
+  }
 
   componentDidMount() {
      window.addEventListener('scroll', this.handleScroll);
@@ -44,7 +53,8 @@ class NavBarEspacePerso extends Component {
         <NavbarBrand>
           <strong className="logo-navbar">Find my Tattoo</strong>
         </NavbarBrand>
-        <AuthForm/>
+        <Button outline color="warning" onClick={()=>this.toggleAuth()}><FontAwesomeIcon icon={faUser} className="fa-lg"/></Button>
+        <AuthForm clickOnForm={this.state.clickOnForm}/>
       <p className="nav-btn">{this.props.user.userFirstName}</p>
         <NavbarToggler
           onClick={() => this.toggleCollapse()}

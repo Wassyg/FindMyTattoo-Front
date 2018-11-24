@@ -19,6 +19,7 @@ class NavbarPage extends Component {
     isOpen: false,
     scroll: 0,
     clickOnForm : false,
+    routeUserPage : '/'
   };
 
   toggleAuth = () => {
@@ -42,8 +43,22 @@ class NavbarPage extends Component {
   toggleCollapse = () =>{
     this.setState({ isOpen: !this.state.isOpen });
   }
+  handleClick = () => {
+    console.log("Clic détecté !!!!")
+    if(this.props.user._id == null){
+      this.setState({
+        clickOnForm: !this.state.clickOnForm,
+        routeUserPage : '/'
+      })
+    } else if (this.props.user._id){
+      this.setState({
+        routeUserPage : '/UserPage'
+      })
+    }
+  }
 
   render() {
+    console.log("user de la page d'accueil", this.props.user._id)
     let classNavbar = ["Navbar"];
     let classLogoNav = ["logo-navbar"];
     let classNavBtn = ["nav-btn"];
@@ -74,7 +89,7 @@ class NavbarPage extends Component {
               <Link className={classNavBtn.join(" ")} to={'/'}>Galerie</Link>
             </NavItem>
             <NavItem>
-              <Link className={classNavBtn.join(" ")} to={'/UserPage'}>MoodBoard</Link>
+              <Link className={classNavBtn.join(" ")} to={this.state.routeUserPage} onClick={()=>this.handleClick()}>MoodBoard</Link>
             </NavItem>
             <NavItem>
 
