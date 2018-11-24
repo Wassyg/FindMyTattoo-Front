@@ -60,7 +60,7 @@ class NavbarPage extends Component {
         </NavbarBrand>
         <Button outline color="warning" onClick={()=>this.toggleAuth()}><FontAwesomeIcon icon={faUser} className="fa-lg"/></Button>
         <AuthForm clickOnForm={this.state.clickOnForm}/>
-        <p>{this.props.user.userFirstName}</p>
+        <p className={classNavBtn.join(" ")}> {this.props.user.userFirstName}</p>
         <NavbarToggler
           onClick={() => this.toggleCollapse()}
         />

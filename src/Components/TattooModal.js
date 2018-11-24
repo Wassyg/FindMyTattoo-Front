@@ -33,38 +33,6 @@ class TattooModal extends React.Component {
     };
   }
 
-  componentDidMount(){
-
-
-    if(this.props.userId != null){
-      var ctx = this;
-      fetch('http://localhost:3000/user?user_id='+ctx.props.userId)
-      .then(function(response) {
-       return response.json();
-      })
-      .then(function(data) {
-        if (checkAndAdd(data.result.userFavoriteTattoo,ctx.state.idPhotoSelected)) {
-          ctx.setState({classLike: true});
-
-        }
-        // data.result.userFavoriteTattoo.map(function(map){
-        //   console.log("like user",map.tattoo_id);
-        //   console.log("state like user",ctx.state.idPhotoSelected);
-        //
-        //   if(ctx.state.idPhotoSelected == map.tattoo_id ){
-        //     ctx.setState({classLike: true});
-        //     console.log("deja liké");
-        //   }
-        // })
-
-      })
-      .catch(function(error) {
-       console.log('Request failed', error)
-      });
-    }
-  }
-
-
   showModal = () => {
     this.setState({
       visible: true,
@@ -146,13 +114,6 @@ class TattooModal extends React.Component {
         artistId={map.artistID}
         tattooStyleList={map.tattooStyleList} />
     })
-
-
-
-    if(this.state.classLike){
-      classLike.push("tatoo-liked");
-    }
-
 
     return (
       <Modal

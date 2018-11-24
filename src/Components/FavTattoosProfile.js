@@ -55,8 +55,8 @@ class FavTattoosProfile extends React.Component {
        })
 //c.dajeans@gmail.com
     return (
-      <div className="containerTattoos">
-          <div className="row">
+      <div className="containerTattoosProfile">
+          <div className="row rowTattoosProfile">
           {tattoosDisplayedCards}
           </div>
       </div>
