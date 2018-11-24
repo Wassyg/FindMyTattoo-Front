@@ -31,6 +31,11 @@ class TattooModal extends React.Component {
       classLike: false,
       clickOnForm : false,
     };
+    // if (this.props.dataModal.clickOnTattoo === true) {
+    //   this.setState({
+    //     visible: false,
+    //   });
+    // }
   }
 
   showModal = () => {
@@ -53,7 +58,7 @@ class TattooModal extends React.Component {
     });
   }
 
-  handleLike = (props) =>{
+  handleTattooLike = (props) =>{
     if(this.props.userId == null){
       this.setState({
         clickOnForm: !this.state.clickOnForm
@@ -66,14 +71,14 @@ class TattooModal extends React.Component {
         fetch('http://localhost:3000/userliketattoo', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
-        body: 'favTattooPhotoLink='+props.favTattooPhotoLink+'&favTattooStyleList='+props.favTattooStyleList+'&favArtistID='+props.artistId+'&user_id='+ctx.props.userId+'&idPhotoSelected='+props.idPhotoSelected
+        body: 'favTattooPhotoLink='+ctx.props.dataModal.favTattooPhotoLink+'&favTattooStyleList1='+ctx.props.dataModal.favTattooStyleList[0]+'&favTattooStyleList2='+ctx.props.dataModal.favTattooStyleList[1]+'&favTattooStyleList3='+ctx.props.dataModal.favTattooStyleList[2]+'&favArtistID='+ctx.props.dataModal.favArtistID+'&user_id='+ctx.props.userId+'&favTattooID='+ctx.props.dataModal.favTattooID
         });
       } else if(this.state.classLike == true){
         var ctx = this;
         fetch('http://localhost:3000/userdisliketattoo', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
-        body: 'idPhotoSelected='+props.idPhotoSelected+'&user_id='+ctx.props.userId
+        body: 'favTattooID='+ctx.props.dataModal.favTattooID+'&user_id='+ctx.props.userId
         });
       }
     }
@@ -106,12 +111,12 @@ class TattooModal extends React.Component {
 
   render() {
 
-    console.log('result reducer',this.props.dataModal.clickOnTattoo);
+    console.log('result reducer',this.props.dataModal);
 
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo
         key={i}
-        idPicture={map._id}
+        tattooId={map._id}
         tattooPhotoLink={map.tattooPhotoLink}
         artistId={map.artistID}
         tattooStyleList={map.tattooStyleList} />
@@ -133,7 +138,7 @@ class TattooModal extends React.Component {
           <Row id="tattooImageAndArtistInfoBoxModal">
             <Col xs="12" md="7" id="tattooImageBoxModal">
               <img src={this.props.dataModal.favTattooPhotoLink} id="tattooImageModal"/>
-              <FontAwesomeIcon onClick={() => this.handleLike(this.props)} icon={faHeart} className={this.state.classLike ? "tattooLikeModal tatoo-liked" : "tattooLikeModal"}/>
+              <FontAwesomeIcon onClick={() => this.handleTattooLike(this.props)} icon={faHeart} className={this.state.classLike ? "tattooLikeModal tatoo-liked" : "tattooLikeModal"}/>
             </Col>
             <Col xs="12" md={{size: "5"}} >
               <TattooArtistCardModal artistId={this.props.dataModal.artistId} />
