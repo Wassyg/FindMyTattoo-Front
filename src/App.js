@@ -9,9 +9,10 @@ import UserPage from './Screens/UserPage.js'
 import './App.css';
 
 import user from './Components/user.reducer';
+import dataModal from './Components/dataModal.reducer';
 import {Provider} from 'react-redux';
 import {createStore, combineReducers}  from 'redux';
-const store = createStore(combineReducers({user}));
+const store = createStore(combineReducers({user, dataModal}));
 
 
 class App extends Component {

@@ -23,18 +23,16 @@ class CardTatoo extends Component {
     this.setState({
       clickOnTattoo: !this.state.clickOnTattoo
     })
+    let propsModal = {...props};
+    propsModal.isOpen = this.state.clickOnTattoo;
+    this.props.openModalClick(propsModal)
+
   }
 
   render(){
 
     return(
       <div className=" col-12 col-md-3 card-container">
-        <TattooModal
-          clickOnTattoo={this.state.clickOnTattoo}
-          favTattooPhotoLink={this.props.tattooPhotoLink}
-          artistId={this.props.artistId}
-          idPhotoSelected={this.props.idPicture}
-          favTattooStyleList={this.props.tattooStyleList}/>
         <div className="img-container" onClick={() => this.handleClick(this.props)}>
           <img className="img-tatoo" src={this.props.tattooPhotoLink}/>
           <div className="card-hover">
@@ -46,6 +44,20 @@ class CardTatoo extends Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    openModalClick: function(props) {
+        dispatch({
+          type: 'openModal',
+          clickOnTattoo:props.isOpen,
+          favTattooPhotoLink:props.tattooPhotoLink,
+          artistId:props.artistId,
+          idPhotoSelected:props.idPicture,
+          favTattooStyleList:props.tattooStyleList,
+         })
+    },
+  }
+}
 
 function mapStateToProps(store) {
   return { userId: store.user._id,
@@ -54,5 +66,5 @@ function mapStateToProps(store) {
 
 export default connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
 )(CardTatoo);

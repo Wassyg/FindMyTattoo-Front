@@ -7,6 +7,7 @@ import '../Stylesheets/GalleryPage.css'
 import HomePage from './HomePage.js'
 import NavBar from '../Components/NavBar.js';
 import CardTatoo from '../Components/CardTatoo.js';
+import TattooModal from '../Components/TattooModal.js';
 
 
 
@@ -53,6 +54,7 @@ class GalleryPage extends Component{
       <div>
         <NavBar />
         <HomePage />
+        <TattooModal />
       <div className="container">
         <div className="row gallery-container">
           {pictureList}
