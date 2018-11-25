@@ -1,7 +1,7 @@
 //Alimente le modal envoyé au tatoueur depuis le UserPage/FavTattoosProfile et depuis TattooModal/TattooArtistCardModal
 
 import React from 'react';
-import urlHeroku from '.../config.js';
+import url from '../config.js';
 
 //material UI
 import {
@@ -54,7 +54,7 @@ class ProjectForm extends React.Component {
 componentDidMount(){
   var ctx = this;
 //collecter les informations de l'artiste depuis la DB
-  fetch(urlHeroku+'/artist?artist_id='+this.props.artistId)
+  fetch('https://glacial-sierra-22438.herokuapp.com/artist?artist_id='+this.props.artistId)
   .then(function(response) {
     return response.json();
   })
@@ -88,7 +88,7 @@ componentDidUpdate(prevProps){
 //fetch pour créer un nouveau lead et updater coté backend la DB User
   handleNext(){
   var ctx = this;
-    fetch('urlHeroku/newlead', {
+    fetch('url/newlead', {
       method: 'POST',
       headers: {'Content-Type':'application/x-www-form-urlencoded'},
       body: 'userID='+this.props.userID +'&artistID='+this.props.artistId +'&dateLead='+ Date.now()

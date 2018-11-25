@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import CardTatoo from '../Components/CardTatoo.js';
 import TattooArtistCardModal from '../Components/TattooArtistCardModal.js';
 import AuthForm from '../Components/AuthForm.js';
-import urlHeroku from '.../config.js';
+import url from '../config.js';
 
 //Import des librairies ou composants de style
 import '../Stylesheets/TattooModal.css';
@@ -69,14 +69,14 @@ class TattooModal extends React.Component {
 
       if(this.state.classLike == false){
         var ctx = this;
-        fetch(urlHeroku+'/userliketattoo', {
+        fetch('https://glacial-sierra-22438.herokuapp.com/userliketattoo', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favTattooPhotoLink='+ctx.props.dataModal.favTattooPhotoLink+'&favTattooStyleList1='+ctx.props.dataModal.favTattooStyleList[0]+'&favTattooStyleList2='+ctx.props.dataModal.favTattooStyleList[1]+'&favTattooStyleList3='+ctx.props.dataModal.favTattooStyleList[2]+'&favArtistID='+ctx.props.dataModal.favArtistID+'&user_id='+ctx.props.userId+'&favTattooID='+ctx.props.dataModal.favTattooID
         });
       } else if(this.state.classLike == true){
         var ctx = this;
-        fetch(urlHeroku+'/userdisliketattoo', {
+        fetch(url+'/userdisliketattoo', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favTattooID='+ctx.props.dataModal.favTattooID+'&user_id='+ctx.props.userId
@@ -92,7 +92,7 @@ class TattooModal extends React.Component {
       })
       var ctx = this;
       // Récupération de la liste des tatouages du tatoueur en question
-      fetch(urlHeroku+'/tattoosfromartist?artistID='+ctx.props.dataModal.artistId)
+      fetch(url+'/tattoosfromartist?artistID='+ctx.props.dataModal.artistId)
       .then(function(response) {
        return response.json();
       })

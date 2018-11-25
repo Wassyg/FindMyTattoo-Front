@@ -4,7 +4,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
 import '../Stylesheets/SignUpAndInForm.css';
-import urlHeroku from '.../config.js';
+import url from '../config.js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  } from '@fortawesome/free-solid-svg-icons'
@@ -62,7 +62,7 @@ class AuthForm extends React.Component {
   //Method to create user in database
   handleSignUp(event) {
     var ctx = this;
-    fetch(urlHeroku+'/signup', {
+    fetch('https://glacial-sierra-22438.herokuapp.com/signup', {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: "userFirstName=" + ctx.state.firstName + "&userLastName=" + ctx.state.lastName + "&userEmail=" + ctx.state.signUpEmail + "&userPassword=" + ctx.state.signUpPassword
@@ -92,7 +92,7 @@ class AuthForm extends React.Component {
   //Method to check if user is in database
   handleSignIn(event) {
     var ctx = this;
-    fetch(urlHeroku+'/signin', {
+    fetch(url+'/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'

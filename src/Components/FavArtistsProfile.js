@@ -6,7 +6,7 @@ import {Card, CardTitle, CardImg, CardSubtitle, Button, Container, Row, Col} fro
 import TattooArtistCardModal from '../Components/TattooArtistCardModal.js'
 import 'bootstrap/dist/css/bootstrap.css';
 import '../Stylesheets/FavArtistsProfile.css';
-import urlHeroku from '.../config.js';
+import url from '../config.js';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,7 +26,7 @@ class FavArtistsProfile extends React.Component {
   componentDidMount() {
 
       var ctx = this;
-      fetch(urlHeroku+"/user?user_id=" + this.props.userId)
+      fetch("https://glacial-sierra-22438.herokuapp.com/user?user_id=" + this.props.userId)
       .then(function(response) {
         return response.json();
       }).then(function(data) {

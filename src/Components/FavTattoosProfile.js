@@ -6,7 +6,7 @@ import {CardImg} from 'reactstrap';
 import {connect} from 'react-redux';
 
 import CardTatoo from '../Components/CardTatoo.js';
-import urlHeroku from '.../config.js';
+import url from '../config.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../Stylesheets/FavTattoosProfile.css';
@@ -23,7 +23,7 @@ class FavTattoosProfile extends React.Component {
   componentDidMount() {
     var ctx= this;
 
-    fetch(urlHeroku+'/user?user_id='+ctx.props.userID)
+    fetch('https://glacial-sierra-22438.herokuapp.com/user?user_id='+ctx.props.userID)
     .then(function(response) {
      return response.json()
     })

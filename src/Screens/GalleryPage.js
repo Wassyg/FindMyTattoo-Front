@@ -8,12 +8,11 @@ import HomePage from './HomePage.js'
 import NavBar from '../Components/NavBar.js';
 import CardTatoo from '../Components/CardTatoo.js';
 import TattooModal from '../Components/TattooModal.js';
-import urlHeroku from '.../config.js';
-
-
+import url from '../config.js';
 
 
 class GalleryPage extends Component{
+
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -22,7 +21,7 @@ class GalleryPage extends Component{
 
   componentDidMount(){
    var ctx = this;
-   fetch(urlHeroku+'/tattoos')
+   fetch('https://glacial-sierra-22438.herokuapp.com/tattoos')
    .then(function(response) {
      return response.json();
    })
@@ -48,6 +47,7 @@ class GalleryPage extends Component{
   }
   render(){
 console.log("pour le format ID du tattoo ===>", this.state.pictureData);
+console.log("LocalHost ??? ===>", url);
 
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo

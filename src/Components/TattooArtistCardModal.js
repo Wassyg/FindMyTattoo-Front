@@ -9,7 +9,7 @@ import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button, Row, Col, Ba
 
 import ProjectForm from '../Components/ProjectForm.js'
 import AuthForm from '../Components/AuthForm.js';
-import urlHeroku from '.../config.js';
+import url from '../config.js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faMapMarkerAlt, faHeart, faEnvelope, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
@@ -42,7 +42,7 @@ class TattooArtistCardModal extends React.Component {
 
   componentDidMount(){
     var ctx = this;
-    fetch(urlHeroku+'/artist?artist_id='+ this.props.dataModal.favArtistID)
+    fetch('https://glacial-sierra-22438.herokuapp.com/artist?artist_id='+ this.props.dataModal.favArtistID)
     .then(function(response) {
       return response.json();
     })
@@ -76,7 +76,7 @@ class TattooArtistCardModal extends React.Component {
       if(this.state.classLike === false){
         console.log("enter in handleartistlikefunction + condition1 + false condition2");
         var ctx = this;
-        fetch(urlHeroku+'/userlikeartist', {
+        fetch(url+'/userlikeartist', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favArtistNickname='+ctx.state.artistNickname+'&favArtistCompanyName='+ctx.state.artistCompanyName+'&favArtistAddress='+ctx.state.artistAddress+'&favArtistDescription='+ctx.state.artistDescription+'&favArtistPhotoLink='+ctx.state.artistPhotoLink+'&favArtistStyleList1='+ctx.state.artistStyleList1+'&favArtistStyleList2='+ctx.state.artistStyleList2+'&favArtistStyleList3='+ctx.state.artistStyleList3+'&favArtistNote='+ctx.state.artistNote+'&favArtistID='+ctx.props.dataModal.favArtistID+'&user_id='+ctx.props.userId
@@ -84,7 +84,7 @@ class TattooArtistCardModal extends React.Component {
       } else {
         console.log("enter in handleartistlikefunction + condition1 + true condition2");
         var ctx = this;
-        fetch(urlHeroku+'/userdislikeartist', {
+        fetch(url+'/userdislikeartist', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favArtistID='+ctx.props.dataModal.favArtistID+'&user_id='+ctx.props.userId
