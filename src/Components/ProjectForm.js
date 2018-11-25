@@ -61,7 +61,7 @@ componentDidMount(){
   .then(function(data) {
      ctx.setState({
        artistName: data.result.artistNickname,
-       artistEmail: 'wguerrouani@gmail.com'
+       artistEmail: 'contact@findmytattoo.fr'
      })
      })
    .catch(function(error) {
@@ -93,20 +93,32 @@ componentDidUpdate(prevProps){
     })
 
 //si on est sur la dernière page du form, envoyer les informations (user depuis le Store et tatoueur depuis la DB) au tatoueur à travers Zapier
-    if(this.state.stepIndex === 2){
+    if(this.state.finished){
+      console.log("FINISHED");
       var ctx = this;
 //fetch pour créer un nouveau lead et updater coté backend la DB User
-        fetch('http://localhost:3000'+'/newlead', {
+      fetch('http://localhost:3000'+'/newlead', {
           method: 'POST',
           headers: {'Content-Type':'application/x-www-form-urlencoded'},
-          body: 'userID='+this.props.userID +'&artistID='+this.props.artistId +'&dateLead='+ Date.now()
-        });
+          body: 'userID='+ctx.props.userID +'&artistID='+ctx.props.artistId +'&dateLead='+ Date.now()
+        })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        console.log(data)
+         })
+      .catch(function(error) {
+        console.log('Request failed', error);
+      });
 
+      //envoi sur Zapier
+      var cxt = this;
       fetch('https://hooks.zapier.com/hooks/catch/4067341/cbsyve/', {
-      method: 'POST',
-      headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: 'artistName='+this.state.artistName+'&artistEmail='+this.state.artistEmail+'&userFirstName='+this.props.userFirstName+'&userEmail='+this.props.userEmail+'&userTelephone='+this.state.phone+'&userTattooDescription='+this.state.description+'&userAvailability='+this.state.value+'&userFavoriteTattoo='+this.props.userFavoriteTattoo
-    })
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        body: 'artistName='+cxt.state.artistName+'&artistEmail='+cxt.state.artistEmail+'&userFirstName='+cxt.props.userFirstName+'&userEmail='+cxt.props.userEmail+'&userTelephone='+cxt.state.phone+'&userTattooDescription='+cxt.state.description+'&userAvailability='+cxt.state.value+'&userFavoriteTattoo='+cxt.props.userFavoriteTattoo
+      })
       .then(function(response) {
         return response.json();
       })
@@ -155,12 +167,13 @@ componentDidUpdate(prevProps){
 
   render() {
     const {finished, stepIndex, description, phone, availability, value} = this.state;
+
     return (
   <MuiThemeProvider>
     {/* <Button color="danger" onClick={this.toggle}>Formulaire</Button> */}
     <div style={{maxHeight: 400, margin: 'auto'}}>
     <Modal isOpen={this.state.visible} toggle={this.toggle}>
-      <ModalHeader toggle={this.toggle}>Partez dès maintenant votre projet avec {this.state.artistName}</ModalHeader>
+      <ModalHeader toggle={this.toggle}>Partagez dès maintenant votre projet avec {this.state.artistName}</ModalHeader>
       <ModalBody>
 
         <Stepper activeStep={stepIndex} orientation="vertical">
