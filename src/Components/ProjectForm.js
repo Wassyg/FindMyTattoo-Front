@@ -16,7 +16,7 @@ import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 //reactstrap
-import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import SelectField from 'material-ui/SelectField';
@@ -54,7 +54,7 @@ class ProjectForm extends React.Component {
 componentDidMount(){
   var ctx = this;
 //collecter les informations de l'artiste depuis la DB
-  fetch('http://localhost:3000'+'/artist?artist_id='+this.props.artistId)
+  fetch('http://localhost:3000/artist?artist_id='+this.props.artistId)
   .then(function(response) {
     return response.json();
   })
@@ -97,7 +97,7 @@ componentDidUpdate(prevProps){
       console.log("FINISHED");
       var ctx = this;
 //fetch pour créer un nouveau lead et updater coté backend la DB User
-      fetch('http://localhost:3000'+'/newlead', {
+      fetch('http://localhost:3000/newlead', {
           method: 'POST',
           headers: {'Content-Type':'application/x-www-form-urlencoded'},
           body: 'userID='+ctx.props.userID +'&artistID='+ctx.props.artistId +'&dateLead='+ Date.now()
@@ -199,7 +199,7 @@ componentDidUpdate(prevProps){
             <StepContent>
               <TextField
                 name="phone"
-                floatingLabelFixed="Votre numéro de téléphone"
+                floatingLabelFixed={true}
                 floatingLabelText="Laissez votre numéro au tatoueur"
                 hintText="(+33)6 61 23 45 67"
                 fullWidth={true}

@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
-import {BrowserRouter} from 'react-router-dom';
 import { ScrollTo } from "react-scroll-to";
 
-import NavBar from '../Components/NavBar.js';
-import GalleryPage from './GalleryPage.js';
-import Logo from '../Assets/logos/logoBlanc.png';
 import AuthForm from '../Components/AuthForm.js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,7 +24,7 @@ class HomePage extends Component {
 
       <ScrollTo>
        {({ scrollTo }) => (
-         <a onClick={() => scrollTo({y: 830, smooth: true})}><FontAwesomeIcon icon={faChevronCircleDown} className="scrollTo"/></a>
+         <a href="" onClick={() => scrollTo({y: 830, smooth: true})}><FontAwesomeIcon icon={faChevronCircleDown} className="scrollTo"/></a>
        )}
       </ScrollTo>
     </div>

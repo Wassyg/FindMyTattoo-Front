@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { Collapse, Button, CardBody, Card } from 'reactstrap';
+import {  } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Stylesheets/GalleryPage.css'
 
@@ -8,11 +7,9 @@ import HomePage from './HomePage.js'
 import NavBar from '../Components/NavBar.js';
 import CardTatoo from '../Components/CardTatoo.js';
 import TattooModal from '../Components/TattooModal.js';
-import url from '../config.js';
 
 
 class GalleryPage extends Component{
-
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -21,12 +18,11 @@ class GalleryPage extends Component{
 
   componentDidMount(){
    var ctx = this;
-   fetch('https://glacial-sierra-22438.herokuapp.com/tattoos')
+   fetch('http://localhost:3000/tattoos')
    .then(function(response) {
      return response.json();
    })
    .then(function(data) {
-
      var pictureDataCopy = [...ctx.state.pictureData]
      data.map(function(map){
        pictureDataCopy.push(map)
@@ -46,6 +42,7 @@ class GalleryPage extends Component{
     this.setState({ collapse: !this.state.collapse });
   }
   render(){
+    console.log("pour le format ID du tattoo ===>", this.state.pictureData);
 
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo

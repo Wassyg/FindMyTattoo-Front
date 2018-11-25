@@ -16,9 +16,9 @@ class ArtistCard extends Component{
     }
   }
   handleClick = () => {
-    if(this.state.like == false){
+    if(this.state.like === false){
       this.setState({like: true, classLike: "like"});
-    } else if(this.state.like == true){
+    } else if(this.state.like === true){
       this.setState({like: false, classLike: "dislike"});
     }
   }

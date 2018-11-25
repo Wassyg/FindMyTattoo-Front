@@ -20,19 +20,18 @@ class CardTatoo extends Component {
 
 
   handleClick = (props) => {
-      this.setState({
+    this.setState({
       clickOnTattoo: !this.state.clickOnTattoo
     })
     let propsModal = {...props};
     propsModal.isOpen = this.state.clickOnTattoo;
     this.props.openModalClick(propsModal)
-
   }
 
   render(){
 
     return(
-      <div className=" col-12 col-md-3 card-container" style={{minHeight: 277, minWidth: 277, maxHeight: 350, maxWidth: 350}}>
+      <div className=" col-12 col-md-3 card-container">
         <div className="img-container" onClick={() => this.handleClick(this.props)}>
           <img className="img-tatoo" src={this.props.tattooPhotoLink}/>
           <div className="card-hover">

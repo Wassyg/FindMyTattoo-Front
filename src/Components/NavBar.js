@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 //Import des composants externes
 import AuthForm from '../Components/AuthForm.js';
@@ -88,7 +88,7 @@ class NavbarPage extends Component {
             <NavItem>
               <Link className={classNavBtn.join(" ")} to={this.state.routeUserPage} onClick={()=>this.handleClick()}>MoodBoard</Link>
             </NavItem>
-            
+
           </NavbarNav>
         </Collapse>
       </Navbar>
