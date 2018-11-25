@@ -4,7 +4,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
 import '../Stylesheets/SignUpAndInForm.css';
-import urlHeroku from '..../config.js';
+import urlHeroku from '.../config.js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  } from '@fortawesome/free-solid-svg-icons'

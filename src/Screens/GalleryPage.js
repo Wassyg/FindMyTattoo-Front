@@ -8,6 +8,7 @@ import HomePage from './HomePage.js'
 import NavBar from '../Components/NavBar.js';
 import CardTatoo from '../Components/CardTatoo.js';
 import TattooModal from '../Components/TattooModal.js';
+import urlHeroku from '.../config.js';
 
 
 
@@ -21,7 +22,7 @@ class GalleryPage extends Component{
 
   componentDidMount(){
    var ctx = this;
-   fetch('urlHeroku/tattoos')
+   fetch(urlHeroku+'/tattoos')
    .then(function(response) {
      return response.json();
    })

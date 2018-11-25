@@ -6,7 +6,7 @@ import {CardImg} from 'reactstrap';
 import {connect} from 'react-redux';
 
 import CardTatoo from '../Components/CardTatoo.js';
-import urlHeroku from '..../config.js';
+import urlHeroku from '.../config.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../Stylesheets/FavTattoosProfile.css';

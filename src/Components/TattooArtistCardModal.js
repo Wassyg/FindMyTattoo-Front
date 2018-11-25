@@ -9,7 +9,7 @@ import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button, Row, Col, Ba
 
 import ProjectForm from '../Components/ProjectForm.js'
 import AuthForm from '../Components/AuthForm.js';
-import urlHeroku from '..../config.js';
+import urlHeroku from '.../config.js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faMapMarkerAlt, faHeart, faEnvelope, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
