@@ -20,8 +20,7 @@ class CardTatoo extends Component {
 
 
   handleClick = (props) => {
-    console.log("props quand on clique sur image depuis la card", props);
-    this.setState({
+      this.setState({
       clickOnTattoo: !this.state.clickOnTattoo
     })
     let propsModal = {...props};
@@ -33,7 +32,7 @@ class CardTatoo extends Component {
   render(){
 
     return(
-      <div className=" col-12 col-md-3 card-container">
+      <div className=" col-12 col-md-3 card-container" style={{minHeight: 277, minWidth: 277, maxHeight: 350, maxWidth: 350}}>
         <div className="img-container" onClick={() => this.handleClick(this.props)}>
           <img className="img-tatoo" src={this.props.tattooPhotoLink}/>
           <div className="card-hover">

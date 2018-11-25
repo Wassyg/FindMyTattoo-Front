@@ -54,14 +54,14 @@ class ProjectForm extends React.Component {
 componentDidMount(){
   var ctx = this;
 //collecter les informations de l'artiste depuis la DB
-  fetch('https://glacial-sierra-22438.herokuapp.com/artist?artist_id='+this.props.artistId)
+  fetch('http://localhost:3000'+'/artist?artist_id='+this.props.artistId)
   .then(function(response) {
     return response.json();
   })
   .then(function(data) {
      ctx.setState({
        artistName: data.result.artistNickname,
-       artistEmail: 'noel@lacapsule.academy'
+       artistEmail: 'wguerrouani@gmail.com'
      })
      })
    .catch(function(error) {
@@ -85,14 +85,8 @@ componentDidUpdate(prevProps){
    }
 
 
-//fetch pour créer un nouveau lead et updater coté backend la DB User
+
   handleNext(){
-  var ctx = this;
-    fetch('url/newlead', {
-      method: 'POST',
-      headers: {'Content-Type':'application/x-www-form-urlencoded'},
-      body: 'userID='+this.props.userID +'&artistID='+this.props.artistId +'&dateLead='+ Date.now()
-    });
     this.setState({
       stepIndex: this.state.stepIndex + 1,
       finished: this.state.stepIndex >= 2,
@@ -100,6 +94,13 @@ componentDidUpdate(prevProps){
 
 //si on est sur la dernière page du form, envoyer les informations (user depuis le Store et tatoueur depuis la DB) au tatoueur à travers Zapier
     if(this.state.stepIndex === 2){
+      var ctx = this;
+//fetch pour créer un nouveau lead et updater coté backend la DB User
+        fetch('http://localhost:3000'+'/newlead', {
+          method: 'POST',
+          headers: {'Content-Type':'application/x-www-form-urlencoded'},
+          body: 'userID='+this.props.userID +'&artistID='+this.props.artistId +'&dateLead='+ Date.now()
+        });
 
       fetch('https://hooks.zapier.com/hooks/catch/4067341/cbsyve/', {
       method: 'POST',
@@ -112,7 +113,7 @@ componentDidUpdate(prevProps){
       .then(function(data) {
         console.log(data)
          })
-       .catch(function(error) {
+      .catch(function(error) {
         console.log('Request failed', error);
       });
     }
@@ -153,7 +154,6 @@ componentDidUpdate(prevProps){
   }
 
   render() {
-    console.log("userID donc store OK", this.props.userID);
     const {finished, stepIndex, description, phone, availability, value} = this.state;
     return (
   <MuiThemeProvider>

@@ -26,22 +26,32 @@ class FavArtistsProfile extends React.Component {
   componentDidMount() {
 
       var ctx = this;
-      fetch("https://glacial-sierra-22438.herokuapp.com/user?user_id=" + this.props.userId)
+      fetch('http://localhost:3000'+"/user?user_id=" + this.props.userId)
       .then(function(response) {
         return response.json();
       }).then(function(data) {
-        var artistsListCopy = [...ctx.state.artistsList];
+        //verifie pour n'ajouter que les tatoueurs qui n'ont pas encore été "likés"
+        var isArtistExist = false;
         var userFavoriteArtist = data.result.userFavoriteArtist;
-          userFavoriteArtist.map(function(favArtists) {
-            artistsListCopy.push(favArtists)
-          })
-        ctx.setState({artistsList: artistsListCopy});
+        var artistsListCopy = [...ctx.state.artistsList];
+        for (var i =0; i< artistsListCopy.length; i++){
+          for (var j=0; j< userFavoriteArtist.length; j++ ){
+            if (artistsListCopy[i] == userFavoriteArtist[j] ){
+              isArtistExist = true;
+            }
+          }
+        }
+         if(isArtistExist == false){
+           userFavoriteArtist.map(function(favArtists) {
+             artistsListCopy.push(favArtists)
+           })
+         ctx.setState({artistsList: artistsListCopy});
+         }
 
       }).catch(function(error) {
         console.log('Request failed', error);
       });
-
-  }
+    }
 
   render() {
 

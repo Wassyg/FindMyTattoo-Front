@@ -40,9 +40,22 @@ class TattooArtistCardModal extends React.Component {
     })
   }
 
+  // handleClick(props){
+  //   if(this.props.userId == null){
+  //     this.setState({
+  //       clickOnForm: !this.state.clickOnForm,
+  //     })
+  //   } else if (this.props.userId){
+  //     this.setState({
+  //       clickToSend: !this.state.clickToSend
+  //     })
+  //   }
+  // }
+
+//grace au reducer récupérer l'ID de l'artiste pour fetcher ses informations
   componentDidMount(){
     var ctx = this;
-    fetch('https://glacial-sierra-22438.herokuapp.com/artist?artist_id='+ this.props.dataModal.favArtistID)
+    fetch('http://localhost:3000'+'/artist?artist_id='+ this.props.dataModal.favArtistID)
     .then(function(response) {
       return response.json();
     })
@@ -66,7 +79,6 @@ class TattooArtistCardModal extends React.Component {
   }
 
   handleArtistLike = (props) =>{
-
     if(this.props.userId == null){
       this.setState({
         clickOnForm: !this.state.clickOnForm
@@ -76,7 +88,7 @@ class TattooArtistCardModal extends React.Component {
       if(this.state.classLike === false){
         console.log("enter in handleartistlikefunction + condition1 + false condition2");
         var ctx = this;
-        fetch(url+'/userlikeartist', {
+        fetch('http://localhost:3000'+'/userlikeartist', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favArtistNickname='+ctx.state.artistNickname+'&favArtistCompanyName='+ctx.state.artistCompanyName+'&favArtistAddress='+ctx.state.artistAddress+'&favArtistDescription='+ctx.state.artistDescription+'&favArtistPhotoLink='+ctx.state.artistPhotoLink+'&favArtistStyleList1='+ctx.state.artistStyleList1+'&favArtistStyleList2='+ctx.state.artistStyleList2+'&favArtistStyleList3='+ctx.state.artistStyleList3+'&favArtistNote='+ctx.state.artistNote+'&favArtistID='+ctx.props.dataModal.favArtistID+'&user_id='+ctx.props.userId
@@ -84,7 +96,7 @@ class TattooArtistCardModal extends React.Component {
       } else {
         console.log("enter in handleartistlikefunction + condition1 + true condition2");
         var ctx = this;
-        fetch(url+'/userdislikeartist', {
+        fetch('http://localhost:3000'+'/userdislikeartist', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favArtistID='+ctx.props.dataModal.favArtistID+'&user_id='+ctx.props.userId
@@ -95,6 +107,8 @@ class TattooArtistCardModal extends React.Component {
    }
 
   render () {
+    console.log("this.state.artistNickname", this.state.artistNickname);
+    console.log("retour du reducer dataModal", this.props.dataModal);
 
     return (
 
@@ -118,7 +132,7 @@ class TattooArtistCardModal extends React.Component {
                 <Button outline color="secondary" size="sm" className="artistButtonModal" onClick={()=>this.handleArtistLike()}><FontAwesomeIcon icon={faTimesCircle} className="fa-xs"/> Retirer</Button>
               }
               <Button outline color="success" size="sm" className="artistButtonModal" onClick={this.handleClickSend}>
-              <ProjectForm  clickToSend={this.state.clickToSend} artistId={this.props.artistId}/> <FontAwesomeIcon icon={faEnvelope} className="fa-xs"/> Contacter</Button>
+              <ProjectForm clickToSend={this.state.clickToSend} artistId={this.props.artistId}/> <FontAwesomeIcon icon={faEnvelope} className="fa-xs"/> Contacter</Button>
             </Col>
             <Col xs="8">
               <CardTitle id="artistNameModal">{this.state.artistNickname}</CardTitle>

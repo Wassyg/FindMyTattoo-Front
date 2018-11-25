@@ -23,18 +23,18 @@ class FavTattoosProfile extends React.Component {
   componentDidMount() {
     var ctx= this;
 
-    fetch('https://glacial-sierra-22438.herokuapp.com/user?user_id='+ctx.props.userID)
+    fetch('http://localhost:3000'+'/user?user_id='+this.props.userId)
     .then(function(response) {
      return response.json()
     })
     .then(function(data) {
-               var tattoosListCopy =[...ctx.state.tattoosList];
-               var userFavoriteTattoo = data.result.userFavoriteTattoo;
-               userFavoriteTattoo.map(function(favTattoos){
-                 tattoosListCopy.push(favTattoos);
+      var tattoosListCopy =[...ctx.state.tattoosList];
+      var userFavoriteTattoo = data.result.userFavoriteTattoo;
+      userFavoriteTattoo.map(function(favTattoos){
+        tattoosListCopy.push(favTattoos);
                })
-               ctx.setState({
-                 tattoosList : tattoosListCopy,
+      ctx.setState({
+        tattoosList : tattoosListCopy,
                })
              })
     .catch(function(error) {
@@ -69,4 +69,12 @@ class FavTattoosProfile extends React.Component {
 
 
 
-export default FavTattoosProfile;
+function mapStateToProps(store) {
+  return { userId: store.user._id,
+  }
+}
+
+export default connect(
+    mapStateToProps,
+    null
+)(FavTattoosProfile);

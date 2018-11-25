@@ -62,7 +62,7 @@ class AuthForm extends React.Component {
   //Method to create user in database
   handleSignUp(event) {
     var ctx = this;
-    fetch('https://glacial-sierra-22438.herokuapp.com/signup', {
+    fetch('http://localhost:3000'+'/signup', {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: "userFirstName=" + ctx.state.firstName + "&userLastName=" + ctx.state.lastName + "&userEmail=" + ctx.state.signUpEmail + "&userPassword=" + ctx.state.signUpPassword
@@ -92,7 +92,7 @@ class AuthForm extends React.Component {
   //Method to check if user is in database
   handleSignIn(event) {
     var ctx = this;
-    fetch(url+'/signin', {
+    fetch('http://localhost:3000'+'/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'

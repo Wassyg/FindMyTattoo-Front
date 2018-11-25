@@ -46,8 +46,6 @@ class GalleryPage extends Component{
     this.setState({ collapse: !this.state.collapse });
   }
   render(){
-console.log("pour le format ID du tattoo ===>", this.state.pictureData);
-console.log("LocalHost ??? ===>", url);
 
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo

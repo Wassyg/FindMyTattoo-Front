@@ -44,7 +44,6 @@ class NavbarPage extends Component {
     this.setState({ isOpen: !this.state.isOpen });
   }
   handleClick = () => {
-    console.log("Clic détecté !!!!")
     if(this.props.user._id == null){
       this.setState({
         clickOnForm: !this.state.clickOnForm,
@@ -58,7 +57,6 @@ class NavbarPage extends Component {
   }
 
   render() {
-    console.log("user de la page d'accueil", this.props.user._id)
     let classNavbar = ["Navbar"];
     let classLogoNav = ["logo-navbar"];
     let classNavBtn = ["nav-btn"];
@@ -81,7 +79,6 @@ class NavbarPage extends Component {
         />
         <Collapse className="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           <NavbarNav left>
-
           </NavbarNav>
 
           <NavbarNav right>
@@ -91,9 +88,7 @@ class NavbarPage extends Component {
             <NavItem>
               <Link className={classNavBtn.join(" ")} to={this.state.routeUserPage} onClick={()=>this.handleClick()}>MoodBoard</Link>
             </NavItem>
-            <NavItem>
-
-            </NavItem>
+            
           </NavbarNav>
         </Collapse>
       </Navbar>

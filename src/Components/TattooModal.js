@@ -1,3 +1,4 @@
+//contient CardTatoo de l'image clickée, TattooArtistCardModal de l'artiste de la photo et des CardTatoo de toutes les photos du même artiste
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
@@ -65,22 +66,23 @@ class TattooModal extends React.Component {
         clickOnForm: !this.state.clickOnForm
       })
     }else{
-      this.setState({classLike: !this.state.classLike});
-
       if(this.state.classLike == false){
         var ctx = this;
-        fetch('https://glacial-sierra-22438.herokuapp.com/userliketattoo', {
+        fetch('http://localhost:3000'+'/userliketattoo', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favTattooPhotoLink='+ctx.props.dataModal.favTattooPhotoLink+'&favTattooStyleList1='+ctx.props.dataModal.favTattooStyleList[0]+'&favTattooStyleList2='+ctx.props.dataModal.favTattooStyleList[1]+'&favTattooStyleList3='+ctx.props.dataModal.favTattooStyleList[2]+'&favArtistID='+ctx.props.dataModal.favArtistID+'&user_id='+ctx.props.userId+'&favTattooID='+ctx.props.dataModal.favTattooID
         });
+        this.setState({classLike: !this.state.classLike});
+
       } else if(this.state.classLike == true){
         var ctx = this;
-        fetch(url+'/userdisliketattoo', {
+        fetch('http://localhost:3000'+'/userdisliketattoo', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favTattooID='+ctx.props.dataModal.favTattooID+'&user_id='+ctx.props.userId
         });
+        this.setState({classLike: !this.state.classLike});
       }
     }
    }
@@ -92,7 +94,7 @@ class TattooModal extends React.Component {
       })
       var ctx = this;
       // Récupération de la liste des tatouages du tatoueur en question
-      fetch(url+'/tattoosfromartist?artistID='+ctx.props.dataModal.artistId)
+      fetch('http://localhost:3000'+'/tattoosfromartist?artistID='+ctx.props.dataModal.favArtistID)
       .then(function(response) {
        return response.json();
       })
@@ -111,8 +113,7 @@ class TattooModal extends React.Component {
   }
 
   render() {
-
-    console.log('result reducer',this.props.dataModal);
+    console.log('result reducer dataModal',this.props.dataModal);
 
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo
@@ -137,12 +138,12 @@ class TattooModal extends React.Component {
         <Container>
           <AuthForm clickOnForm={this.state.clickOnForm}/>
           <Row id="tattooImageAndArtistInfoBoxModal">
-            <Col xs="12" md="7" id="tattooImageBoxModal">
+          <Col xs="12" md="7" id="tattooImageBoxModal">
               <img src={this.props.dataModal.favTattooPhotoLink} id="tattooImageModal"/>
-              <FontAwesomeIcon onClick={() => this.handleTattooLike(this.props)} icon={faHeart} className={this.state.classLike ? "tattooLikeModal tatoo-liked" : "tattooLikeModal"}/>
+            <FontAwesomeIcon onClick={() => this.handleTattooLike(this.props)} icon={faHeart} className={this.state.classLike ? "tattooLikeModal tatoo-liked" : "tattooLikeModal"}/>
             </Col>
             <Col xs="12" md={{size: "5"}} >
-              <TattooArtistCardModal artistId={this.props.dataModal.artistId} />
+              <TattooArtistCardModal artistId={this.props.dataModal.favArtistID} />
             </Col>
           </Row>
           <hr id="separationModal"/>
