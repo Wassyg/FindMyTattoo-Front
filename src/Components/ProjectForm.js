@@ -160,7 +160,7 @@ componentDidUpdate(prevProps){
     {/* <Button color="danger" onClick={this.toggle}>Formulaire</Button> */}
     <div style={{maxHeight: 400, margin: 'auto'}}>
     <Modal isOpen={this.state.visible} toggle={this.toggle}>
-      <ModalHeader toggle={this.toggle}></ModalHeader>
+      <ModalHeader toggle={this.toggle}>Partez dès maintenant votre projet avec {this.state.artistName}</ModalHeader>
       <ModalBody>
 
         <Stepper activeStep={stepIndex} orientation="vertical">
