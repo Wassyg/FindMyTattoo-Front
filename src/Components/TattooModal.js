@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import CardTatoo from '../Components/CardTatoo.js';
 import TattooArtistCardModal from '../Components/TattooArtistCardModal.js';
 import AuthForm from '../Components/AuthForm.js';
+import urlHeroku from '..../config.js';
 
 //Import des librairies ou composants de style
 import '../Stylesheets/TattooModal.css';

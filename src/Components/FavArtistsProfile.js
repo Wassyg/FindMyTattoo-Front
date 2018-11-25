@@ -6,6 +6,7 @@ import {Card, CardTitle, CardImg, CardSubtitle, Button, Container, Row, Col} fro
 import TattooArtistCardModal from '../Components/TattooArtistCardModal.js'
 import 'bootstrap/dist/css/bootstrap.css';
 import '../Stylesheets/FavArtistsProfile.css';
+import urlHeroku from '..../config.js';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

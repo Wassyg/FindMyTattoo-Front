@@ -1,6 +1,7 @@
 //Alimente le modal envoyé au tatoueur depuis le UserPage/FavTattoosProfile et depuis TattooModal/TattooArtistCardModal
 
 import React from 'react';
+import urlHeroku from '..../config.js';
 
 //material UI
 import {

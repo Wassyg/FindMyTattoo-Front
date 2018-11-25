@@ -4,12 +4,12 @@ import {connect} from 'react-redux';
 
 //Import des librairies ou composants de style
 import '../Stylesheets/TattooArtistCardModal.css';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button, Row, Col, Badge} from 'reactstrap';
 
 import ProjectForm from '../Components/ProjectForm.js'
 import AuthForm from '../Components/AuthForm.js';
+import urlHeroku from '..../config.js';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faMapMarkerAlt, faHeart, faEnvelope, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
