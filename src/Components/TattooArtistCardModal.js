@@ -65,7 +65,7 @@ class TattooArtistCardModal extends Component {
          artistNickname: data.result.artistNickname,
          artistCompanyName: data.result.artistCompanyName,
          artistAddress: data.result.artistAddress,
-         artistStyleList1: data.result.artistStyleList.join("")[0],
+         artistStyleList1: data.result.artistStyleList[0],
          artistStyleList2: data.result.artistStyleList[1],
          artistStyleList3: data.result.artistStyleList[2],
          artistDescription: data.result.artistDescription,
@@ -162,7 +162,7 @@ class TattooArtistCardModal extends Component {
             <CardSubtitle id="artistCompanyNameModal">{this.state.artistCompanyName}</CardSubtitle>
               <CardText>{this.state.artistDescription}</CardText>
               <div id = "artistAllBadgeModal">
-                <Row style={{overflow: "scroll"}}>
+                <Row>
                   <h6><Badge color="info" pill className="artistStyleBadgeModal">{this.state.artistStyleList1}</Badge></h6>
                 <h6><Badge color="info" pill className="artistStyleBadgeModal">{this.state.artistStyleList2}</Badge></h6>
                   <h6><Badge color="info" pill className="artistStyleBadgeModal">{this.state.artistStyleList3}</Badge></h6>

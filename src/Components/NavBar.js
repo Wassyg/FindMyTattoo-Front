@@ -89,7 +89,7 @@ class NavbarPage extends Component {
               <Link className={classNavBtn.join(" ")} to={'/'}>Galerie</Link>
             </NavItem>
             <NavItem>
-              <Link className={classNavBtn.join(" ")} to={this.props.user._id ?"/UserPage" :"/"} onClick={()=>this.handleClick()}>MoodBoard</Link>
+              <Link className={classNavBtn.join(" ")} to={this.props.user._id ?"/UserPage#top" :"/"} onClick={()=>this.handleClick()}>MoodBoard</Link>
             </NavItem>
 
           </NavbarNav>
