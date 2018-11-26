@@ -65,7 +65,7 @@ class TattooArtistCardModal extends Component {
          artistNickname: data.result.artistNickname,
          artistCompanyName: data.result.artistCompanyName,
          artistAddress: data.result.artistAddress,
-         artistStyleList1: data.result.artistStyleList.join("")[0],
+         artistStyleList1: data.result.artistStyleList[0],
          artistStyleList2: data.result.artistStyleList[1],
          artistStyleList3: data.result.artistStyleList[2],
          artistDescription: data.result.artistDescription,
