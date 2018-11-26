@@ -43,6 +43,7 @@ class NavbarPage extends Component {
   toggleCollapse = () =>{
     this.setState({ isOpen: !this.state.isOpen });
   }
+
   handleClick = () => {
     if(this.props.user._id == null){
       this.setState({
@@ -88,7 +89,7 @@ class NavbarPage extends Component {
             <NavItem>
               <Link className={classNavBtn.join(" ")} to={this.state.routeUserPage} onClick={()=>this.handleClick()}>MoodBoard</Link>
             </NavItem>
-            
+
           </NavbarNav>
         </Collapse>
       </Navbar>

@@ -30,9 +30,10 @@ class CardTatoo extends Component {
   }
 
   render(){
-
+console.log("this.props", this.props)
+console.log("this.state.clickOnTattoo", this.state.clickOnTattoo)
     return(
-      <div className=" col-12 col-md-3 card-container" style={{minHeight: 277, minWidth: 277, maxHeight: 350, maxWidth: 350}}>
+      <div className=" col-12 col-md-3 card-container" style={{minHeight: 290, minWidth: 290, maxHeight: 350, maxWidth: 350}}>
         <div className="img-container" onClick={() => this.handleClick(this.props)}>
           <img className="img-tatoo" src={this.props.tattooPhotoLink}/>
           <div className="card-hover">

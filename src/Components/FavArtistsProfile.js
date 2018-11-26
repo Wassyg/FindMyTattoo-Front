@@ -70,9 +70,9 @@ class FavArtistsProfile extends React.Component {
         artistCompanyName={artist.artistCompanyName}
         artistDescription={artist.artistDescription}
         artistAddress={artist.artistAddress}
-        artistStyleList1={artist.artistStyleList.join("").split(",")[0]}
-        artistStyleList2={artist.artistStyleList.join("").split(",")[1]}
-        artistStyleList3={artist.artistStyleList.join("").split(",")[2]}
+        artistStyleList1={artist.artistStyleList.join(",").split(",")[0]}
+        artistStyleList2={artist.artistStyleList.join(",").split(",")[1]}
+        artistStyleList3={artist.artistStyleList.join(",").split(",")[2]}
         artistID={artist._id}
       />
     })
@@ -103,7 +103,7 @@ class ArtistCard extends React.Component {
   }
   render() {
     return (
-          <div className="col-12 col-sm-6 col-md-4" style={{padding:10, height:380, minWidth:300 ,overflow: "scroll"}} >
+          <div className="tattooArtistCardProfile col-12 col-sm-6 col-md-4" style={{padding:10, height:380, minWidth:310 ,overflow: "scroll"}} >
             <TattooArtistCardModal
               artistNickname = {this.state.artistName}
               artistPhotoLink = {this.state.artistImage}

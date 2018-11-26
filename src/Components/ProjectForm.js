@@ -61,7 +61,7 @@ componentDidMount(){
   .then(function(data) {
      ctx.setState({
        artistName: data.result.artistNickname,
-       artistEmail: 'contact@findmytattoo.fr'
+       artistEmail: 'francois.fitzpatrick@gmail.com'
      })
      })
    .catch(function(error) {
@@ -93,7 +93,8 @@ componentDidUpdate(prevProps){
     })
 
 //si on est sur la dernière page du form, envoyer les informations (user depuis le Store et tatoueur depuis la DB) au tatoueur à travers Zapier
-    if(this.state.finished){
+    console.log("Artist du form", this.state.artistName);
+    if(this.state.finished || this.state.stepIndex >= 2){
       console.log("FINISHED");
       var ctx = this;
 //fetch pour créer un nouveau lead et updater coté backend la DB User
