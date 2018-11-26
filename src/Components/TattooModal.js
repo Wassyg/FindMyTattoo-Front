@@ -50,12 +50,14 @@ class TattooModal extends Component {
     this.setState({
       visible: false,
     });
+    this.props.closeModalClick();
   }
 
   handleCancel = (e) => {
     this.setState({
       visible: false,
     });
+    this.props.closeModalClick();
   }
 
   handleTattooLike = (props) =>{
@@ -85,7 +87,7 @@ class TattooModal extends Component {
    }
 
   componentDidUpdate(prevProps){
-    if (this.props.dataModal.clickOnTattoo!==prevProps.dataModal.clickOnTattoo) {
+    if (this.props.dataModal.clickOnTattoo!==prevProps.dataModal.clickOnTattoo && this.props.dataModal.clickOnTattoo===true) {
       this.setState({
         visible : true,
       })
@@ -96,12 +98,12 @@ class TattooModal extends Component {
        return response.json();
       })
       .then(function(data) {
-        // console.log(data);
-       var pictureDataCopy = [...ctx.state.pictureData]
+       var pictureDataCopy = [];
        data.map(function(map){
          pictureDataCopy.push(map)
        })
        ctx.setState({ pictureData: pictureDataCopy});
+       console.log("picturedata",ctx.state.pictureData);
       })
       .catch(function(error) {
        console.log('Request failed', error)
@@ -110,7 +112,7 @@ class TattooModal extends Component {
   }
 
   render() {
-    // console.log('result reducer dataModal',this.props.dataModal);
+    console.log('result reducer dataModal',this.props.dataModal);
 
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo
@@ -154,6 +156,20 @@ class TattooModal extends Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    closeModalClick: function() {
+        dispatch({
+          type: 'closeModal',
+          clickOnTattoo: false,
+          favTattooPhotoLink:[],
+          favArtistID:"",
+          favTattooID:"",
+          favTattooStyleList:"",
+         })
+    },
+  }
+}
 
 function mapStateToProps(store) {
   return {
@@ -163,6 +179,6 @@ function mapStateToProps(store) {
 }
 
 export default connect(
-    mapStateToProps,
-    null
+  mapStateToProps,
+  mapDispatchToProps
 )(TattooModal);
