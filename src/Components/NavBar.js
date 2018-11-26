@@ -38,7 +38,6 @@ class NavbarPage extends Component {
 
    handleScroll = () => {
      this.setState({scroll: window.scrollY});
-     console.log(this.state.scroll);
   }
 
   toggleCollapse = () =>{
@@ -51,7 +50,7 @@ class NavbarPage extends Component {
         clickOnForm: !this.state.clickOnForm,
         routeUserPage : '/',
       });
-    } 
+    }
     // else if (this.props.user._id){
     //   this.setState({
     //     routeUserPage : '/UserPage'

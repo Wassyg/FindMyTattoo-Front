@@ -20,6 +20,13 @@ import { Modal } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
+function checkAndAdd(idTattoo, array) {
+  var found = array.some(function (el) {
+    console.log('el', idTattoo);
+    return el.favTattooID === idTattoo;
+  });
+  return found
+}
 
 //// Composant modal qui affiche le tatouage agrandi, les infos tatoueurs et la gallerie des tatouages du tatoueur en question ////
 
@@ -33,11 +40,6 @@ class TattooModal extends Component {
       classLike: false,
       clickOnForm : false,
     };
-    // if (this.props.dataModal.clickOnTattoo === true) {
-    //   this.setState({
-    //     visible: false,
-    //   });
-    // }
   }
 
   showModal = () => {
@@ -61,7 +63,7 @@ class TattooModal extends Component {
   }
 
   handleTattooLike = (props) =>{
-    if(this.props.userId === null){
+    if(!this.props.userId){
       this.setState({
         clickOnForm: !this.state.clickOnForm
       })
@@ -87,11 +89,27 @@ class TattooModal extends Component {
    }
 
   componentDidUpdate(prevProps){
+    var ctx = this;
+    // if(this.props.userId){
+    //   console.log("didupdate",this.props.dataModal);
+    //   fetch('http://localhost:3000/user?user_id='+this.props.userId)
+    //   .then(function(response) {
+    //    return response.json();
+    //   })
+    //   .then(function(data) {
+    //     console.log(ctx.props.dataModal.favTattooID, data.result.userFavoriteTattoo);
+    //     if (checkAndAdd(ctx.props.dataModal.favTattooID, data.result.userFavoriteTattoo)) {
+    //       ctx.setState({
+    //         classLike : true
+    //       });
+    //     }
+    //   });
+    // }
+
     if (this.props.dataModal.clickOnTattoo!==prevProps.dataModal.clickOnTattoo && this.props.dataModal.clickOnTattoo===true) {
       this.setState({
         visible : true,
       })
-      var ctx = this;
       // Récupération de la liste des tatouages du tatoueur en question
       fetch('http://localhost:3000/tattoosfromartist?artistID='+ctx.props.dataModal.favArtistID)
       .then(function(response) {
@@ -167,7 +185,7 @@ function mapDispatchToProps(dispatch) {
           favTattooID:"",
           favTattooStyleList:"",
          })
-    },
+    }
   }
 }
 
