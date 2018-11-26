@@ -24,46 +24,23 @@ class FavArtistsProfile extends React.Component {
   }
 
   componentDidMount() {
-
       var ctx = this;
       fetch('http://localhost:3000'+"/user?user_id=" + this.props.userId)
       .then(function(response) {
         return response.json();
-      }).then(function(data) {
-        //verifie pour n'ajouter que les tatoueurs qui n'ont pas encore été "likés"
-        var isArtistExist = false;
-        var userFavoriteArtist = data.result.userFavoriteArtist;
-        var artistsListCopy = [...ctx.state.artistsList];
-        for (var i =0; i< artistsListCopy.length; i++){
-          for (var j=0; j< userFavoriteArtist.length; j++ ){
-            if (artistsListCopy[i] == userFavoriteArtist[j] ){
-              isArtistExist = true;
-            }
-          }
-        }
-         if(isArtistExist == false){
-           userFavoriteArtist.map(function(favArtists) {
-             artistsListCopy.push(favArtists)
-           })
-         ctx.setState({artistsList: artistsListCopy});
-         }
-
-      }).catch(function(error) {
+      })
+      .then(function(data) {
+        ctx.setState({artistsList: data.result.userFavoriteArtist});
+      })
+      .catch(function(error) {
         console.log('Request failed', error);
       });
     }
 
   render() {
-
     var artistsList = this.state.artistsList;
-    console.log("artistsList==>",artistsList)
-
-
-    // artistsList.push({src: '../avatarsTatoueurs/11201563_749803451831654_737090053_a.jpg', artistName: "Bichon", tattooShop: "Golden Rabbit"});
-    // artistsList.push({src: '../avatarsTatoueurs/41450515_1897257143642841_5668628696324374528_n.jpg', artistName: "Princess Madness", tattooShop: "Lez'Art du corps"});
-
     var artistsDisplayedCards = this.state.artistsList.map(function(artist, i) {
-      return <ArtistCard
+      return <FavArtistCard
         key={i}
         artistName={artist.artistNickname}
         artistImage={artist.artistPhotoLink}
@@ -76,17 +53,16 @@ class FavArtistsProfile extends React.Component {
         artistID={artist._id}
       />
     })
-
     return (
       <div className="containerArtistProfile">
-      <div className="row rowArtistProfile col-12">
-        {artistsDisplayedCards}
-      </div>
+        <div className="row rowArtistProfile col-12">
+          {artistsDisplayedCards}
+        </div>
       </div>);
   }
 }
 
-class ArtistCard extends React.Component {
+class FavArtistCard extends React.Component {
   constructor(props){
     super(props);
     this.state ={
@@ -103,19 +79,19 @@ class ArtistCard extends React.Component {
   }
   render() {
     return (
-          <div className="tattooArtistCardProfile col-12 col-sm-6 col-md-4" style={{padding:10, height:380, minWidth:310 ,overflow: "scroll"}} >
-            <TattooArtistCardModal
-              artistNickname = {this.state.artistName}
-              artistPhotoLink = {this.state.artistImage}
-              artistCompanyName = {this.state.artistCompanyName}
-              artistDescription = {this.state.artistDescription}
-              artistAddress = {this.state.artistAddress}
-              artistStyleList1 = {this.state.artistStyleList1}
-              artistStyleList2 = {this.state.artistStyleList2}
-              artistStyleList3 = {this.state.artistStyleList3}
-              artistID = {this.state.artistID}
-            />
-          </div>
+      <div className="tattooArtistCardProfile col-12 col-sm-6 col-md-4" style={{padding:10, height:380, minWidth:310 ,overflow: "scroll"}} >
+        <TattooArtistCardModal
+          artistNickname = {this.state.artistName}
+          artistPhotoLink = {this.state.artistImage}
+          artistCompanyName = {this.state.artistCompanyName}
+          artistDescription = {this.state.artistDescription}
+          artistAddress = {this.state.artistAddress}
+          artistStyleList1 = {this.state.artistStyleList1}
+          artistStyleList2 = {this.state.artistStyleList2}
+          artistStyleList3 = {this.state.artistStyleList3}
+          artistID = {this.state.artistID}
+        />
+      </div>
     );
   }
 }

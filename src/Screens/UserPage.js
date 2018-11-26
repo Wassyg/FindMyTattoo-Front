@@ -10,12 +10,7 @@ import {connect} from 'react-redux';
 
 import '../Stylesheets/UserPage.css';
 
-
-
-
 class UserPage extends Component{
-
-
   render(){
     return(
       <div className="userPage-container-fluid">
