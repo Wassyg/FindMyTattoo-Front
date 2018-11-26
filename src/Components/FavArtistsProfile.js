@@ -103,7 +103,7 @@ class ArtistCard extends React.Component {
   }
   render() {
     return (
-          <div className="tattooArtistCardProfile col-12 col-sm-6 col-md-4" style={{padding:10, height:380, minWidth:310 ,overflow: "scroll"}} >
+          <div className="tattooArtistCardProfile col-12 col-sm-6 col-md-4" style={{padding:5, height:400, minWidth:310}} >
             <TattooArtistCardModal
               artistNickname = {this.state.artistName}
               artistPhotoLink = {this.state.artistImage}

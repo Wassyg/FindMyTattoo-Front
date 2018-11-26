@@ -49,7 +49,7 @@ class NavBarEspacePerso extends Component {
     return (
       <Navbar className={classNavbar.join(" ")}  dark expand="md">
         <NavbarBrand>
-          <strong className="logo-navbar">Find my Tattoo</strong>
+          <strong id="top" className="logo-navbar">Find my Tattoo</strong>
         </NavbarBrand>
         <Button outline color="warning" onClick={()=>this.toggleAuth()}><FontAwesomeIcon icon={faUser} className="fa-lg"/></Button>
         <AuthForm clickOnForm={this.state.clickOnForm}/>

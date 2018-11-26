@@ -162,7 +162,7 @@ class TattooArtistCardModal extends Component {
             <CardSubtitle id="artistCompanyNameModal">{this.state.artistCompanyName}</CardSubtitle>
               <CardText>{this.state.artistDescription}</CardText>
               <div id = "artistAllBadgeModal">
-                <Row style={{overflow: "scroll"}}>
+                <Row>
                   <h6><Badge color="info" pill className="artistStyleBadgeModal">{this.state.artistStyleList1}</Badge></h6>
                 <h6><Badge color="info" pill className="artistStyleBadgeModal">{this.state.artistStyleList2}</Badge></h6>
                   <h6><Badge color="info" pill className="artistStyleBadgeModal">{this.state.artistStyleList3}</Badge></h6>
