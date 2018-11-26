@@ -43,6 +43,7 @@ class NavbarPage extends Component {
   toggleCollapse = () =>{
     this.setState({ isOpen: !this.state.isOpen });
   }
+
   handleClick = () => {
     if(this.props.user._id == null){
       this.setState({
