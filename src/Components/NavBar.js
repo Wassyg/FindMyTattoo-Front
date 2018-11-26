@@ -49,11 +49,12 @@ class NavbarPage extends Component {
         clickOnForm: !this.state.clickOnForm,
         routeUserPage : '/'
       })
-    } else if (this.props.user._id){
-      this.setState({
-        routeUserPage : '/UserPage'
-      })
     }
+    // else if (this.props.user._id){
+    //   this.setState({
+    //     routeUserPage : '/UserPage'
+    //   })
+    // }
   }
 
   render() {
@@ -86,7 +87,7 @@ class NavbarPage extends Component {
               <Link className={classNavBtn.join(" ")} to={'/'}>Galerie</Link>
             </NavItem>
             <NavItem>
-              <Link className={classNavBtn.join(" ")} to={this.state.routeUserPage} onClick={()=>this.handleClick()}>MoodBoard</Link>
+              <Link className={classNavBtn.join(" ")} to={this.props.user._id ?"/UserPage" :"/"} onClick={()=>this.handleClick()}>MoodBoard</Link>
             </NavItem>
 
           </NavbarNav>

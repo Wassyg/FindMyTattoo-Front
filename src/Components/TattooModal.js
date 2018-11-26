@@ -87,7 +87,7 @@ class TattooModal extends Component {
    }
 
   componentDidUpdate(prevProps){
-    if (this.props.dataModal.clickOnTattoo!==prevProps.dataModal.clickOnTattoo && this.props.dataModal.clickOnTattoo === true) {
+    if (this.props.dataModal.clickOnTattoo!==prevProps.dataModal.clickOnTattoo) {
       this.setState({
         visible : true,
       })
