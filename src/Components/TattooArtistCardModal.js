@@ -78,6 +78,36 @@ class TattooArtistCardModal extends Component {
     });
   }
 
+  componentDidUpdate(prevProps){
+    if (this.props.dataModal.clickOnTattoo!==prevProps.dataModal.clickOnTattoo && this.props.dataModal.clickOnTattoo=== true){
+      console.log(this.props.dataModal.clickOnTattoo);
+      console.log("update");
+      var ctx = this;
+      fetch('http://localhost:3000/artist?artist_id='+ this.props.dataModal.favArtistID)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+         ctx.setState({
+           clickToSend: false,
+           artistNickname: data.result.artistNickname,
+           artistCompanyName: data.result.artistCompanyName,
+           artistAddress: data.result.artistAddress,
+           artistStyleList1: data.result.artistStyleList[0],
+           artistStyleList2: data.result.artistStyleList[1],
+           artistStyleList3: data.result.artistStyleList[2],
+           artistDescription: data.result.artistDescription,
+           artistPhotoLink: data.result.artistPhotoLink,
+           artistNote: data.result.artistNote
+           })
+         })
+       .catch(function(error) {
+        console.log('Request failed', error);
+      });
+    }
+  }
+
+
   handleArtistLike = (props) =>{
     if(this.props.userId == null){
       this.setState({
