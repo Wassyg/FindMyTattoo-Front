@@ -18,11 +18,7 @@ class GalleryPage extends Component{
 
   componentDidMount(){
    var ctx = this;
-<<<<<<< HEAD
-   fetch('http://localhost:3000'+'/tattoos')
-=======
-   fetch('http://localhost:3000/tattoos')
->>>>>>> 2245c4b0c18f10dfffee893ddc14c1e9445d9247
+  fetch('http://localhost:3000/tattoos')
    .then(function(response) {
      return response.json();
    })
