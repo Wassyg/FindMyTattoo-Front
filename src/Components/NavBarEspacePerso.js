@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 //Import des composants externes
 import AuthForm from '../Components/AuthForm.js';
@@ -43,11 +43,9 @@ class NavBarEspacePerso extends Component {
   }
 
   render() {
-
-        let classNavbar = ["navbar-scrolled"];
-        let classLogoNav = ["logo-navbar-scrolled"];
-        let classNavBtn = ["nav-btn-scrolled"];
-
+    let classNavbar = ["navbar-scrolled"];
+    let classLogoNav = ["logo-navbar-scrolled"];
+    let classNavBtn = ["nav-btn-scrolled"];
     return (
       <Navbar className={classNavbar.join(" ")}  dark expand="md">
         <NavbarBrand>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 //Import des composants externes
 import NavBar from '../Components/NavBar.js';
-import ArtistCard from '../Components/ArtistCard.js';
+import ArtistCard from '../Assets/OldComponents/ArtistCard.js';
 
 //Import des librairies ou composants de style
 import 'bootstrap/dist/css/bootstrap.min.css';

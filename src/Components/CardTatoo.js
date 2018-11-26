@@ -18,15 +18,20 @@ class CardTatoo extends Component {
     };
   }
 
+  componentDidMount() {
+    // let DidMount = {}
+    // DidMount.isOpen = this.state.clickOnTattoo;
+    // this.props.openModalClick(DidMount)
+   }
+
 
   handleClick = (props) => {
-      this.setState({
+    this.setState({
       clickOnTattoo: !this.state.clickOnTattoo
     })
     let propsModal = {...props};
     propsModal.isOpen = this.state.clickOnTattoo;
     this.props.openModalClick(propsModal)
-
   }
 
   render(){

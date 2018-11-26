@@ -36,7 +36,7 @@ class AuthForm extends React.Component {
   }
 
   componentDidUpdate(prevProps){
-    if (this.props.clickOnForm!==prevProps.clickOnForm && this.props.clickOnForm === true) {
+    if (this.props.clickOnForm!==prevProps.clickOnForm) {
       this.setState({
         modal : true,
       });
