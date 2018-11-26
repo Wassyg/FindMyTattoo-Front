@@ -47,14 +47,12 @@ class TattooModal extends Component {
   }
 
   handleOk = (e) => {
-    console.log(e);
     this.setState({
       visible: false,
     });
   }
 
   handleCancel = (e) => {
-    console.log(e);
     this.setState({
       visible: false,
     });
@@ -98,7 +96,7 @@ class TattooModal extends Component {
        return response.json();
       })
       .then(function(data) {
-        console.log(data);
+        // console.log(data);
        var pictureDataCopy = [...ctx.state.pictureData]
        data.map(function(map){
          pictureDataCopy.push(map)
@@ -112,7 +110,7 @@ class TattooModal extends Component {
   }
 
   render() {
-    console.log('result reducer dataModal',this.props.dataModal);
+    // console.log('result reducer dataModal',this.props.dataModal);
 
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo

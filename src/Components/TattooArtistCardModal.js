@@ -85,16 +85,13 @@ class TattooArtistCardModal extends Component {
       })
     }else{
       var ctx = this;
-      console.log("enter in handleartistlikefunction + condition1");
       if(this.state.classLike === false){
-        console.log("enter in handleartistlikefunction + condition1 + false condition2");
         fetch('http://localhost:3000/userlikeartist', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favArtistNickname='+ctx.state.artistNickname+'&favArtistCompanyName='+ctx.state.artistCompanyName+'&favArtistAddress='+ctx.state.artistAddress+'&favArtistDescription='+ctx.state.artistDescription+'&favArtistPhotoLink='+ctx.state.artistPhotoLink+'&favArtistStyleList1='+ctx.state.artistStyleList1+'&favArtistStyleList2='+ctx.state.artistStyleList2+'&favArtistStyleList3='+ctx.state.artistStyleList3+'&favArtistNote='+ctx.state.artistNote+'&favArtistID='+ctx.props.dataModal.favArtistID+'&user_id='+ctx.props.userId
         });
       } else {
-        console.log("enter in handleartistlikefunction + condition1 + true condition2");
         fetch('http://localhost:3000/userdislikeartist', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -106,9 +103,6 @@ class TattooArtistCardModal extends Component {
    }
 
   render () {
-    console.log("this.state.artistNickname", this.state.artistNickname);
-    console.log("retour du reducer dataModal", this.props.dataModal);
-
     return (
 
       <Card id="artistInfoBoxModal">
