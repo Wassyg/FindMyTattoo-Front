@@ -98,12 +98,12 @@ class TattooModal extends Component {
        return response.json();
       })
       .then(function(data) {
-        // console.log(data);
-       var pictureDataCopy = [...ctx.state.pictureData]
+       var pictureDataCopy = [];
        data.map(function(map){
          pictureDataCopy.push(map)
        })
        ctx.setState({ pictureData: pictureDataCopy});
+       console.log("picturedata",ctx.state.pictureData);
       })
       .catch(function(error) {
        console.log('Request failed', error)
