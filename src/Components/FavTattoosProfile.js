@@ -15,61 +15,52 @@ class FavTattoosProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clickOnTattoo: false,
-      tattoosList: []
+      favTattoosList: []
     }
   }
 
   componentDidMount() {
     var ctx= this;
-
-    fetch('http://localhost:3000'+'/user?user_id='+this.props.userId)
-    .then(function(response) {
-     return response.json()
+    this.setState({
+      favTattoosList: this.props.user.userFavoriteTattoo
     })
-    .then(function(data) {
-      var tattoosListCopy =[...ctx.state.tattoosList];
-      var userFavoriteTattoo = data.result.userFavoriteTattoo;
-      userFavoriteTattoo.map(function(favTattoos){
-        tattoosListCopy.push(favTattoos);
-               })
-      ctx.setState({
-        tattoosList : tattoosListCopy,
-               })
-             })
-    .catch(function(error) {
-     console.log('Request failed', error);
-   });
- }
-
+  }
 
   render() {
-        var tattoosList = this.state.tattoosList;
+    var favTattoosDisplayedCards = [];
+    for (var i = 0; i < this.state.favTattoosList.length; i++) {
+      var tattooLike = true;
+      var artistLike = false;
+      for (var k = 0; k < this.props.user.userFavoriteArtist.length; k++) {
+        if (this.state.favTattoosList[i].artistID === this.props.user.userFavoriteArtist[k].favArtistID) {
+          artistLike = true;
+          break;
+        }
+      }
+      favTattoosDisplayedCards.push(<CardTatoo
+        key={i}
+        tattooID={this.state.favTattoosList[i]._id}
+        tattooPhotoLink={this.state.favTattoosList[i].tattooPhotoLink}
+        artistID={this.state.favTattoosList[i].artistID}
+        tattooStyleList={this.state.favTattoosList[i].tattooStyleList}
+        tattooLike = {tattooLike}
+        artistLike = {artistLike}
+      />)
+    }
 
-        var tattoosDisplayedCards = tattoosList.map(function(tattoo, i){
-          return <CardTatoo
-           key={i}
-           artistID={tattoo.artistID}
-           tattooPhotoLink={tattoo.tattooPhotoLink}
-           tattooStyleList={tattoo.tattooStyleList}
-           tattooPhotoID={tattoo.tattooPhotoID}
-         />
-       })
     return (
       <div className="containerTattoosProfile">
-          <div className="row rowTattoosProfile col-12">
-          {tattoosDisplayedCards}
-          </div>
+        <div className="row rowTattoosProfile col-12">
+          {favTattoosDisplayedCards}
+        </div>
       </div>
     )
   }
 }
 
-
-
-
 function mapStateToProps(store) {
-  return { userId: store.user._id,
+  return {
+    user: store.user,
   }
 }
 

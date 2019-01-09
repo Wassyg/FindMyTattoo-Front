@@ -27,6 +27,4 @@ class TabsProfile extends Component{
   }
 }
 
-
-
 export default TabsProfile;

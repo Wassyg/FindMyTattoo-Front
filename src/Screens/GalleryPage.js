@@ -14,8 +14,9 @@ import TattooModal from '../Components/TattooModal.js';
 class GalleryPage extends Component{
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
-    this.state = { collapse: false , pictureData:[]};
+    this.state = {
+      tattoosList:[]
+    };
   }
 
   componentDidMount(){
@@ -25,61 +26,54 @@ class GalleryPage extends Component{
         return response.json();
       })
       .then(function(data) {
-        var pictureDataCopy = [...ctx.state.pictureData]
+        var tattoosListCopy = [...ctx.state.tattoosList]
         data.map(function(map){
-          pictureDataCopy.push(map)
+          tattoosListCopy.push(map)
         })
-        ctx.setState({ pictureData: pictureDataCopy});
+        ctx.setState({ tattoosList: tattoosListCopy});
       })
       .catch(function(error) {
         console.log('Request failed', error)
       });
   }
 
-  toggle() {
-    this.setState({ collapse: !this.state.collapse });
-  }
-
   render(){
-    // console.log("pour le format ID du tattoo ===>", this.state.pictureData);
-    var pictureList = [];
+    var tattoosDisplayedCards = [];
     console.log("Current user",this.props.user);
     if(!this.props.user._id){
-      for (var i = 0; i < this.state.pictureData.length; i++) {
-        pictureList.push(<CardTatoo
+      for (var i = 0; i < this.state.tattoosList.length; i++) {
+        tattoosDisplayedCards.push(<CardTatoo
           key={i}
-          tattooID={this.state.pictureData[i]._id}
-          tattooPhotoLink={this.state.pictureData[i].tattooPhotoLink}
-          artistID={this.state.pictureData[i].artistID}
-          tattooStyleList={this.state.pictureData[i].tattooStyleList}
+          tattooID={this.state.tattoosList[i]._id}
+          tattooPhotoLink={this.state.tattoosList[i].tattooPhotoLink}
+          artistID={this.state.tattoosList[i].artistID}
+          tattooStyleList={this.state.tattoosList[i].tattooStyleList}
           tattooLike = {false}
           artistLike = {false}
         />)
       }
     } else {
-      console.log("checking the liked tattoos in gallery");
-      console.log("number of liked tattoos", this.props.user.userFavoriteTattoo.length);
-      for (var i = 0; i < this.state.pictureData.length; i++) {
+      for (var i = 0; i < this.state.tattoosList.length; i++) {
         var tattooLike = false;
         var artistLike = false;
         for (var j = 0; j < this.props.user.userFavoriteTattoo.length; j++) {
-          if (this.state.pictureData[i]._id === this.props.user.userFavoriteTattoo[j].favTattooID) {
+          if (this.state.tattoosList[i]._id === this.props.user.userFavoriteTattoo[j].favTattooID) {
             tattooLike = true;
             break;
           }
         }
         for (var k = 0; k < this.props.user.userFavoriteArtist.length; k++) {
-          if (this.state.pictureData[i].artistID === this.props.user.userFavoriteArtist[k].favArtistID) {
+          if (this.state.tattoosList[i].artistID === this.props.user.userFavoriteArtist[k].favArtistID) {
             artistLike = true;
             break;
           }
         }
-        pictureList.push(<CardTatoo
+        tattoosDisplayedCards.push(<CardTatoo
           key={i}
-          tattooID={this.state.pictureData[i]._id}
-          tattooPhotoLink={this.state.pictureData[i].tattooPhotoLink}
-          artistID={this.state.pictureData[i].artistID}
-          tattooStyleList={this.state.pictureData[i].tattooStyleList}
+          tattooID={this.state.tattoosList[i]._id}
+          tattooPhotoLink={this.state.tattoosList[i].tattooPhotoLink}
+          artistID={this.state.tattoosList[i].artistID}
+          tattooStyleList={this.state.tattoosList[i].tattooStyleList}
           tattooLike = {tattooLike}
           artistLike = {artistLike}
         />)
@@ -92,7 +86,7 @@ class GalleryPage extends Component{
         <HomePage/>
         <div className="container">
           <div className="row gallery-container">
-            {pictureList}
+            {tattoosDisplayedCards}
           </div>
         </div>
       </div>
