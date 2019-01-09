@@ -57,6 +57,8 @@ class GalleryPage extends Component{
         />)
       }
     } else {
+      console.log("checking the liked tattoos in gallery");
+      console.log("number of liked tattoos", this.props.user.userFavoriteTattoo.length);
       for (var i = 0; i < this.state.pictureData.length; i++) {
         var tattooLike = false;
         var artistLike = false;
@@ -79,7 +81,7 @@ class GalleryPage extends Component{
           artistID={this.state.pictureData[i].artistID}
           tattooStyleList={this.state.pictureData[i].tattooStyleList}
           tattooLike = {tattooLike}
-          tattooArtist = {artistLike}
+          artistLike = {artistLike}
         />)
       }
     }
@@ -88,7 +90,6 @@ class GalleryPage extends Component{
       <div>
         <NavBar/>
         <HomePage/>
-        <TattooModal/>
         <div className="container">
           <div className="row gallery-container">
             {pictureList}
