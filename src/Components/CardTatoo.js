@@ -18,15 +18,13 @@ class CardTatoo extends Component {
     };
   }
 
-
   handleClick = (props) => {
     this.setState({
       clickOnTattoo: !this.state.clickOnTattoo
     })
     let propsModal = {...props};
-    propsModal.isOpen = true;
+    propsModal.clickOnTattoo = true;
     this.props.openModalClick(propsModal);
-    console.log(propsModal);
   }
 
   render(){
@@ -48,19 +46,20 @@ function mapDispatchToProps(dispatch) {
     openModalClick: function(props) {
         dispatch({
           type: 'openModal',
-          clickOnTattoo:props.isOpen,
-          favTattooPhotoLink:props.tattooPhotoLink,
-          favArtistID:props.artistId,
-          favTattooID:props.tattooId,
-          favTattooStyleList:props.tattooStyleList,
+          clickOnTattoo: props.clickOnTattoo,
+          tattooPhotoLink: props.tattooPhotoLink,
+          artistID: props.artistID,
+          tattooID: props.tattooID,
+          tattooStyleList: props.tattooStyleList,
+          tattooLike: props.tattooLike,
+          artistLike: props.artistLike,
          })
     },
   }
 }
 
 function mapStateToProps(store) {
-  return { userId: store.user._id,
-  }
+  return { userId: store.user._id}
 }
 
 export default connect(

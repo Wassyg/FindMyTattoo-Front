@@ -45,7 +45,6 @@ class FavTattoosProfile extends React.Component {
 
   render() {
         var tattoosList = this.state.tattoosList;
-        console.log("tattoosList==>",tattoosList)
 
         var tattoosDisplayedCards = tattoosList.map(function(tattoo, i){
           return <CardTatoo

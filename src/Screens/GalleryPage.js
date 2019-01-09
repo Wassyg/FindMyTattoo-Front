@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+
 import {  } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Stylesheets/GalleryPage.css'
@@ -17,50 +19,79 @@ class GalleryPage extends Component{
   }
 
   componentDidMount(){
-   var ctx = this;
-  fetch('http://localhost:3000/tattoos')
-   .then(function(response) {
-     return response.json();
-   })
-   .then(function(data) {
-     var pictureDataCopy = [...ctx.state.pictureData]
-     data.map(function(map){
-       pictureDataCopy.push(map)
-     })
-
-     ctx.setState({ pictureData: pictureDataCopy});
-
-   })
-   .catch(function(error) {
-     console.log('Request failed', error)
-   });
- }
-
- 
-
+    var ctx = this;
+    fetch('http://localhost:3000/tattoos')
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        var pictureDataCopy = [...ctx.state.pictureData]
+        data.map(function(map){
+          pictureDataCopy.push(map)
+        })
+        ctx.setState({ pictureData: pictureDataCopy});
+      })
+      .catch(function(error) {
+        console.log('Request failed', error)
+      });
+  }
 
   toggle() {
     this.setState({ collapse: !this.state.collapse });
   }
+
   render(){
     // console.log("pour le format ID du tattoo ===>", this.state.pictureData);
+    var pictureList = [];
+    console.log("Current user",this.props.user);
+    if(!this.props.user._id){
+      for (var i = 0; i < this.state.pictureData.length; i++) {
+        pictureList.push(<CardTatoo
+          key={i}
+          tattooID={this.state.pictureData[i]._id}
+          tattooPhotoLink={this.state.pictureData[i].tattooPhotoLink}
+          artistID={this.state.pictureData[i].artistID}
+          tattooStyleList={this.state.pictureData[i].tattooStyleList}
+          tattooLike = {false}
+          artistLike = {false}
+        />)
+      }
+    } else {
+      for (var i = 0; i < this.state.pictureData.length; i++) {
+        var tattooLike = false;
+        var artistLike = false;
+        for (var j = 0; j < this.props.user.userFavoriteTattoo.length; j++) {
+          if (this.state.pictureData[i]._id === this.props.user.userFavoriteTattoo[j].favTattooID) {
+            tattooLike = true;
+            break;
+          }
+        }
+        for (var k = 0; k < this.props.user.userFavoriteArtist.length; k++) {
+          if (this.state.pictureData[i].artistID === this.props.user.userFavoriteArtist[k].favArtistID) {
+            artistLike = true;
+            break;
+          }
+        }
+        pictureList.push(<CardTatoo
+          key={i}
+          tattooID={this.state.pictureData[i]._id}
+          tattooPhotoLink={this.state.pictureData[i].tattooPhotoLink}
+          artistID={this.state.pictureData[i].artistID}
+          tattooStyleList={this.state.pictureData[i].tattooStyleList}
+          tattooLike = {tattooLike}
+          tattooArtist = {artistLike}
+        />)
+      }
+    }
 
-    let pictureList = this.state.pictureData.map(function(map, i){
-      return <CardTatoo
-        key={i}
-        tattooId={map._id}
-        tattooPhotoLink={map.tattooPhotoLink}
-        artistId={map.artistID}
-        tattooStyleList={map.tattooStyleList}  />
-    })
     return(
       <div>
-        <NavBar />
-        <HomePage />
-        <TattooModal />
+        <NavBar/>
+        <HomePage/>
+        <TattooModal/>
         <div className="container">
           <div className="row gallery-container">
-          {pictureList}
+            {pictureList}
           </div>
         </div>
       </div>
@@ -68,5 +99,13 @@ class GalleryPage extends Component{
   }
 }
 
+function mapStateToProps(store) {
+  return {
+     user: store.user
+  }
+}
 
-export default GalleryPage;
+export default connect(
+    mapStateToProps,
+    null
+)(GalleryPage);

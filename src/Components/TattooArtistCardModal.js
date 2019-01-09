@@ -20,7 +20,7 @@ class TattooArtistCardModal extends Component {
     super(props);
     this.handleClickSend = this.handleClickSend.bind(this);
     this.state = {
-      classLike : false,
+      artistLike : this.props.artistLike,
       clickToSend: false,
       artistNickname: this.props.artistNickname,
       artistCompanyName: this.props.artistCompanyName,
@@ -55,7 +55,7 @@ class TattooArtistCardModal extends Component {
 //grace au reducer récupérer l'ID de l'artiste pour fetcher ses informations
   componentDidMount(){
     var ctx = this;
-    fetch('http://localhost:3000/artist?artist_id='+ this.props.dataModal.favArtistID)
+    fetch('http://localhost:3000/artist?artist_id='+ this.props.dataModal.artistID)
     .then(function(response) {
       return response.json();
     })
@@ -80,10 +80,11 @@ class TattooArtistCardModal extends Component {
 
   componentDidUpdate(prevProps){
     if (this.props.dataModal.clickOnTattoo!==prevProps.dataModal.clickOnTattoo && this.props.dataModal.clickOnTattoo=== true){
-      console.log(this.props.dataModal.clickOnTattoo);
-      console.log("update");
+      this.setState({
+        artistLike: this.props.dataModal.artistLike,
+      })
       var ctx = this;
-      fetch('http://localhost:3000/artist?artist_id='+ this.props.dataModal.favArtistID)
+      fetch('http://localhost:3000/artist?artist_id='+ this.props.dataModal.artistID)
       .then(function(response) {
         return response.json();
       })
@@ -115,20 +116,20 @@ class TattooArtistCardModal extends Component {
       })
     }else{
       var ctx = this;
-      if(this.state.classLike === false){
+      if(this.state.artistLike === false){
         fetch('http://localhost:3000/userlikeartist', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
-        body: 'favArtistNickname='+ctx.state.artistNickname+'&favArtistCompanyName='+ctx.state.artistCompanyName+'&favArtistAddress='+ctx.state.artistAddress+'&favArtistDescription='+ctx.state.artistDescription+'&favArtistPhotoLink='+ctx.state.artistPhotoLink+'&favArtistStyleList1='+ctx.state.artistStyleList1+'&favArtistStyleList2='+ctx.state.artistStyleList2+'&favArtistStyleList3='+ctx.state.artistStyleList3+'&favArtistNote='+ctx.state.artistNote+'&favArtistID='+ctx.props.dataModal.favArtistID+'&user_id='+ctx.props.userId
+        body: 'favArtistNickname='+ctx.state.artistNickname+'&favArtistCompanyName='+ctx.state.artistCompanyName+'&favArtistAddress='+ctx.state.artistAddress+'&favArtistDescription='+ctx.state.artistDescription+'&favArtistPhotoLink='+ctx.state.artistPhotoLink+'&favArtistStyleList1='+ctx.state.artistStyleList1+'&favArtistStyleList2='+ctx.state.artistStyleList2+'&favArtistStyleList3='+ctx.state.artistStyleList3+'&favArtistNote='+ctx.state.artistNote+'&favArtistID='+ctx.props.dataModal.artistID+'&user_id='+ctx.props.userId
         });
       } else {
         fetch('http://localhost:3000/userdislikeartist', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
-        body: 'favArtistID='+ctx.props.dataModal.favArtistID+'&user_id='+ctx.props.userId
+        body: 'favArtistID='+ctx.props.dataModal.artistID+'&user_id='+ctx.props.userId
         });
       }
-      this.setState({classLike: !this.state.classLike});
+      this.setState({artistLike: !this.state.artistLike});
     }
    }
 
@@ -149,13 +150,13 @@ class TattooArtistCardModal extends Component {
                 <FontAwesomeIcon icon={faStar} className="artistStarIconModal fa-xs"/>
               </div>
               {
-                !this.state.classLike ?
+                !this.state.artistLike ?
                 <Button outline color="success" size="sm" className="artistButtonModal" onClick={()=>this.handleArtistLike()}><FontAwesomeIcon icon={faHeart} className="fa-xs"/> Garder</Button>
                   :
                 <Button outline color="secondary" size="sm" className="artistButtonModal" onClick={()=>this.handleArtistLike()}><FontAwesomeIcon icon={faTimesCircle} className="fa-xs"/> Retirer</Button>
               }
               <Button outline color="success" size="sm" className="artistButtonModal" onClick={this.handleClickSend}>
-              <ProjectForm clickToSend={this.state.clickToSend} artistId={this.props.artistId}/> <FontAwesomeIcon icon={faEnvelope} className="fa-xs"/> Contacter</Button>
+              <ProjectForm clickToSend={this.state.clickToSend} artistID={this.props.dataModal.artistID}/> <FontAwesomeIcon icon={faEnvelope} className="fa-xs"/> Contacter</Button>
             </Col>
             <Col xs="8">
               <CardTitle id="artistNameModal">{this.state.artistNickname}</CardTitle>

@@ -48,7 +48,7 @@ class ProjectForm extends React.Component {
   componentDidMount() {
     var ctx = this;
     //collecter les informations de l'artiste depuis la DB
-    fetch('http://localhost:3000/artist?artist_id=' + this.props.artistId)
+    fetch('http://localhost:3000/artist?artist_id=' + ctx.props.artistID)
     .then(function(response) {
       return response.json();
     })
@@ -93,7 +93,7 @@ class ProjectForm extends React.Component {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: 'userID=' + ctx.props.userID + '&artistID=' + ctx.props.artistId + '&userAvailability=' + ctx.state.value + "&userTattooDescription=" + ctx.state.description + '&userTelephone=' + ctx.state.phone
+        body: 'userID=' + ctx.props.userID + '&artistID=' + ctx.props.artistID + '&userAvailability=' + ctx.state.value + "&userTattooDescription=" + ctx.state.description + '&userTelephone=' + ctx.state.phone
       })
       .then(function(response) {
         return response.json();

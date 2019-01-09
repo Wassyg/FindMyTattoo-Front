@@ -29,15 +29,15 @@ class NavbarPage extends Component {
   }
 
   componentDidMount() {
-     window.addEventListener('scroll', this.handleScroll);
-   }
+    window.addEventListener('scroll', this.handleScroll);
+  }
 
-   componentWillUnmount() {
-     window.removeEventListener('scroll', this.handleScroll);
-   }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
 
-   handleScroll = () => {
-     this.setState({scroll: window.scrollY});
+  handleScroll = () => {
+    this.setState({scroll: window.scrollY});
   }
 
   toggleCollapse = () =>{
@@ -73,16 +73,20 @@ class NavbarPage extends Component {
         <NavbarBrand>
           <strong className={classLogoNav.join(" ")}>Find my Tattoo</strong>
         </NavbarBrand>
-        <Button outline color="warning" onClick={()=>this.toggleAuth()}><FontAwesomeIcon icon={faUser} className="fa-lg"/></Button>
-        <AuthForm clickOnForm={this.state.clickOnForm}/>
-        <p className={classNavBtn.join(" ")}> {this.props.user.userFirstName}</p>
+
+        <Button outline color="warning" onClick={()=>this.toggleAuth()}>
+          <FontAwesomeIcon icon={faUser} className="fa-lg"/>
+          <AuthForm clickOnForm={this.state.clickOnForm}/>
+        </Button>
+        <p className={classNavBtn.join(" ")}>{this.props.user.userFirstName}</p>
+
         <NavbarToggler
           onClick={() => this.toggleCollapse()}
         />
+
         <Collapse className="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           <NavbarNav left>
           </NavbarNav>
-
           <NavbarNav right>
             <NavItem>
               <Link className={classNavBtn.join(" ")} to={'/'}>Galerie</Link>
@@ -90,7 +94,6 @@ class NavbarPage extends Component {
             <NavItem>
               <Link className={classNavBtn.join(" ")} to={this.props.user._id ?"/UserPage#top" :"/"} onClick={()=>this.handleClick()}>MoodBoard</Link>
             </NavItem>
-
           </NavbarNav>
         </Collapse>
       </Navbar>
