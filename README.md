@@ -1,44 +1,22 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# CrazyTattooGallery
 
-## Available Scripts
+This is a <b>MERN (MongoDB - Express - React - Node) JS web app</b> to find out about the latest trends in tattoos in order to find the right artist for you: https://crazytattoogallery.herokuapp.com/
+The project has been built for the startup FindMyTattoo and was aimed to be a first MVP. All of its features have been validated by tattoo artists. The MVP is aimed at finding out the commercial interest of such business for users who want to get tattooed.
 
-In the project directory, you can run:
+The main features of the app :
+<ul>
+  <li>View a catalogue of tattoos displayed in the Instagram style</li>
+  <li>Find out more about the tattoo and the artist who made it by clicking on the tattoo</li>
+  <li>Login access with crypted password to start liking tattoos or artists in order to remember them for your next visit</li>
+  <li>View the gallery of all your favorite tattoos and artists</li>
+  <li>Contact the artist by filling in a simple form which will send an email directly to the artist with your contact details in order for the artist to call you back</li>
+</ul>
 
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [url](url) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+The app was built by a team of three Junior developpers : Wassima, Madian and François. While working for the app, we learnt about :
+<ol>
+  <li>Setting up a back-end server on <b>node.JS using Express framework</b></li>
+  <li>Scraping data from a competitor using <b>cheerio library</b> in order to enrich our tattoo and artist database</li>
+  <li>Setting up, reading and updating a <b>mongo DB with Mongoose Framework</b> to keep in memory the tattoos, the artists, the users and the leads between users and artists (NoSQL and SQL style database)</li>
+  <li>Building a multi-component <b>React</b> web app with a <b>Redux</b> architecture to store locally data on the user</li>
+  <li>Connecing the React app to the back-end server</li>
+</ol>  
