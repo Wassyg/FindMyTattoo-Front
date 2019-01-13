@@ -1,13 +1,17 @@
+//// Tattoo card which is represented by an image and which shows a modal when clicked on ////
+
+
+/* Importing key components */
 import React, { Component } from 'react';
+
+/* Importing styles and images */
 import '../Stylesheets/CardTatoo.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {connect} from 'react-redux';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 
+/* Importing other components */
 import TattooModal from '../Components/TattooModal.js';
-
 
 
 class CardTatoo extends Component {
@@ -47,11 +51,4 @@ class CardTatoo extends Component {
   }
 }
 
-function mapStateToProps(store) {
-  return { userId: store.user._id}
-}
-
-export default connect(
-    mapStateToProps,
-    null
-)(CardTatoo);
+export default CardTatoo;

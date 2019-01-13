@@ -1,23 +1,21 @@
-//Alimente le modal envoyé au tatoueur depuis le UserPage/FavTattoosProfile et depuis TattooModal/TattooArtistCardModal
+//// Form where user writes down information on his tattoo project to give it to the artist ////
 
+
+/* Importing key components */
 import React from 'react';
-import url from '../config.js';
+import {connect} from 'react-redux';
 
-//material UI
+/* Importing styles and images */
 import {Step, Stepper, StepLabel, StepContent} from 'material-ui/Stepper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-
-//reactstrap
 import {Modal, ModalHeader, ModalBody} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-import {connect} from 'react-redux';
 
 class ProjectForm extends React.Component {
   constructor(props) {
@@ -47,7 +45,7 @@ class ProjectForm extends React.Component {
   }
   componentDidMount() {
     var ctx = this;
-    //collecter les informations de l'artiste depuis la DB
+    //Ask the server for the artist information from its ID
     fetch('http://localhost:3000/artist?artist_id=' + ctx.props.artistID)
     .then(function(response) {
       return response.json();
@@ -87,7 +85,7 @@ class ProjectForm extends React.Component {
     //si on est sur la dernière page du form, envoyer les informations (user depuis le Store et tatoueur depuis la DB) au tatoueur à travers Zapier
     if (this.state.stepIndex >= 2) {
       var ctx = this;
-      //fetch pour créer un nouveau lead et updater coté backend la DB User
+      //Ask the server to create a new lead
       fetch('http://localhost:3000/newlead', {
         method: 'POST',
         headers: {
@@ -95,18 +93,11 @@ class ProjectForm extends React.Component {
         },
         body: 'userID=' + ctx.props.userID + '&artistID=' + ctx.props.artistID + '&userAvailability=' + ctx.state.value + "&userTattooDescription=" + ctx.state.description + '&userTelephone=' + ctx.state.phone
       })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        console.log(data)
-      })
       .catch(function(error) {
         console.log('Request failed', error);
       });
-
-      //envoi sur Zapier
-      fetch('https://hooks.zapier.com/hooks/catch/4067341/cbsyve/', {
+      //Ask the Zapier server to send a mail to artist if the relevant information -- as a test it sends a mail to francois.fitzpatrick@gmail.com
+      fetch('https://hooks.zapier.com/hooks/catch/4318991/0ewh7z/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -178,7 +169,7 @@ class ProjectForm extends React.Component {
               <Step>
                 <StepLabel className="stepLabelForm">Pour être contacté</StepLabel>
                 <StepContent>
-                  <TextField name="phone" floatingLabelFixed={true} floatingLabelText="Laissez votre numéro au tatoueur" hintText="(+33)6 61 23 45 67" fullWidth={true} onChange={this.handleChange} value={this.state.phone}/> {this.renderStepActions(1)}
+                  <TextField name="phone" floatingLabelFixed={true} floatingLabelText="Laissez votre numéro au tatoueur" hintText="0658739278" fullWidth={true} onChange={this.handleChange} value={this.state.phone}/> {this.renderStepActions(1)}
                 </StepContent>
               </Step>
               <Step>
@@ -187,9 +178,9 @@ class ProjectForm extends React.Component {
                   <SelectField name="availability" fullWidth={true} onChange={this.handleChange} value={this.state.value}>
 
                     <MenuItem value="Définissez un créneau" primaryText="Définissez un créneau"/>
-                    <MenuItem value="midi (entre 12h et 14h)" primaryText="midi (entre 12h et 14h)"/>
-                    <MenuItem value="après-midi (entre 14h et 17h)" primaryText="après-midi (entre 14h et 17h)"/>
-                    <MenuItem value="soir (entre 17h et 19h)" primaryText="soir (entre 17h et 19h)"/>
+                    <MenuItem value="le midi (entre 12h et 14h)" primaryText="le midi (entre 12h et 14h)"/>
+                    <MenuItem value="l'après-midi (entre 14h et 17h)" primaryText="l'après-midi (entre 14h et 17h)"/>
+                    <MenuItem value="le soir (entre 17h et 19h)" primaryText="le soir (entre 17h et 19h)"/>
                   </SelectField>
                   {this.renderStepActions(2)}
                 </StepContent>
@@ -210,7 +201,6 @@ class ProjectForm extends React.Component {
 }
 
 function mapStateToProps(store) {
-  // console.log("user depuis le reducer", store.user);
   return {
     userID: store.user._id,
     userFirstName: store.user.userFirstName,
@@ -223,4 +213,7 @@ function mapStateToProps(store) {
 
 }
 
-export default connect(mapStateToProps, null)(ProjectForm);
+export default connect(
+  mapStateToProps,
+  null
+)(ProjectForm);

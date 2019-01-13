@@ -1,18 +1,17 @@
-//Alimente UserPage
+//// User Favorite Artist gallery  ////
 
+
+/* Importing key components */
 import React from 'react';
-import {Card, CardTitle, CardImg, CardSubtitle, Button, Container, Row, Col} from 'reactstrap';
-
-import TattooArtistCardModal from '../Components/TattooArtistCardModal.js'
-import 'bootstrap/dist/css/bootstrap.css';
-import '../Stylesheets/FavArtistsProfile.css';
-import url from '../config.js';
-
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
-
 import {connect} from 'react-redux';
+
+/* Importing styles and images */
+import '../Stylesheets/FavArtistsProfile.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+
+/* Importing other components */
+import TattooArtistCardModal from '../Components/TattooArtistCardModal.js';
 
 
 class FavArtistsProfile extends React.Component {
@@ -30,7 +29,6 @@ class FavArtistsProfile extends React.Component {
   }
 
   render() {
-    console.log("user fav artists",this.state.favArtistsList);
     var favArtistsDisplayedCards = this.state.favArtistsList.map(function(artist) {
       return (
         <div className="tattooArtistCardProfile col-12 col-sm-6 col-md-4" style={{padding:5, height:400, minWidth:310}} >
@@ -51,9 +49,7 @@ class FavArtistsProfile extends React.Component {
 
 
 function mapStateToProps(store) {
-  return {
-    user: store.user,
-  }
+  return {user: store.user}
 }
 
 export default connect(

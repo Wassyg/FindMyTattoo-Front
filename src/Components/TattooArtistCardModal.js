@@ -1,18 +1,20 @@
-//fiche artiste qui se trouve à l'intérieur du TattooModal lorsqu'on cherche à agrandir une photo
+//// Artist card shown on the modal which pops up when user clicks on a tattoo ////
+
+
+/* Importing key components */
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-//Import des librairies ou composants de style
+/* Importing styles and images */
 import '../Stylesheets/TattooArtistCardModal.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, CardText, CardBody, CardTitle, CardSubtitle, Button, Row, Col, Badge} from 'reactstrap';
-
-import ProjectForm from '../Components/ProjectForm.js'
-import AuthForm from '../Components/AuthForm.js';
-import url from '../config.js';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faMapMarkerAlt, faHeart, faEnvelope, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+
+/* Importing other components */
+import ProjectForm from '../Components/ProjectForm.js'
+import AuthForm from '../Components/AuthForm.js';
 
 
 class TattooArtistCardModal extends Component {
@@ -39,9 +41,9 @@ class TattooArtistCardModal extends Component {
     })
   }
 
-//grace au reducer récupérer l'ID de l'artiste pour fetcher ses informations
   componentDidMount(){
     var ctx = this;
+    //Ask the server for the artist information from its ID
     fetch('http://localhost:3000/artist?artist_id='+ this.props.artistID)
     .then(function(response) {
       return response.json();
@@ -66,7 +68,6 @@ class TattooArtistCardModal extends Component {
     });
   }
 
-
   handleArtistLike = (props) =>{
     if(this.props.user._id == null){
       this.setState({
@@ -75,7 +76,7 @@ class TattooArtistCardModal extends Component {
     }else{
       var ctx = this;
       if(this.state.artistLike === false){
-        //Update the database
+        //Update the user database
         fetch('http://localhost:3000/userlikeartist', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -93,7 +94,7 @@ class TattooArtistCardModal extends Component {
         });
         ctx.props.addArtistToFav(userPlusFavArtist);
       } else {
-        //Update the database
+        //Update the user database
         fetch('http://localhost:3000/userdislikeartist', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -168,9 +169,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(store) {
-  return {
-     user: store.user
-  }
+  return {user: store.user}
 }
 
 export default connect(

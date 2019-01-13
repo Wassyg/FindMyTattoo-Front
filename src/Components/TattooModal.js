@@ -1,24 +1,23 @@
-//contient CardTatoo de l'image clickée, TattooArtistCardModal de l'artiste de la photo et des CardTatoo de toutes les photos du même artiste
+//// Modal which appears when user clicks on tattoo ////
+
+
+/* Importing key components */
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-//Import des composants externes
+/* Importing styles and images */
+import '../Stylesheets/TattooModal.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Container, Row, Col} from 'reactstrap';
+import 'antd/dist/antd.css';
+import { Modal } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+
+/* Importing other components */
 import CardTatoo from '../Components/CardTatoo.js';
 import TattooArtistCardModal from '../Components/TattooArtistCardModal.js';
 import AuthForm from '../Components/AuthForm.js';
-import url from '../config.js';
-
-//Import des librairies ou composants de style
-import '../Stylesheets/TattooModal.css';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Container, Row, Col} from 'reactstrap';
-
-import 'antd/dist/antd.css';
-import { Modal } from 'antd';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
 
 //// Composant modal qui affiche le tatouage agrandi, les infos tatoueurs et la gallerie des tatouages du tatoueur en question ////
@@ -61,7 +60,7 @@ class TattooModal extends Component {
     } else {
       var ctx = this;
       if(this.state.tattooLike === false){
-        //Update the database
+        //Update the user database
         fetch('http://localhost:3000/userliketattoo', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -80,7 +79,7 @@ class TattooModal extends Component {
         this.setState({tattooLike: !this.state.tattooLike});
 
       } else if(this.state.tattooLike === true){
-        //Update the database
+        //Update the user database
         fetch('http://localhost:3000/userdisliketattoo', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -103,7 +102,7 @@ class TattooModal extends Component {
         visible : true,
         tattooLike: this.props.tattooLike,
       })
-      // Récupération de la liste des tatouages du tatoueur en question
+      //Ask the server for the artist information from its ID
       fetch('http://localhost:3000/tattoosfromartist?artistID='+ctx.props.artistID)
       .then(function(response) {
        return response.json();
@@ -122,9 +121,6 @@ class TattooModal extends Component {
   }
 
   render() {
-    console.log("Data Modal", this.props);
-    console.log("User favorite tattoo", this.props.user.userFavoriteTattoo);
-
     let pictureList = this.state.pictureData.map(function(map, i){
       return <CardTatoo
         key={i}
@@ -178,9 +174,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(store) {
-  return {
-     user: store.user
-  }
+  return {user: store.user}
 }
 
 export default connect(

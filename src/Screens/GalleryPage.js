@@ -1,14 +1,19 @@
+//// Page dedicated to discovering tattoos : navbar, homepage and tattoo gallery ////
+
+
+/* Importing key components */
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
+/* Importing styles and images */
 import {  } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Stylesheets/GalleryPage.css'
 
+/* Importing other components */
 import HomePage from './HomePage.js'
 import NavBar from '../Components/NavBar.js';
 import CardTatoo from '../Components/CardTatoo.js';
-import TattooModal from '../Components/TattooModal.js';
 
 
 class GalleryPage extends Component{
@@ -21,6 +26,7 @@ class GalleryPage extends Component{
 
   componentDidMount(){
     var ctx = this;
+    // Ask the server for list of all tattoos
     fetch('http://localhost:3000/tattoos')
       .then(function(response) {
         return response.json();
@@ -39,7 +45,6 @@ class GalleryPage extends Component{
 
   render(){
     var tattoosDisplayedCards = [];
-    console.log("Current user",this.props.user);
     if(!this.props.user._id){
       for (var i = 0; i < this.state.tattoosList.length; i++) {
         tattoosDisplayedCards.push(<CardTatoo
@@ -53,6 +58,7 @@ class GalleryPage extends Component{
         />)
       }
     } else {
+      // Checking for each tattoo if tattoo or artist has already been liked by user
       for (var i = 0; i < this.state.tattoosList.length; i++) {
         var tattooLike = false;
         var artistLike = false;
@@ -95,9 +101,7 @@ class GalleryPage extends Component{
 }
 
 function mapStateToProps(store) {
-  return {
-     user: store.user
-  }
+  return {user: store.user}
 }
 
 export default connect(

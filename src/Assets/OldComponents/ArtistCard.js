@@ -1,11 +1,13 @@
+/* Importing key components */
 import React, { Component } from 'react';
 
-//Import des librairies ou composants de style
+/* Importing styles and images */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Col, Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button }  from 'reactstrap';
 import '../Stylesheets/ArtistCard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
+
 
 class ArtistCard extends Component{
   constructor(props) {

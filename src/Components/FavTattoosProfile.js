@@ -1,15 +1,15 @@
-//Alimente UserPage
+//// User favorite tattoo gallery ////
 
+
+/* Importing key components */
 import React from 'react';
-import {CardImg} from 'reactstrap';
-
 import {connect} from 'react-redux';
 
-import CardTatoo from '../Components/CardTatoo.js';
-import url from '../config.js';
-
-import 'bootstrap/dist/css/bootstrap.css';
+/* Importing styles and images */
 import '../Stylesheets/FavTattoosProfile.css';
+
+/* Importing other components */
+import CardTatoo from '../Components/CardTatoo.js';
 
 class FavTattoosProfile extends React.Component {
   constructor(props) {
@@ -59,9 +59,7 @@ class FavTattoosProfile extends React.Component {
 }
 
 function mapStateToProps(store) {
-  return {
-    user: store.user,
-  }
+  return {user: store.user}
 }
 
 export default connect(
