@@ -1,18 +1,21 @@
+//// Navbar for the gallerypage ////
+
+
+/* Importing key components */
 import React, { Component } from 'react'
+import {connect} from 'react-redux';
 import { Link } from 'react-router-dom'
 
-//Import des composants externes
+/* Importing other components */
 import AuthForm from '../Components/AuthForm.js';
 
-//Import des librairies ou composants de style
+/* Importing styles and images */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, NavbarBrand, NavbarNav, NavItem, NavbarToggler, Collapse, Button} from "mdbreact";
 import '../Stylesheets/NavBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {  } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 
-import {connect} from 'react-redux';
 
 class NavbarPage extends Component {
   state = {
@@ -51,11 +54,6 @@ class NavbarPage extends Component {
         routeUserPage : '/',
       });
     }
-    // else if (this.props.user._id){
-    //   this.setState({
-    //     routeUserPage : '/UserPage'
-    //   })
-    // }
   }
 
   render() {

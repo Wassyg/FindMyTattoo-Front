@@ -1,14 +1,20 @@
-import React, {Component} from 'react'
+//// Page dedicated for logged in users : navbar, gallery of fav tattoos and artists ////
 
-// import des composants appelés
+
+/* Importing key components */
+import React, {Component} from 'react'
+import {connect} from 'react-redux';
+
+/* Importing styles and images */
+import '../Stylesheets/UserPage.css';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+/* Importing other components */
 import NavBarEspacePerso from '../Components/NavBarEspacePerso.js'
 import FavTattoosProfile from '../Components/FavTattoosProfile.js'
 import FavArtistsProfile from '../Components/FavArtistsProfile.js'
-import TabsProfile from '../Components/TabsProfile.js'
 
-import {connect} from 'react-redux';
-
-import '../Stylesheets/UserPage.css';
 
 class UserPage extends Component{
   render(){
@@ -17,7 +23,16 @@ class UserPage extends Component{
         <NavBarEspacePerso />
         <div className="mainContainer col-12">
           <div className="topContainer-row col-12 col-sm-10">
-            <TabsProfile />
+            <MuiThemeProvider>
+              <Tabs className="container tabsInsideProfile col-12">
+                <Tab className="row singleTabInsideProfile" label="Vos Tatouages" style={{textAlign:"center", backgroundColor:"" }}>
+                  <FavTattoosProfile />
+                </Tab>
+                <Tab className="row singleTabInsideProfile" label="Vos Tatoueurs" >
+                  <FavArtistsProfile />
+                </Tab>
+              </Tabs>
+            </MuiThemeProvider>
           </div>
 
         </div>
@@ -25,12 +40,4 @@ class UserPage extends Component{
   )}
 }
 
-function mapStateToProps(store) {
-  return { userID: store.user._id
-  }
-}
-
-export default connect(
-    mapStateToProps,
-    null
-)(UserPage);
+export default UserPage;

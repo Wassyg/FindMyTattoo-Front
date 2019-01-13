@@ -1,10 +1,10 @@
 .card-container{
-  border: 2px solid #bdc3c7;
+  border: 0.5px solid rgba(0,0,0,0.10);
   padding: 0 !important;
   margin: 20px;
   max-height: 281px;
   min-height: 281px;
-
+  /* box-shadow: 0 1px 4px 0 rgba(0,0,0,0.16),0 1px 10px 0 rgba(0,0,0,0.12)!important; */
 }
 
 .img-container{
@@ -17,7 +17,6 @@
   max-height: 281px;
   min-height: 281px;
 }
-
 
 .card-hover{
 position: absolute;

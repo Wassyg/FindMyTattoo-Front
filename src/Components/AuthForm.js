@@ -1,16 +1,20 @@
-import React from 'react';
+//// Form shown to user to let him sign in or sign up ////
 
-//Import des librairies ou composants de style
+
+/* Importing key components */
+import React from 'react';
+import {connect} from 'react-redux';
+import url from '../config.js';
+
+/* Importing styles and images */
 import 'bootstrap/dist/css/bootstrap.css';
 import { Col, Row, Button, Form, FormGroup, Label, Input, FormText, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap';
-import '../Stylesheets/SignUpAndInForm.css';
-import url from '../config.js';
+import '../Stylesheets/AuthForm.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 
-import {connect} from 'react-redux';
 
 class AuthForm extends React.Component {
   constructor(props) {
@@ -62,6 +66,7 @@ class AuthForm extends React.Component {
   //Method to create user in database
   handleSignUp(event) {
     var ctx = this;
+    //Ask the server to create new user
     fetch('http://localhost:3000'+'/signup', {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
@@ -92,6 +97,7 @@ class AuthForm extends React.Component {
   //Method to check if user is in database
   handleSignIn(event) {
     var ctx = this;
+    //Ask the server if user is already in database
     fetch('http://localhost:3000'+'/signin', {
         method: 'POST',
         headers: {
