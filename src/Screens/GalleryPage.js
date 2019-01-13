@@ -14,6 +14,7 @@ import '../Stylesheets/GalleryPage.css'
 import HomePage from './HomePage.js'
 import NavBar from '../Components/NavBar.js';
 import CardTatoo from '../Components/CardTatoo.js';
+import backendServerAddress from '../Assets/backendServerPath.js';
 
 
 class GalleryPage extends Component{
@@ -27,7 +28,7 @@ class GalleryPage extends Component{
   componentDidMount(){
     var ctx = this;
     // Ask the server for list of all tattoos
-    fetch('http://localhost:3000/tattoos')
+    fetch(backendServerAddress.current+'/tattoos')
       .then(function(response) {
         return response.json();
       })

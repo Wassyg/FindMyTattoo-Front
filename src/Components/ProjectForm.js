@@ -16,6 +16,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
+/* Importing key components */
+import backendServerAddress from '../Assets/backendServerPath.js';
 
 class ProjectForm extends React.Component {
   constructor(props) {
@@ -46,7 +48,7 @@ class ProjectForm extends React.Component {
   componentDidMount() {
     var ctx = this;
     //Ask the server for the artist information from its ID
-    fetch('http://localhost:3000/artist?artist_id=' + ctx.props.artistID)
+    fetch(backendServerAddress.current+'/artist?artist_id=' + ctx.props.artistID)
     .then(function(response) {
       return response.json();
     })
@@ -86,7 +88,7 @@ class ProjectForm extends React.Component {
     if (this.state.stepIndex >= 2) {
       var ctx = this;
       //Ask the server to create a new lead
-      fetch('http://localhost:3000/newlead', {
+      fetch(backendServerAddress.current+'/newlead', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'

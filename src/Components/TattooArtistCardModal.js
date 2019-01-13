@@ -15,6 +15,7 @@ import { faStar, faMapMarkerAlt, faHeart, faEnvelope, faTimesCircle } from '@for
 /* Importing other components */
 import ProjectForm from '../Components/ProjectForm.js'
 import AuthForm from '../Components/AuthForm.js';
+import backendServerAddress from '../Assets/backendServerPath.js';
 
 
 class TattooArtistCardModal extends Component {
@@ -44,7 +45,7 @@ class TattooArtistCardModal extends Component {
   componentDidMount(){
     var ctx = this;
     //Ask the server for the artist information from its ID
-    fetch('http://localhost:3000/artist?artist_id='+ this.props.artistID)
+    fetch(backendServerAddress.current+'/artist?artist_id='+ this.props.artistID)
     .then(function(response) {
       return response.json();
     })
@@ -77,7 +78,7 @@ class TattooArtistCardModal extends Component {
       var ctx = this;
       if(this.state.artistLike === false){
         //Update the user database
-        fetch('http://localhost:3000/userlikeartist', {
+        fetch(backendServerAddress.current+'/userlikeartist', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favArtistNickname='+ctx.state.artistNickname+'&favArtistCompanyName='+ctx.state.artistCompanyName+'&favArtistAddress='+ctx.state.artistAddress+'&favArtistDescription='+ctx.state.artistDescription+'&favArtistPhotoLink='+ctx.state.artistPhotoLink+'&favArtistStyleList1='+ctx.state.artistStyleList1+'&favArtistStyleList2='+ctx.state.artistStyleList2+'&favArtistStyleList3='+ctx.state.artistStyleList3+'&favArtistNote='+ctx.state.artistNote+'&favArtistID='+ctx.props.artistID+'&user_id='+ctx.props.user._id
@@ -95,7 +96,7 @@ class TattooArtistCardModal extends Component {
         ctx.props.addArtistToFav(userPlusFavArtist);
       } else {
         //Update the user database
-        fetch('http://localhost:3000/userdislikeartist', {
+        fetch(backendServerAddress.current+'/userdislikeartist', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favArtistID='+ctx.props.artistID+'&user_id='+ctx.props.user._id

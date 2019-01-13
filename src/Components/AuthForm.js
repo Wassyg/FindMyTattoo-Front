@@ -4,7 +4,7 @@
 /* Importing key components */
 import React from 'react';
 import {connect} from 'react-redux';
-import url from '../config.js';
+import backendServerAddress from '../Assets/backendServerPath.js';
 
 /* Importing styles and images */
 import 'bootstrap/dist/css/bootstrap.css';
@@ -67,7 +67,7 @@ class AuthForm extends React.Component {
   handleSignUp(event) {
     var ctx = this;
     //Ask the server to create new user
-    fetch('http://localhost:3000'+'/signup', {
+    fetch(backendServerAddress.current+'/signup', {
         method: 'POST',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: "userFirstName=" + ctx.state.firstName + "&userLastName=" + ctx.state.lastName + "&userEmail=" + ctx.state.signUpEmail + "&userPassword=" + ctx.state.signUpPassword
@@ -98,7 +98,7 @@ class AuthForm extends React.Component {
   handleSignIn(event) {
     var ctx = this;
     //Ask the server if user is already in database
-    fetch('http://localhost:3000'+'/signin', {
+    fetch(backendServerAddress.current+'/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'

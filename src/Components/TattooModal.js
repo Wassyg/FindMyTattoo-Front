@@ -18,9 +18,8 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import CardTatoo from '../Components/CardTatoo.js';
 import TattooArtistCardModal from '../Components/TattooArtistCardModal.js';
 import AuthForm from '../Components/AuthForm.js';
+import backendServerAddress from '../Assets/backendServerPath.js';
 
-
-//// Composant modal qui affiche le tatouage agrandi, les infos tatoueurs et la gallerie des tatouages du tatoueur en question ////
 
 class TattooModal extends Component {
   constructor(props) {
@@ -61,7 +60,7 @@ class TattooModal extends Component {
       var ctx = this;
       if(this.state.tattooLike === false){
         //Update the user database
-        fetch('http://localhost:3000/userliketattoo', {
+        fetch(backendServerAddress.current+'/userliketattoo', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favTattooPhotoLink='+ctx.props.tattooPhotoLink+'&favTattooStyleList1='+ctx.props.tattooStyleList[0]+'&favTattooStyleList2='+ctx.props.tattooStyleList[1]+'&favTattooStyleList3='+ctx.props.tattooStyleList[2]+'&favArtistID='+ctx.props.artistID+'&user_id='+ctx.props.user._id+'&favTattooID='+ctx.props.tattooID
@@ -80,7 +79,7 @@ class TattooModal extends Component {
 
       } else if(this.state.tattooLike === true){
         //Update the user database
-        fetch('http://localhost:3000/userdisliketattoo', {
+        fetch(backendServerAddress.current+'/userdisliketattoo', {
         method: 'PUT',
         headers: {'Content-Type':'application/x-www-form-urlencoded'},
         body: 'favTattooID='+ctx.props.tattooID+'&user_id='+ctx.props.user._id
@@ -103,7 +102,7 @@ class TattooModal extends Component {
         tattooLike: this.props.tattooLike,
       })
       //Ask the server for the artist information from its ID
-      fetch('http://localhost:3000/tattoosfromartist?artistID='+ctx.props.artistID)
+      fetch(backendServerAddress.current+'/tattoosfromartist?artistID='+ctx.props.artistID)
       .then(function(response) {
        return response.json();
       })
